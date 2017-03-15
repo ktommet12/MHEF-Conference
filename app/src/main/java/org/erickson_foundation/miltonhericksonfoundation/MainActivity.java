@@ -42,13 +42,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Intent intent = getIntent();
 
         currentlySelectedConference = "Placeholder";
-        if(intent.hasExtra("ConferenceName")){
-            currentlySelectedConference = (String)intent.getCharSequenceExtra("ConferenceName");
+        if(intent.hasExtra(AppConfig.CONFERENCE_NAME_INTENT)){
+            currentlySelectedConference = (String)intent.getCharSequenceExtra(AppConfig.CONFERENCE_NAME_INTENT);
         }
         if(currentlySelectedConference == "Evolution"){
             confType = ConferenceType.EVOLUTION;
         }else if (currentlySelectedConference == "Couples"){
             confType = ConferenceType.COUPLES;
+        }else if(currentlySelectedConference == "Brief"){
+            confType = ConferenceType.BRIEF;
         }else{
             confType = ConferenceType.DEFAULT;
         }
@@ -72,9 +74,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         conferenceTitle.setText(currentlySelectedConference);
 
 
-        dbWorker = new DBWorker(ConferenceType.EVOLUTION);
-        dbWorker.setOnFinishedListener(this);
-        dbWorker.execute();
+
 
         changeFragment(R.id.nav_schedule);
 
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void didFinishTask(boolean wasASuccess, JSONObject jsonObject) {
+    public void didFinishTask(JSONObject jsonObject) {
         try {
             Log.i("DidFinishTask", jsonObject.toString());
         }catch (Exception ex){}
