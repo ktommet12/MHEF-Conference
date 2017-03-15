@@ -9,5 +9,5 @@ import org.json.JSONObject;
  */
 
 public interface DBWorkerDelegate {
-    public void didFinishTask(boolean wasASuccess, JSONObject jsonObject);
+    public void didFinishTask(JSONObject jsonObject);
 }

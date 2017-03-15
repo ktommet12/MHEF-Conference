@@ -33,7 +33,7 @@ public class DBWorker extends AsyncTask<Void, Void, JSONObject>{
     public void setOnFinishedListener(DBWorkerDelegate delegate){
         this.delegate = delegate;
     }
-
+    public void setConferenceType(ConferenceType conferenceType){this.confType = conferenceType;}
     public DBWorker(ConferenceType confType){
         this.confType = confType;
     }
@@ -50,6 +50,8 @@ public class DBWorker extends AsyncTask<Void, Void, JSONObject>{
                     url = new URL(this.EVOLUTION_SCHEDULE_URL);
                     break;
                 default:
+                    JSONObject json = new JSONObject(this.ERROR_STRING);
+                    json.put("wasASuccess", false);
                     return new JSONObject(this.ERROR_STRING);
             }
 
@@ -63,6 +65,7 @@ public class DBWorker extends AsyncTask<Void, Void, JSONObject>{
 
             JSONObject result = new JSONObject(readURLReturnData(connection));
             connection.disconnect();
+            result.put("wasASuccess", true);
             return result;
 
 
@@ -79,7 +82,7 @@ public class DBWorker extends AsyncTask<Void, Void, JSONObject>{
     @Override
     protected void onPostExecute(JSONObject s) {
         super.onPostExecute(s);
-        this.delegate.didFinishTask(true, s);
+        this.delegate.didFinishTask(s);
     }
     private String readURLReturnData(HttpURLConnection connection){
         String result = null;
