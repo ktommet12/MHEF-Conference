@@ -1,12 +1,9 @@
 package org.erickson_foundation.miltonhericksonfoundation;
 
-import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.text.TextPaint;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -15,13 +12,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.TabHost;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import org.erickson_foundation.miltonhericksonfoundation.DB.DBWorker;
+import org.erickson_foundation.miltonhericksonfoundation.DB.DBWorkerDelegate;
+import org.erickson_foundation.miltonhericksonfoundation.Schedule.ScheduleFragment;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DBWorkerDelegate {
@@ -30,8 +29,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private TextView conferenceTitle;
     private String currentlySelectedConference;
+    private ConferenceType confType = ConferenceType.DEFAULT;
 
     private DBWorker dbWorker;
+
+    private TabHost mTabHost;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,9 +45,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(intent.hasExtra("ConferenceName")){
             currentlySelectedConference = (String)intent.getCharSequenceExtra("ConferenceName");
         }
-
-
-
+        if(currentlySelectedConference == "Evolution"){
+            confType = ConferenceType.EVOLUTION;
+        }else if (currentlySelectedConference == "Couples"){
+            confType = ConferenceType.COUPLES;
+        }else{
+            confType = ConferenceType.DEFAULT;
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
@@ -66,9 +72,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         conferenceTitle.setText(currentlySelectedConference);
 
 
-        dbWorker = new DBWorker();
+        dbWorker = new DBWorker(ConferenceType.EVOLUTION);
         dbWorker.setOnFinishedListener(this);
-        dbWorker.execute(dbWorker);
+        dbWorker.execute();
+
+        changeFragment(R.id.nav_schedule);
 
     }
 
@@ -81,20 +89,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -102,13 +96,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
+        if (id == R.id.nav_schedule) {
+            changeFragment(R.id.nav_schedule);
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_calendar) {
 
         }
 
@@ -116,13 +108,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    public void goToSchedule() {
+    private void changeFragment(int fragmentID){
+        Fragment fragment = null;
+
+        switch(fragmentID){
+            case R.id.nav_schedule:
+                fragment = new ScheduleFragment();
+                break;
+        }
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_container, fragment);
+        ft.commit();
     }
 
     @Override
     public void didFinishTask(boolean wasASuccess, JSONObject jsonObject) {
         try {
-            Log.i("DidFinishTask", jsonObject.getString("test"));
+            Log.i("DidFinishTask", jsonObject.toString());
         }catch (Exception ex){}
     }
 }

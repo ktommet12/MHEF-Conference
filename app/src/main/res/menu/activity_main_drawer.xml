@@ -3,7 +3,11 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/nav_schedule"
+            android:icon="@drawable/calendar_text"
+            android:title="Schedule" />
+        <item
+            android:id="@+id/nav_speakers"
             android:icon="@drawable/microphone_variant"
             android:title="Exhibitors" />
         <item
@@ -14,10 +18,6 @@
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/wechat"
             android:title="Blog" />
-        <item
-            android:id="@+id/nav_calendar"
-            android:icon="@drawable/calendar_text"
-            android:title="Schedule" />
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/settings"
