@@ -1,8 +1,10 @@
-package org.erickson_foundation.miltonhericksonfoundation;
+package org.erickson_foundation.miltonhericksonfoundation.DB;
 
 import android.os.AsyncTask;
 import android.util.Log;
 
+import org.erickson_foundation.miltonhericksonfoundation.ConferenceType;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.*;
@@ -14,20 +16,43 @@ import java.net.URL;
  * Created by User on 3/9/2017.
  */
 
-public class DBWorker extends AsyncTask<DBWorker, Void, JSONObject>{
+public class DBWorker extends AsyncTask<Void, Void, JSONObject>{
     private final String TAG = "DBWorker";
     private DBWorkerDelegate delegate;
+    private ConferenceType confType;
+
+    //URLS for each of the conferences,
+    private final String EVOLUTION_SCHEDULE_URL = "http://www.evolutionofpsychotherapy.com/wp-content/uploads/evolutionConference.json";
+    //TODO: get urls for Couples and Brief Therapy for the Conference Schedule
+    private final String COUPLES_SCHEDULE_URL = "";
+    private final String BRIEF_THERAPY_SCHEDULE_URL = "";
+
+    //String representing a problem with the schedule download
+    private final String ERROR_STRING = "{\"error\":\"There was a problem getting the schedule from the server\"}";
 
     public void setOnFinishedListener(DBWorkerDelegate delegate){
         this.delegate = delegate;
     }
 
-
+    public DBWorker(ConferenceType confType){
+        this.confType = confType;
+    }
+    public DBWorker(){}//default constructor
 
     @Override
-    protected JSONObject doInBackground(DBWorker... params) {
+    protected JSONObject doInBackground(Void... params) {
         try {
-            URL url = new URL("http://www.evolutionofpsychotherapy.com/wp-content/uploads/test.json");
+            URL url = null;
+            switch(confType){
+                case COUPLES:
+                    break;
+                case EVOLUTION:
+                    url = new URL(this.EVOLUTION_SCHEDULE_URL);
+                    break;
+                default:
+                    return new JSONObject(this.ERROR_STRING);
+            }
+
             HttpURLConnection connection = (HttpURLConnection)url.openConnection();
             connection.setRequestMethod("GET");
             connection.setDoInput(true);
@@ -37,7 +62,7 @@ public class DBWorker extends AsyncTask<DBWorker, Void, JSONObject>{
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
 
             JSONObject result = new JSONObject(readURLReturnData(connection));
-
+            connection.disconnect();
             return result;
 
 

@@ -1,4 +1,4 @@
-package org.erickson_foundation.miltonhericksonfoundation;
+package org.erickson_foundation.miltonhericksonfoundation.DB;
 
 import org.json.JSONObject;
 
