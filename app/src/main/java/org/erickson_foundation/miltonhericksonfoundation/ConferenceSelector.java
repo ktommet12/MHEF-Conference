@@ -74,20 +74,8 @@ public class ConferenceSelector extends AppCompatActivity implements View.OnClic
     }
     private void loadConference(){
         Intent intent = new Intent(this, MainActivity.class);
-        switch(this.confType){
-            case EVOLUTION:
-                intent.putExtra(AppConfig.CONFERENCE_NAME_INTENT, "Evolution");
-                break;
-            case COUPLES:
-                intent.putExtra(AppConfig.CONFERENCE_NAME_INTENT, "Couples");
-                break;
-            case BRIEF:
-                intent.putExtra(AppConfig.CONFERENCE_NAME_INTENT, "Brief");
-                break;
-            default:
-                intent.putExtra(AppConfig.CONFERENCE_NAME_INTENT, "Default");
-        }
         intent.putExtra(AppConfig.CONFERENCE_CONTENTS_JSON, confContents);
+        intent.putExtra(AppConfig.CONFERENCE_TYPE_STRING, confType);
         startActivity(intent);
     }
     //once the app contacts the DB and its returns with either information or an error it will call didFinishTask

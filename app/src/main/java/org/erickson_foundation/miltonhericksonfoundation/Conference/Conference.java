@@ -1,0 +1,78 @@
+package org.erickson_foundation.miltonhericksonfoundation.Conference;
+
+import android.util.Log;
+
+import org.erickson_foundation.miltonhericksonfoundation.ConferenceType;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Created by Kyle Tommet(erickson-foundation.org) on 3/21/2017.
+ */
+
+public class Conference {
+    private String mTitle;                              //title for the Conference
+    private String mShortTitle;                         //short title for Conference, i.e. "Evolution" for Evolution of Psychotherapy
+    private String[] mDates;                            //String array for the dates of the conference
+    private ConferenceType mConfType;                   //Type of Conference, i.e. EVOLUTION, COUPLES, etc
+    private HashMap<String, ArrayList<ConferenceTalk>> days;     //maps a day to an array of talks
+    private final String TAG = "Conference";
+
+    public Conference(String confContents) throws JSONException{
+        days = new HashMap<String, ArrayList<ConferenceTalk>>();
+
+        JSONObject tempJSON = new JSONObject(confContents);
+
+        mTitle = tempJSON.getString("conference_full_name");
+        mShortTitle = tempJSON.getString("conference_short_name");
+
+        switch(mShortTitle){
+            case "Evolution":
+                mConfType = ConferenceType.EVOLUTION;
+                break;
+            case "Couples":
+                mConfType = ConferenceType.COUPLES;
+                break;
+            case "Brief":
+                mConfType = ConferenceType.BRIEF;
+                break;
+            default:
+                mConfType = ConferenceType.DEFAULT;
+        }
+        JSONArray temp = tempJSON.getJSONArray("dates");
+        mDates = new String[temp.length()];
+        for(int i = 0; i < temp.length(); i++){
+            mDates[i] = (String)temp.get(i);
+        }
+        JSONObject days = tempJSON.getJSONObject("days");
+        JSONObject pre = days.getJSONObject(mDates[0]);
+
+        String title = pre.getString("title");
+        String time = pre.getString("time_slot");
+        String description = pre.getString("description");
+
+        ArrayList<ConferenceTalk> talks = new ArrayList<>();
+        talks.add(new ConferenceTalk(title, time, description));
+        days.put(mDates[0], talks);
+
+
+        Log.i(TAG, pre.toString());
+    }
+    public String getTitle() {
+        return mTitle;
+    }
+    public String[] getDates() {
+        return mDates;
+    }
+    public ConferenceType getConfType() {
+        return mConfType;
+    }
+    public ArrayList<ConferenceTalk> getConferenceDayTalks(String dayName){
+        return days.get(dayName);
+    }
+}

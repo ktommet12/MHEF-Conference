@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:id="@+id/menu_top"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_schedule"
             android:icon="@drawable/calendar_text"
@@ -18,9 +20,17 @@
             android:id="@+id/nav_slideshow"
             android:icon="@drawable/wechat"
             android:title="Blog" />
+    </group>
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="none">
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/settings"
             android:title="Settings"/>
+        <item
+            android:id="@+id/nav_feedback"
+            android:icon="@drawable/comment_text"
+            android:title="Send Us Feedback"/>
     </group>
 </menu>

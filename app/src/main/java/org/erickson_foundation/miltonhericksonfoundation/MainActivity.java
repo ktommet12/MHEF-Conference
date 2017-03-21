@@ -18,18 +18,25 @@ import android.widget.TabHost;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import org.erickson_foundation.miltonhericksonfoundation.Conference.Conference;
 import org.erickson_foundation.miltonhericksonfoundation.DB.DBWorker;
 import org.erickson_foundation.miltonhericksonfoundation.DB.DBWorkerDelegate;
 import org.erickson_foundation.miltonhericksonfoundation.Schedule.ScheduleFragment;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DBWorkerDelegate {
     private TableRow evolution;
     private ImageView evolutionPic, logoPic;
-
     private TextView conferenceTitle;
-    private String currentlySelectedConference;
+    private String conferenceTitleString;
     private ConferenceType confType = ConferenceType.DEFAULT;
+    private JSONObject conferenceContents = null;
+    public Conference currentConference;
+
+    private final String DEFUALT_CONFERENCE_NAME = "Default Conference";
+
+    private final String TAG = "MainActivity";
 
     private DBWorker dbWorker;
 
@@ -41,18 +48,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Intent intent = getIntent();
 
-        currentlySelectedConference = "Placeholder";
-        if(intent.hasExtra(AppConfig.CONFERENCE_NAME_INTENT)){
-            currentlySelectedConference = (String)intent.getCharSequenceExtra(AppConfig.CONFERENCE_NAME_INTENT);
+        if(intent.hasExtra(AppConfig.CONFERENCE_TYPE_STRING)) {
+            confType = (ConferenceType) intent.getSerializableExtra(AppConfig.CONFERENCE_TYPE_STRING);
         }
-        if(currentlySelectedConference == "Evolution"){
-            confType = ConferenceType.EVOLUTION;
-        }else if (currentlySelectedConference == "Couples"){
-            confType = ConferenceType.COUPLES;
-        }else if(currentlySelectedConference == "Brief"){
-            confType = ConferenceType.BRIEF;
-        }else{
-            confType = ConferenceType.DEFAULT;
+        try{
+            String tempConferenceContents = null;
+            if(intent.hasExtra(AppConfig.CONFERENCE_CONTENTS_JSON)){
+                tempConferenceContents = intent.getStringExtra(AppConfig.CONFERENCE_CONTENTS_JSON);
+            }
+            //trying to convert the conferenceContents String into a Conference Object
+            currentConference = new Conference(tempConferenceContents);
+        }catch(JSONException ex){
+            Log.e(TAG, ex.getMessage());
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -68,16 +75,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //setting the TextView in the NavDrawer to the selected Confernce Title
-        View header = navigationView.getHeaderView(0);
-        conferenceTitle = (TextView) header.findViewById(R.id.lblConferenceName);
-        conferenceTitle.setText(currentlySelectedConference);
+        if(currentConference != null){
+            //setting the TextView in the NavDrawer to the selected Conference Title
+            View header = navigationView.getHeaderView(0);
+            conferenceTitle = (TextView) header.findViewById(R.id.lblConferenceName);
+            conferenceTitle.setText(currentConference.getTitle());
+        }
 
-
-
-
+        //set the current fragment to the schedule fragment
         changeFragment(R.id.nav_schedule);
-
     }
 
     @Override
@@ -98,10 +104,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (id == R.id.nav_schedule) {
             changeFragment(R.id.nav_schedule);
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
+        } else if (id == R.id.nav_feedback) {
+            changeFragment(R.id.nav_feedback);
+        } else if (id == R.id.nav_settings) {
+            changeFragment(R.id.nav_settings);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -114,6 +120,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch(fragmentID){
             case R.id.nav_schedule:
                 fragment = new ScheduleFragment();
+                break;
+            case R.id.nav_feedback:
+                fragment = new FeedbackFragment();
+                break;
+            case R.id.nav_settings:
+                fragment = new SettingsFragment();
                 break;
         }
 

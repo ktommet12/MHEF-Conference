@@ -5,9 +5,13 @@
     tools:context="org.erickson_foundation.miltonhericksonfoundation.Schedule.ScheduleDayFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Schedule Day Fragment" />
+        android:layout_height="match_parent">
+        <TableLayout
+            android:id="@+id/schedule_day_table"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></TableLayout>
+    </ScrollView>
 
 </FrameLayout>
