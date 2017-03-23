@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +24,8 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class ScheduleFragment extends Fragment {
-    // PLACEHOLDER WILL CHANGE WHEN ONCREATEVIEW() RUNS!!
+    private static final String TAG = "ScheduleFragment";
+    //confTabDates will be reassigned when the app runs, after it downloads the newest schedule from the server
     private String[] confTabDates = {"Pre", "Day 1", "Day 2", "Day 3"};     //stores the Dates for the Conference, They will be used for the Tab Titles
     private MainActivity mainActivity;
     private TableLayout table;
@@ -58,6 +60,7 @@ public class ScheduleFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
+                Log.i(TAG, "Tab Selected");
             }
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {}
