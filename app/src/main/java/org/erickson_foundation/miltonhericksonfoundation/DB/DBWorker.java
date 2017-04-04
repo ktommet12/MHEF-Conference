@@ -70,13 +70,13 @@ public class DBWorker extends AsyncTask<Void, Void, JSONObject>{
 
 
         }catch(MalformedURLException ex){
-            Log.e(TAG, ex.getMessage());
+            Log.e(TAG+"1", ex.getMessage());
         }catch(IOException ex){
-            Log.e(TAG, ex.getMessage());
+            Log.e(TAG+"2", ex.getMessage());
         }catch(Exception ex){
-            Log.e(TAG, ex.getMessage());
+            Log.e(TAG+"3", ex.getMessage());
         }
-        return null;
+        return new JSONObject();
     }
 
     @Override

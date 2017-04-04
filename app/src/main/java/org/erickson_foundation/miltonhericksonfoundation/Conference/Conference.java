@@ -49,19 +49,21 @@ public class Conference {
         for(int i = 0; i < temp.length(); i++){
             mDates[i] = (String)temp.get(i);
         }
-        JSONObject days = tempJSON.getJSONObject("days");
-        JSONObject pre = days.getJSONObject(mDates[0]);
-
-        String title = pre.getString("title");
-        String time = pre.getString("time_slot");
-        String description = pre.getString("description");
-
+        JSONObject daysJSON = tempJSON.getJSONObject("days");
         ArrayList<ConferenceTalk> talks = new ArrayList<>();
-        talks.add(new ConferenceTalk(title, time, description));
-        days.put(mDates[0], talks);
+        for(int i = 0; i < daysJSON.length(); i++){
+            JSONObject dayObj = daysJSON.getJSONObject(mDates[i]);
+            JSONArray tempArr = dayObj.getJSONArray("talks");
+            for(int j = 0; j < tempArr.length(); j++){
+                JSONObject talk = tempArr.getJSONObject(j);
+                String title = talk.getString("title");
+                String time = talk.getString("time_slot");
+                String description = talk.getString("description");
 
-
-        Log.i(TAG, pre.toString());
+                talks.add(new ConferenceTalk(title, time, description));
+            }
+            days.put(mDates[i], talks);
+        }
     }
     public String getTitle() {
         return mTitle;
