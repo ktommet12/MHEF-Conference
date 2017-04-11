@@ -63,7 +63,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -125,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragment = new FeedbackFragment();
                 break;
             case R.id.nav_settings:
-                fragment = new SettingsFragment();
+                //fragment = new SettingsFragment();
                 break;
         }
 

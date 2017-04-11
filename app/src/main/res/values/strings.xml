@@ -3,9 +3,11 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
+    <string name="empty_schedule_day">Nothing to Display</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_schedule">ScheduleActivity</string>
+    <string name="pref_sync">Pref Sync</string>
+    <string name="pref_sync_summ">Pref Sync Summ</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

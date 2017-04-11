@@ -27,13 +27,11 @@ public class ScheduleFragment extends Fragment {
     private static final String TAG = "ScheduleFragment";
     //confTabDates will be reassigned when the app runs, after it downloads the newest schedule from the server
     private String[] confTabDates = {"Pre", "Day 1", "Day 2", "Day 3"};     //stores the Dates for the Conference, They will be used for the Tab Titles
+    //parent Activity
     private MainActivity mainActivity;
     private TableLayout table;
-    public ScheduleFragment() {
-        // Required empty public constructor
-    }
 
-
+    public ScheduleFragment() {}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -50,8 +50,9 @@ public class Conference {
             mDates[i] = (String)temp.get(i);
         }
         JSONObject daysJSON = tempJSON.getJSONObject("days");
-        ArrayList<ConferenceTalk> talks = new ArrayList<>();
+
         for(int i = 0; i < daysJSON.length(); i++){
+            ArrayList<ConferenceTalk> talks = new ArrayList<>();
             JSONObject dayObj = daysJSON.getJSONObject(mDates[i]);
             JSONArray tempArr = dayObj.getJSONArray("talks");
             for(int j = 0; j < tempArr.length(); j++){
