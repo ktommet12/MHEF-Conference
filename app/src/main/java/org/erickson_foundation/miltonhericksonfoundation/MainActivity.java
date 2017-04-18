@@ -106,7 +106,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_feedback) {
             changeFragment(R.id.nav_feedback);
         } else if (id == R.id.nav_settings) {
-            changeFragment(R.id.nav_settings);
+            //changeFragment(R.id.nav_settings);
+            startActivity(new Intent(this, TestActivity.class));
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
