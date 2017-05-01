@@ -60,8 +60,9 @@ public class Conference {
                 String title = talk.getString("title");
                 String time = talk.getString("time_slot");
                 String description = talk.getString("description");
+                String name = talk.getString("speaker_name");
 
-                talks.add(new ConferenceTalk(title, time, description));
+                talks.add(new ConferenceTalk(title, time, description, name));
             }
             days.put(mDates[i], talks);
         }
@@ -76,6 +77,8 @@ public class Conference {
         return mConfType;
     }
     public ArrayList<ConferenceTalk> getConferenceDayTalks(String dayName){
-        return days.get(dayName);
+        //verifies there is something stored for the date requested, if not returns empty ArrayList
+        ArrayList<ConferenceTalk> tempTalks = days.get(dayName);
+        return (tempTalks == null)? new ArrayList<ConferenceTalk>() : tempTalks;
     }
 }

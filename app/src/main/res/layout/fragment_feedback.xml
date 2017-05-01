@@ -1,14 +1,16 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="org.erickson_foundation.miltonhericksonfoundation.FeedbackFragment">
+    android:id="@+id/scrollContainer"
+    tools:context="org.erickson_foundation.miltonhericksonfoundation.Fragments.FeedbackFragment">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Feedback"
-        android:textAlignment="center"
-        android:textSize="20dp"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/temp">
 
-</FrameLayout>
+    </LinearLayout>
+
+</ScrollView>

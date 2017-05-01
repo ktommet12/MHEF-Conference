@@ -1,18 +1,17 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="org.erickson_foundation.miltonhericksonfoundation.Schedule.ScheduleDayFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:layout_height="wrap_content"
+    android:paddingTop="25dp">
 
-    <!-- TODO: Update blank fragment layout -->
-    <ScrollView
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/talk_day"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TableLayout
-            android:layout_marginTop="50dp"
-            android:id="@+id/schedule_day_table"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></TableLayout>
-    </ScrollView>
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

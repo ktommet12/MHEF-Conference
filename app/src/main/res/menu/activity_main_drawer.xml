@@ -13,13 +13,9 @@
             android:icon="@drawable/microphone_variant"
             android:title="Exhibitors" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_map"
             android:icon="@drawable/map"
             android:title="Map" />
-        <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/wechat"
-            android:title="Blog" />
     </group>
     <group
         android:id="@+id/menu_bottom"

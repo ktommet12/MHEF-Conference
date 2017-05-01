@@ -21,6 +21,8 @@ import android.widget.TextView;
 import org.erickson_foundation.miltonhericksonfoundation.Conference.Conference;
 import org.erickson_foundation.miltonhericksonfoundation.DB.DBWorker;
 import org.erickson_foundation.miltonhericksonfoundation.DB.DBWorkerDelegate;
+import org.erickson_foundation.miltonhericksonfoundation.Fragments.FeedbackFragment;
+import org.erickson_foundation.miltonhericksonfoundation.Fragments.MapFragment;
 import org.erickson_foundation.miltonhericksonfoundation.Schedule.ScheduleFragment;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -106,8 +108,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_feedback) {
             changeFragment(R.id.nav_feedback);
         } else if (id == R.id.nav_settings) {
-            //changeFragment(R.id.nav_settings);
-            startActivity(new Intent(this, TestActivity.class));
+            changeFragment(R.id.nav_settings);
+        }else if (id == R.id.nav_map){
+            changeFragment(R.id.nav_map);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -126,6 +129,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_settings:
                 //fragment = new SettingsFragment();
+                break;
+            case R.id.nav_map:
+                fragment = new MapFragment();
                 break;
         }
 
