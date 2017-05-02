@@ -2,11 +2,16 @@ package org.erickson_foundation.miltonhericksonfoundation.Fragments;
 
 
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TableRow;
@@ -24,54 +29,57 @@ import java.util.ArrayList;
  * A simple {@link Fragment} subclass.
  */
 public class FeedbackFragment extends Fragment {
-    MainActivity mainActivity;
-    Conference currentConference;
+    private MainActivity mainActivity;
+    private Conference currentConference;
+    private Button submitFeedback, clearFeedback;
+    private CheckBox sendDeviceInfo;
+    private EditText feedbackMessage;
+    private final String TAG = "FeedbackFragment";
 
-    public FeedbackFragment() {
-        // Required empty public constructor
-    }
+    public FeedbackFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_feedback, container, false);
+        sendDeviceInfo = (CheckBox) view.findViewById(R.id.send_Info);
+        feedbackMessage = (EditText) view.findViewById(R.id.feedback_message);
 
-        mainActivity = (MainActivity) getActivity();
-        currentConference = mainActivity.currentConference;
-        ArrayList<ConferenceTalk> dayTalks = currentConference.getConferenceDayTalks("Dec 12");
+        submitFeedback = (Button) view.findViewById(R.id.btn_submit_feedback);
+        submitFeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String tempMessage = feedbackMessage.getText().toString();
+                String debugInfo = null;
 
-        ScrollView scroll = (ScrollView) view.findViewById(R.id.scrollContainer);
-        LinearLayout layout = (LinearLayout) view.findViewById(R.id.temp);
-
-        int index = 0;
-        for(int j = 0; j < 4; j++) {
-            for (int i = 0; i < dayTalks.size(); i++) {
-                View temp = inflater.inflate(R.layout.no_info_to_display, null);
-                TextView t1 = (TextView) temp.findViewById(R.id.time_slot),
-                         t2 = (TextView) temp.findViewById(R.id.talk_title),
-                         t3 = (TextView) temp.findViewById(R.id.speaker_name);
-                ConferenceTalk currentTalk = dayTalks.get(i);
-
-                t3.setText(currentTalk.getTimeSlot());
-                t2.setText(currentTalk.getTitle());
-                t3.setText(currentTalk.getmSpeakerName());
-
-                layout.addView(temp);
-
-                if(dayTalks.size() != 1){
-                    View line = new View(getContext());
-                    line.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 1));
-                    line.setBackgroundColor(Color.BLACK);
-                    layout.addView(line);
+                if(sendDeviceInfo.isChecked()) {
+                    debugInfo = "Device Information: ";
+                    debugInfo += "\n OS Version: "   + System.getProperty("os.version");
+                    debugInfo += "\n SDK Version: "  + Build.VERSION.SDK_INT;
+                    debugInfo += "\n Device: "       + Build.DEVICE;
+                    debugInfo += "\n Model: "        + Build.MODEL;
+                    debugInfo += "\n Product: "      + Build.PRODUCT;
+                    debugInfo += "\n Manufacturer: " + Build.MANUFACTURER;
                 }
-            }
-        }
 
+                String finalMessage = tempMessage + "\n" +  debugInfo;
+                Log.i(TAG, finalMessage);
+
+            }
+        });
+
+        clearFeedback = (Button) view.findViewById(R.id.btn_clear_feedback);
+        clearFeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                feedbackMessage.setText("");
+                sendDeviceInfo.setChecked(true);
+            }
+        });
 
 
 
         return view;
     }
-
 }

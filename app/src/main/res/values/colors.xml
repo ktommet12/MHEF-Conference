@@ -8,4 +8,5 @@
     <color name="orchid">#DA70D6</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
+    <color name="feedback_grey">#DCDCDC</color>
 </resources>

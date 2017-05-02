@@ -18,11 +18,11 @@ import android.widget.TabHost;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import junit.framework.Test;
+
 import org.erickson_foundation.miltonhericksonfoundation.Conference.Conference;
-import org.erickson_foundation.miltonhericksonfoundation.DB.DBWorker;
-import org.erickson_foundation.miltonhericksonfoundation.DB.DBWorkerDelegate;
-import org.erickson_foundation.miltonhericksonfoundation.Fragments.FeedbackFragment;
-import org.erickson_foundation.miltonhericksonfoundation.Fragments.MapFragment;
+import org.erickson_foundation.miltonhericksonfoundation.DB.*;
+import org.erickson_foundation.miltonhericksonfoundation.Fragments.*;
 import org.erickson_foundation.miltonhericksonfoundation.Schedule.ScheduleFragment;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragment = new FeedbackFragment();
                 break;
             case R.id.nav_settings:
-                //fragment = new SettingsFragment();
+                fragment = new SettingsFragment();
                 break;
             case R.id.nav_map:
                 fragment = new MapFragment();

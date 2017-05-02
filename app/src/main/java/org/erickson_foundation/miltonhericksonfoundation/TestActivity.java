@@ -7,19 +7,49 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.Toast;
 
-public class TestActivity extends AppCompatActivity {
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
+import com.twitter.sdk.android.tweetui.UserTimeline;
+
+import org.erickson_foundation.miltonhericksonfoundation.DB.DBWorkerDelegate;
+import org.erickson_foundation.miltonhericksonfoundation.Twitter.SearchTwitter;
+import org.erickson_foundation.miltonhericksonfoundation.Twitter.TwitterConfig;
+import org.json.JSONObject;
+
+import java.util.List;
+
+import io.fabric.sdk.android.Fabric;
+
+public class TestActivity extends AppCompatActivity implements DBWorkerDelegate {
     private SearchView searchView;
     private MenuItem searchMenuItem;
+    private ListView tweetList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
+        tweetList = (ListView) findViewById(R.id.tweet_list);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(TwitterConfig.TWITTER_CONSUMER_KEY, TwitterConfig.TWITTER_CONSUMER_SECRET);
+        Fabric.with(this, new Twitter(authConfig));
+
+        final UserTimeline userTimeline = new UserTimeline.Builder()
+                .screenName("EricksonFound")
+                .build();
+        final TweetTimelineListAdapter adapter = new TweetTimelineListAdapter.Builder(this)
+                .setTimeline(userTimeline)
+                .build();
+
+        tweetList.setAdapter(adapter);
+
     }
 
     @Override
@@ -43,4 +73,9 @@ public class TestActivity extends AppCompatActivity {
             return false;
         }
     };
+
+    @Override
+    public void didFinishTask(JSONObject jsonObject) {
+
+    }
 }

@@ -9,4 +9,6 @@ public final class AppConfig {
     public static final String CONFERENCE_NAME_INTENT = "ConferenceName";
     public static final String CONFERENCE_CONTENTS_JSON = "ConferenceContents";
     public static final String CONFERENCE_TYPE_STRING = "confType";
+
+
 }

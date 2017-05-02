@@ -9,6 +9,10 @@
     <string name="pref_sync">Pref Sync</string>
     <string name="pref_sync_summ">Pref Sync Summ</string>
     <string name="no_info">No Information to Display. Should there be? Let us know on the Feedback page</string>
+    <string name="submit_btn">Submit</string>
+    <string name="clear_btn">Clear</string>
+    <string name="twitter_consumer_key">30QCzhZ13e3U7Ox29pZT7O7XB</string>
+    <string name="twitter_consumer_secret">hGUmN8NumH1438rkVrID8vcg3Qh0wUBziuqtjpwIsF9Z47bcT4</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
