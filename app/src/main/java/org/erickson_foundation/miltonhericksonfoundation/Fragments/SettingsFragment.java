@@ -38,20 +38,6 @@ public class SettingsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.settings_fragment, container, false);
-        tweetList = (ListView) v.findViewById(R.id.tweet_list);
-        ((MainActivity) getActivity()).getSupportActionBar().setTitle("@" + TwitterConfig.FOUNDATION_TIMELINE);
-
-
-        //Using Fabric to grab the timeline
-        final UserTimeline userTimeline = new UserTimeline.Builder()
-                .screenName(TwitterConfig.FOUNDATION_TIMELINE)
-                .build();
-
-        final TweetTimelineListAdapter adapter = new TweetTimelineListAdapter.Builder(getContext())
-                .setTimeline(userTimeline)
-                .build();
-
-        tweetList.setAdapter(adapter);
         return v;
     }
 }

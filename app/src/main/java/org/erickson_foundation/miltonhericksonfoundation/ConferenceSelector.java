@@ -105,7 +105,6 @@ public class ConferenceSelector extends AppCompatActivity implements View.OnClic
             if(jsonObject.optBoolean("wasASuccess", false) == false){
                 Log.i(TAG, "Error Contacting Server");
             }else{
-                Log.i(TAG+" Response", jsonObject.toString());
                 this.confContents = jsonObject.toString();
                 loadConference();
             }

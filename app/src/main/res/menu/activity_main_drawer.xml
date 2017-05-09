@@ -6,15 +6,19 @@
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_schedule"
-            android:icon="@drawable/calendar_text"
+            android:icon="@drawable/calendar_black"
             android:title="Schedule" />
         <item
             android:id="@+id/nav_speakers"
             android:icon="@drawable/microphone_variant"
             android:title="Exhibitors" />
         <item
+            android:id="@+id/nav_social"
+            android:icon="@drawable/wechat"
+            android:title="Social Media" />
+        <item
             android:id="@+id/nav_map"
-            android:icon="@drawable/map"
+            android:icon="@drawable/map_white"
             android:title="Map" />
     </group>
     <group

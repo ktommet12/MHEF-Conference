@@ -1,9 +1,11 @@
-package org.erickson_foundation.miltonhericksonfoundation.Schedule;
+package org.erickson_foundation.miltonhericksonfoundation;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+
+import org.erickson_foundation.miltonhericksonfoundation.Fragments.ScheduleDayFragment;
 
 /**
  * Created by ktomm on 3/14/2017.

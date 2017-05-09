@@ -2,14 +2,12 @@ package org.erickson_foundation.miltonhericksonfoundation.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import org.erickson_foundation.miltonhericksonfoundation.R;
 import org.erickson_foundation.miltonhericksonfoundation.TouchImageView;
-import org.erickson_foundation.miltonhericksonfoundation.ZoomableImageView;
 
 public class MapFragment extends Fragment {
     private TouchImageView floorPlan;

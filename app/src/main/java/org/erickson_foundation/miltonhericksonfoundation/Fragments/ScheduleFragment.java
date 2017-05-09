@@ -1,4 +1,4 @@
-package org.erickson_foundation.miltonhericksonfoundation.Schedule;
+package org.erickson_foundation.miltonhericksonfoundation.Fragments;
 
 
 import android.os.Bundle;
@@ -10,14 +10,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 
-import org.erickson_foundation.miltonhericksonfoundation.Conference.ConferenceTalk;
+import org.erickson_foundation.miltonhericksonfoundation.MHEFPagerAdapter;
 import org.erickson_foundation.miltonhericksonfoundation.MainActivity;
 import org.erickson_foundation.miltonhericksonfoundation.R;
-
-import java.util.ArrayList;
 
 
 /**
@@ -65,7 +61,6 @@ public class ScheduleFragment extends Fragment {
             @Override
             public void onTabReselected(TabLayout.Tab tab) {}
         });
-
         return view;
     }
 

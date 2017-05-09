@@ -1,4 +1,4 @@
-package org.erickson_foundation.miltonhericksonfoundation.Schedule;
+package org.erickson_foundation.miltonhericksonfoundation.Fragments;
 
 
 import android.graphics.Color;

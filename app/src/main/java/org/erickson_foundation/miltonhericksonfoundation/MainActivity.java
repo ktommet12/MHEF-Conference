@@ -13,25 +13,18 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.ImageView;
 import android.widget.TabHost;
-import android.widget.TableRow;
 import android.widget.TextView;
-
-import junit.framework.Test;
 
 import org.erickson_foundation.miltonhericksonfoundation.Conference.Conference;
 import org.erickson_foundation.miltonhericksonfoundation.DB.*;
 import org.erickson_foundation.miltonhericksonfoundation.Fragments.*;
-import org.erickson_foundation.miltonhericksonfoundation.Schedule.ScheduleFragment;
+import org.erickson_foundation.miltonhericksonfoundation.Fragments.ScheduleFragment;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DBWorkerDelegate {
-    private TableRow evolution;
-    private ImageView evolutionPic, logoPic;
     private TextView conferenceTitle;
-    private String conferenceTitleString;
     private ConferenceType confType = ConferenceType.DEFAULT;
     private JSONObject conferenceContents = null;
     public Conference currentConference;
@@ -84,7 +77,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         //set the current fragment to the schedule fragment
-        changeFragment(R.id.nav_schedule);
+       // changeFragment(R.id.nav_schedule);
+        changeFragment(R.id.nav_settings);
     }
 
     @Override
@@ -96,22 +90,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
-
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.nav_schedule) {
-            changeFragment(R.id.nav_schedule);
-        } else if (id == R.id.nav_feedback) {
-            changeFragment(R.id.nav_feedback);
-        } else if (id == R.id.nav_settings) {
-            changeFragment(R.id.nav_settings);
-        }else if (id == R.id.nav_map){
-            changeFragment(R.id.nav_map);
-        }
+        changeFragment(item.getItemId());
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -119,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     private void changeFragment(int fragmentID){
         Fragment fragment = null;
-
         switch(fragmentID){
             case R.id.nav_schedule:
                 fragment = new ScheduleFragment();
@@ -127,19 +107,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_feedback:
                 fragment = new FeedbackFragment();
                 break;
+            case R.id.nav_social:
+                fragment = new SocialMediaFragment();
+                break;
             case R.id.nav_settings:
-                fragment = new SettingsFragment();
+                fragment = new LandingFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("eventTitle", currentConference.getTitle());
+                fragment.setArguments(bundle);
+                //fragment = new SettingsFragment();
                 break;
             case R.id.nav_map:
                 fragment = new MapFragment();
                 break;
         }
-
+        setToolbarTitle("");
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_container, fragment);
         ft.commit();
     }
-
+    public void setToolbarTitle(String title){
+        getSupportActionBar().setTitle(title);
+/*        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle(title);
+        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.black));
+        setSupportActionBar(toolbar);*/
+        int x = 0;
+    }
     @Override
     public void didFinishTask(JSONObject jsonObject) {
         try {

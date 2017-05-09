@@ -6,7 +6,6 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -16,11 +15,8 @@ import com.twitter.sdk.android.tweetui.TweetTimelineListAdapter;
 import com.twitter.sdk.android.tweetui.UserTimeline;
 
 import org.erickson_foundation.miltonhericksonfoundation.DB.DBWorkerDelegate;
-import org.erickson_foundation.miltonhericksonfoundation.Twitter.SearchTwitter;
 import org.erickson_foundation.miltonhericksonfoundation.Twitter.TwitterConfig;
 import org.json.JSONObject;
-
-import java.util.List;
 
 import io.fabric.sdk.android.Fabric;
 
