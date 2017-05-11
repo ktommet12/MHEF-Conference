@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="org.erickson_foundation.miltonhericksonfoundation.Fragments.MapFragment">
-    <org.erickson_foundation.miltonhericksonfoundation.TouchImageView
+    <org.erickson_foundation.miltonhericksonfoundation.HelperClasses.TouchImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/conference_floor_plan"
