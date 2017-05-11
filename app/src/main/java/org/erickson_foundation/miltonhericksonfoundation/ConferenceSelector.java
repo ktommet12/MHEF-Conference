@@ -1,9 +1,7 @@
 package org.erickson_foundation.miltonhericksonfoundation;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,8 +13,8 @@ import com.twitter.sdk.android.core.TwitterAuthConfig;
 import io.fabric.sdk.android.Fabric;
 import org.erickson_foundation.miltonhericksonfoundation.DB.DBWorker;
 import org.erickson_foundation.miltonhericksonfoundation.DB.DBWorkerDelegate;
-import org.erickson_foundation.miltonhericksonfoundation.Notifications.Notification;
-import org.json.JSONException;
+import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.AppConfig;
+import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.MHEFProgressDialog;
 import org.json.JSONObject;
 
 public class ConferenceSelector extends AppCompatActivity implements View.OnClickListener, DBWorkerDelegate {
@@ -29,7 +27,9 @@ public class ConferenceSelector extends AppCompatActivity implements View.OnClic
     private DBWorker dbWorker;
     private final String TAG = "ConfSelector";
     private ConferenceType confType = ConferenceType.DEFAULT;
-    private ProgressDialog mProgressDialog;
+
+    private MHEFProgressDialog progressDialog;
+
     private boolean isTaskInProgress = false;
     private String confContents;
 
@@ -49,10 +49,20 @@ public class ConferenceSelector extends AppCompatActivity implements View.OnClic
         dbWorker = new DBWorker();
         dbWorker.setOnFinishedListener(this);
 
+        if(AppConfig.DEBUG)//bypasses initial conference selector screen when the app is in debug mode
+            startEvoConference();
+
         //Testing the Notification System
         //Notification.createNotification("Test Notification", this);
     }
+    private void startEvoConference(){
+        startProgressDialog();
+        Intent intent = new Intent(this, MainActivity.class);
 
+        this.confType = ConferenceType.EVOLUTION;
+        dbWorker.setConferenceType(this.confType);
+        dbWorker.execute();
+    }
     @Override
     public void onClick(View v) {
         startProgressDialog();
@@ -79,24 +89,27 @@ public class ConferenceSelector extends AppCompatActivity implements View.OnClic
 
     }
     private void startProgressDialog(){
-        this.mProgressDialog = new ProgressDialog(this);
-        this.mProgressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        this.mProgressDialog.setMessage("Grabbing Conference Information, Please Wait...");
-        this.mProgressDialog.setIndeterminate(false);
-        this.mProgressDialog.setCancelable(false);
-        this.mProgressDialog.show();
+        MHEFProgressDialog progressDialog = new MHEFProgressDialog.Builder()
+                .message("Grabbing Conference Information, Please Wait...")
+                .indeterminate(false)
+                .cancelable(false)
+                .context(this)
+                .build();
+
+        progressDialog.show();
     }
     private void loadConference(){
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(AppConfig.CONFERENCE_CONTENTS_JSON, confContents);
         intent.putExtra(AppConfig.CONFERENCE_TYPE_STRING, confType);
+        finish();
         startActivity(intent);
     }
     //once the app contacts the DB and its returns with either information or an error it will call didFinishTask
     @Override
     public void didFinishTask(JSONObject jsonObject) {
-        if(this.mProgressDialog != null && mProgressDialog.isShowing()){
-            this.mProgressDialog.hide();
+        if(this.progressDialog != null && progressDialog.isShowing()){
+            progressDialog = null;
         }
         dbWorker = null;
         isTaskInProgress = false;

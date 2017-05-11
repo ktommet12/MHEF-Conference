@@ -6,14 +6,13 @@
     android:gravity="center_horizontal"
     tools:context="org.erickson_foundation.miltonhericksonfoundation.Fragments.LandingFragment">
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <fragment
-            android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
-            android:id="@+id/youtubesupportfragment"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="200dp"
+            android:id="@+id/youtube_player"></FrameLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -22,6 +21,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:id="@+id/event_title"
             android:text="@string/placeholder_event_name"
             android:textColor="@color/black"
@@ -33,6 +33,7 @@
         android:padding="10dp"
         android:orientation="horizontal">
         <Button
+            android:id="@+id/btn_nav_schedule"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:text="Schedule"
@@ -42,6 +43,7 @@
             android:textColor="@color/white"
             android:background="@drawable/round_button" />
         <Button
+            android:id="@+id/btn_nav_map"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:drawableTop="@drawable/map_white"
@@ -56,6 +58,7 @@
         android:padding="10dp"
         android:orientation="horizontal">
         <Button
+            android:id="@+id/btn_nav_social_media"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:text="Twitter"
@@ -65,11 +68,12 @@
             android:textColor="@color/white"
             android:background="@drawable/round_button" />
         <Button
+            android:id="@+id/btn_nav_about"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:drawableTop="@drawable/map_white"
             android:paddingTop="20dp"
-            android:text="Map"
+            android:text="About"
             android:textColor="@color/white"
             android:background="@drawable/round_button"/>
     </LinearLayout>

@@ -23,13 +23,12 @@ public class Conference {
     private HashMap<String, ArrayList<ConferenceTalk>> days;     //maps a day to an array of talks
     private final String TAG = "Conference";
 
-    public Conference(String confContents) throws JSONException{
+    public Conference(JSONObject confContents) throws JSONException{
         days = new HashMap<String, ArrayList<ConferenceTalk>>();
 
-        JSONObject tempJSON = new JSONObject(confContents);
 
-        mTitle = tempJSON.getString("conference_full_name");
-        mShortTitle = tempJSON.getString("conference_short_name");
+        mTitle = confContents.getString("conference_full_name");
+        mShortTitle = confContents.getString("conference_short_name");
 
         switch(mShortTitle){
             case "Evolution":
@@ -44,12 +43,12 @@ public class Conference {
             default:
                 mConfType = ConferenceType.DEFAULT;
         }
-        JSONArray temp = tempJSON.getJSONArray("dates");
+        JSONArray temp = confContents.getJSONArray("dates");
         mDates = new String[temp.length()];
         for(int i = 0; i < temp.length(); i++){
             mDates[i] = (String)temp.get(i);
         }
-        JSONObject daysJSON = tempJSON.getJSONObject("days");
+        JSONObject daysJSON = confContents.getJSONObject("days");
 
         for(int i = 0; i < daysJSON.length(); i++){
             ArrayList<ConferenceTalk> talks = new ArrayList<>();

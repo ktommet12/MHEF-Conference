@@ -20,14 +20,16 @@ import org.erickson_foundation.miltonhericksonfoundation.Conference.Conference;
 import org.erickson_foundation.miltonhericksonfoundation.DB.*;
 import org.erickson_foundation.miltonhericksonfoundation.Fragments.*;
 import org.erickson_foundation.miltonhericksonfoundation.Fragments.ScheduleFragment;
+import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.AppConfig;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, DBWorkerDelegate {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private TextView conferenceTitle;
     private ConferenceType confType = ConferenceType.DEFAULT;
     private JSONObject conferenceContents = null;
     public Conference currentConference;
+    private final int LANDING_FRAGMENT_ID = 1;
 
     private final String DEFUALT_CONFERENCE_NAME = "Default Conference";
 
@@ -36,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DBWorker dbWorker;
 
     private TabHost mTabHost;
+    public String aboutErickson;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +55,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 tempConferenceContents = intent.getStringExtra(AppConfig.CONFERENCE_CONTENTS_JSON);
             }
             //trying to convert the conferenceContents String into a Conference Object
-            currentConference = new Conference(tempConferenceContents);
+            conferenceContents = new JSONObject(tempConferenceContents);
+            aboutErickson = conferenceContents.getString("about-erickson");
+            currentConference = new Conference(conferenceContents);
         }catch(JSONException ex){
             Log.e(TAG, ex.getMessage());
         }
@@ -76,9 +81,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             conferenceTitle.setText(currentConference.getTitle());
         }
 
-        //set the current fragment to the schedule fragment
-       // changeFragment(R.id.nav_schedule);
-        changeFragment(R.id.nav_settings);
+        changeFragment(LANDING_FRAGMENT_ID);
     }
 
     @Override
@@ -98,46 +101,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    private void changeFragment(int fragmentID){
+    public void changeFragment(int fragmentID){
         Fragment fragment = null;
         switch(fragmentID){
+            case R.id.btn_nav_schedule:
             case R.id.nav_schedule:
                 fragment = new ScheduleFragment();
                 break;
             case R.id.nav_feedback:
                 fragment = new FeedbackFragment();
                 break;
+            case R.id.btn_nav_social_media:
             case R.id.nav_social:
                 fragment = new SocialMediaFragment();
                 break;
-            case R.id.nav_settings:
+            case R.id.btn_nav_about:
+            case R.id.nav_about:
+                fragment = new AboutFragment();
+                break;
+            case R.id.nav_home:
+            case LANDING_FRAGMENT_ID:
                 fragment = new LandingFragment();
                 Bundle bundle = new Bundle();
                 bundle.putString("eventTitle", currentConference.getTitle());
                 fragment.setArguments(bundle);
-                //fragment = new SettingsFragment();
                 break;
+            case R.id.btn_nav_map:
             case R.id.nav_map:
                 fragment = new MapFragment();
                 break;
         }
-        setToolbarTitle("");
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.fragment_container, fragment);
         ft.commit();
-    }
-    public void setToolbarTitle(String title){
-        getSupportActionBar().setTitle(title);
-/*        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle(title);
-        toolbar.setTitleTextColor(ContextCompat.getColor(this, R.color.black));
-        setSupportActionBar(toolbar);*/
-        int x = 0;
-    }
-    @Override
-    public void didFinishTask(JSONObject jsonObject) {
-        try {
-            Log.i("DidFinishTask", jsonObject.toString());
-        }catch (Exception ex){}
     }
 }

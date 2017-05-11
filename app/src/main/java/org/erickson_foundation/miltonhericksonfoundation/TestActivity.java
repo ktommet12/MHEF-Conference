@@ -29,22 +29,6 @@ public class TestActivity extends AppCompatActivity implements DBWorkerDelegate 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
-        tweetList = (ListView) findViewById(R.id.tweet_list);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("");
-        setSupportActionBar(toolbar);
-        TwitterAuthConfig authConfig = new TwitterAuthConfig(TwitterConfig.TWITTER_CONSUMER_KEY, TwitterConfig.TWITTER_CONSUMER_SECRET);
-        Fabric.with(this, new Twitter(authConfig));
-
-        final UserTimeline userTimeline = new UserTimeline.Builder()
-                .screenName("EricksonFound")
-                .build();
-        final TweetTimelineListAdapter adapter = new TweetTimelineListAdapter.Builder(this)
-                .setTimeline(userTimeline)
-                .build();
-
-        tweetList.setAdapter(adapter);
 
     }
 
