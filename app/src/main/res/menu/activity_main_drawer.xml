@@ -18,13 +18,13 @@
             android:icon="@drawable/wechat"
             android:title="Social Media" />
         <item
+            android:id="@+id/nav_speakers"
+            android:icon="@drawable/ic_microphone_2x"
+            android:title="Speakers"/>
+        <item
             android:id="@+id/nav_map"
             android:icon="@drawable/map_black"
             android:title="Map" />
-    </group>
-    <group
-        android:id="@+id/menu_bottom"
-        android:checkableBehavior="none">
         <item
             android:id="@+id/nav_about"
             android:icon="@drawable/ic_info_outline_black_24dp"
@@ -33,6 +33,15 @@
             android:id="@+id/nav_parking"
             android:icon="@drawable/ic_directions_car_black_24dp"
             android:title="Parking Info"/>
+    </group>
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="none">
+
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/settings"
+            android:title="Settings"/>
         <item
             android:id="@+id/nav_feedback"
             android:icon="@drawable/comment_text"

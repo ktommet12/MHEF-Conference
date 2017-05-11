@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -78,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //setting the TextView in the NavDrawer to the selected Conference Title
             View header = navigationView.getHeaderView(0);
             conferenceTitle = (TextView) header.findViewById(R.id.lblConferenceName);
+            header.setBackgroundColor(ContextCompat.getColor(this, R.color.mhefBlue));
             conferenceTitle.setText(currentConference.getTitle());
         }
 
@@ -110,6 +112,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_feedback:
                 fragment = new FeedbackFragment();
+                break;
+            case R.id.nav_speakers:
+                fragment = new SpeakerViewFragment();
                 break;
             case R.id.btn_nav_social_media:
             case R.id.nav_social:

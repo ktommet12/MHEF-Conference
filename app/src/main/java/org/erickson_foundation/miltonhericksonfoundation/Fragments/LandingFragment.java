@@ -1,9 +1,11 @@
 package org.erickson_foundation.miltonhericksonfoundation.Fragments;
 
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +43,7 @@ public class LandingFragment extends Fragment implements YouTubePlayer.OnInitial
         View v = inflater.inflate(R.layout.fragment_landing, container, false);
         String eventTitle = getArguments().getString("eventTitle", "Erickson Foundation");
         mainActivity      = (MainActivity) getActivity();
-        txtEventTitle     = (TextView) v.findViewById(R.id.event_title);
+        //txtEventTitle     = (TextView) v.findViewById(R.id.event_title);
         navAbout          = (Button) v.findViewById(R.id.btn_nav_about);
         navSchedule       = (Button) v.findViewById(R.id.btn_nav_schedule);
         navSocialMedia    = (Button) v.findViewById(R.id.btn_nav_social_media);
@@ -52,8 +54,10 @@ public class LandingFragment extends Fragment implements YouTubePlayer.OnInitial
         navMap.setOnClickListener(navigationClick);
         navSocialMedia.setOnClickListener(navigationClick);
 
+        navAbout.setBackgroundResource(R.drawable.round_button_mhef_blue);
 
-        txtEventTitle.setText(eventTitle);
+
+        //txtEventTitle.setText(eventTitle);
 
         YouTubePlayerSupportFragment youtubePlayer = YouTubePlayerSupportFragment.newInstance();
         youtubePlayer.initialize(AppConfig.YOUTUBE_API_KEY, this);
