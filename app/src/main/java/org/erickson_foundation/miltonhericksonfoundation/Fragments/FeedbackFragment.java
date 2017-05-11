@@ -1,7 +1,6 @@
 package org.erickson_foundation.miltonhericksonfoundation.Fragments;
 
 
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,19 +12,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.google.android.gms.vision.text.Line;
-
-import org.erickson_foundation.miltonhericksonfoundation.AppConfig;
+import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.AppConfig;
 import org.erickson_foundation.miltonhericksonfoundation.Conference.Conference;
-import org.erickson_foundation.miltonhericksonfoundation.Conference.ConferenceTalk;
 import org.erickson_foundation.miltonhericksonfoundation.MainActivity;
 import org.erickson_foundation.miltonhericksonfoundation.R;
-
-import java.util.ArrayList;
 
 
 /**

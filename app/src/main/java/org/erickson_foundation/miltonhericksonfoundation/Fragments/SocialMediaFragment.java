@@ -34,7 +34,6 @@ public class SocialMediaFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_social_media, container, false);
         tweetList = (ListView) v.findViewById(R.id.tweet_list);
 
-        ((MainActivity)getActivity()).setToolbarTitle("@" + TwitterConfig.FOUNDATION_TIMELINE);
 
 
 

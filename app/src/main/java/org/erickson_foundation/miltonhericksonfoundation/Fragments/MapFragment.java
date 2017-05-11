@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.erickson_foundation.miltonhericksonfoundation.R;
-import org.erickson_foundation.miltonhericksonfoundation.TouchImageView;
+import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.TouchImageView;
 
 public class MapFragment extends Fragment {
     private TouchImageView floorPlan;
