@@ -46,12 +46,12 @@ public class ConferenceSelector extends AppCompatActivity implements View.OnClic
         couples.setOnClickListener(this);
         evolution.setOnClickListener(this);
 
-        dbWorker = new DBWorker();
+        dbWorker = new DBWorker(this);
         dbWorker.setOnFinishedListener(this);
 
         //bypasses initial conference selector screen when the app is in debug mode
         if(AppConfig.DEBUG){
-            startEvoConference();
+            //startEvoConference();
         }
 
 
@@ -59,7 +59,7 @@ public class ConferenceSelector extends AppCompatActivity implements View.OnClic
         //Notification.createNotification("Test Notification", this);
     }
     private void startEvoConference(){
-        startProgressDialog();
+       // startProgressDialog();
         Intent intent = new Intent(this, MainActivity.class);
 
         this.confType = ConferenceType.EVOLUTION;
@@ -68,7 +68,7 @@ public class ConferenceSelector extends AppCompatActivity implements View.OnClic
     }
     @Override
     public void onClick(View v) {
-        startProgressDialog();
+        //startProgressDialog();
         Intent intent = new Intent(this, MainActivity.class);
         switch (v.getId()){
             case R.id.couples_conferece:
@@ -84,7 +84,7 @@ public class ConferenceSelector extends AppCompatActivity implements View.OnClic
             isTaskInProgress = true;
         }else{
             if(dbWorker == null){
-                dbWorker = new DBWorker(this.confType);
+                dbWorker = new DBWorker(this, this.confType);
                 dbWorker.setOnFinishedListener(this);
                 dbWorker.execute();
             }
@@ -92,7 +92,7 @@ public class ConferenceSelector extends AppCompatActivity implements View.OnClic
 
     }
     private void startProgressDialog(){
-        MHEFProgressDialog progressDialog = new MHEFProgressDialog.Builder()
+        progressDialog = new MHEFProgressDialog.Builder()
                 .message("Grabbing Conference Information, Please Wait...")
                 .indeterminate(false)
                 .cancelable(false)
@@ -111,9 +111,6 @@ public class ConferenceSelector extends AppCompatActivity implements View.OnClic
     //once the app contacts the DB and its returns with either information or an error it will call didFinishTask
     @Override
     public void didFinishTask(JSONObject jsonObject) {
-        if(this.progressDialog != null && progressDialog.isShowing()){
-            progressDialog = null;
-        }
         dbWorker = null;
         isTaskInProgress = false;
         try{
@@ -127,5 +124,12 @@ public class ConferenceSelector extends AppCompatActivity implements View.OnClic
         }catch(Exception ex){
             Log.e(TAG, ex.getMessage());
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+       // progressDialog.dismiss();
+        Log.i(TAG, "OnDestroy() called");
+        super.onDestroy();
     }
 }

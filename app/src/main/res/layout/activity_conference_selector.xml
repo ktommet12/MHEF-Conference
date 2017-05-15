@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/fm_logo"
         android:layout_width="match_parent"
-        android:layout_height="75dp"
+        android:layout_height="100dp"
         android:src="@drawable/fm_logo"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"/>
@@ -57,19 +57,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2017"
-                        android:textSize="10dp"
-                        android:textColor="@color/black"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Manhattan Beach"
-                        android:textSize="10dp"
-                        android:textColor="@color/black"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="March 31 - April 2"
+                        android:paddingTop="10dp"
+                        android:text="Manhattan Beach - March 31 - April 2nd"
                         android:textSize="10dp"
                         android:textColor="@color/black"/>
                 </LinearLayout>
@@ -86,7 +75,7 @@
                 <ImageView
                     android:layout_width="75dp"
                     android:layout_height="75dp"
-                    android:src="@drawable/ep17_logo_notext"/>
+                    android:src="@drawable/evolution_logo_no_text"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -101,19 +90,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2017"
-                        android:textSize="10dp"
-                        android:textColor="@color/black"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Manhattan Beach"
-                        android:textSize="10dp"
-                        android:textColor="@color/black"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Anaheim -- December 13 - 17"
+                        android:paddingTop="10dp"
+                        android:text="Anaheim - December 13-17th"
                         android:textSize="10dp"
                         android:textColor="@color/black"/>
                 </LinearLayout>
@@ -131,7 +109,7 @@
                 <ImageView
                     android:layout_width="75dp"
                     android:layout_height="75dp"
-                    android:src="@drawable/ep17_logo_notext"/>
+                    android:src="@drawable/evolution_logo_no_text"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -91,9 +93,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
+        } else {}
     }
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -116,9 +116,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_speakers:
                 fragment = new SpeakerViewFragment();
-                bundle = new Bundle();
-                bundle.putString(AppConfig.SPEAKER_NAME_KEY, "Judith Beck");
-                fragment.setArguments(bundle);
                 break;
             case R.id.btn_nav_social_media:
             case R.id.nav_social:
@@ -131,9 +128,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_home:
             case LANDING_FRAGMENT_ID:
                 fragment = new LandingFragment();
-                bundle = new Bundle();
-                bundle.putString("eventTitle", currentConference.getTitle());
-                fragment.setArguments(bundle);
                 break;
             case R.id.nav_parking:
                 startActivity(new Intent(this, TestActivity.class));
@@ -155,5 +149,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             ft.commit();
         }
 
+    }
+    public void goHome(View view){
+        changeFragment(LANDING_FRAGMENT_ID, null);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main, menu);
+        return true;
+    }
+    public void goBackToConferenceSelector(View view) {
+        finish();
+        startActivity(new Intent(this, ConferenceSelector.class));
+    }
+
+    @Override
+    protected void onDestroy() {
+        Log.i(TAG, "onDestroy() called");
+        super.onDestroy();
     }
 }

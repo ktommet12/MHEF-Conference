@@ -24,6 +24,9 @@ public class MHEFProgressDialog {
     public void show(){
         mProgressDialog.show();
     }
+    public void dismiss(){
+        mProgressDialog.dismiss();
+    }
     public boolean isShowing(){
         return mProgressDialog.isShowing();
     }

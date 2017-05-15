@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.erickson_foundation.miltonhericksonfoundation.BuildConfig;
 import org.erickson_foundation.miltonhericksonfoundation.DB.DBWorkerDelegate;
 import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.GetHtml;
 import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.MHEFProgressDialog;
@@ -32,6 +33,10 @@ public class AboutFragment extends Fragment implements DBWorkerDelegate {
         mainActivity = (MainActivity) getActivity();
         TextView aboutText = (TextView) v.findViewById(R.id.txt_about_text);
         aboutText.setText(mainActivity.aboutErickson);
+
+        TextView txtVersionNum = (TextView) v.findViewById(R.id.txt_version_num);
+        String versionNum = BuildConfig.VERSION_NAME;
+        txtVersionNum.setText("App Version: " + versionNum);
 
 
 

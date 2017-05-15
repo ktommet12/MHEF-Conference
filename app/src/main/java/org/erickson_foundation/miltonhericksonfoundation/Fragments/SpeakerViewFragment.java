@@ -1,19 +1,17 @@
 package org.erickson_foundation.miltonhericksonfoundation.Fragments;
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.Button;
 
 import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.AppConfig;
+import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.MhefWebViewClient;
 import org.erickson_foundation.miltonhericksonfoundation.R;
 
 /**
@@ -22,7 +20,7 @@ import org.erickson_foundation.miltonhericksonfoundation.R;
 public class SpeakerViewFragment extends Fragment {
     private WebView webView;
     private final String SPEAKER_PAGE_BASE_URL = "http://www.evolutionofpsychotherapy.com/speakers/";
-    private Button goBack;
+    private Button goBack, goForward, refresh;
     private String speakerUrl = "";
     private final String TAG = "SpeakerView";
 
@@ -36,21 +34,30 @@ public class SpeakerViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_speaker_view, container, false);
-        webView = (WebView) v.findViewById(R.id.webview);
-        goBack = (Button) v.findViewById(R.id.btn_go_back);
-        goBack.setEnabled(false);
+        View v    = inflater.inflate(R.layout.fragment_speaker_view, container, false);
+        webView   = (WebView) v.findViewById(R.id.webview);
+        goBack    = (Button) v.findViewById(R.id.btn_go_back);
+        goForward = (Button) v.findViewById(R.id.btn_go_forward);
+        refresh   = (Button) v.findViewById(R.id.btn_refresh);
 
         goBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                webView.goBack();
+                if(webView.canGoBack())
+                    webView.goBack();
+            }
+        });
+        goForward.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(webView.canGoForward())
+                    webView.goForward();
             }
         });
 
         Bundle bundle = getArguments(); 
 
-        if(bundle.containsKey(AppConfig.SPEAKER_NAME_KEY) && bundle != null){
+        if(!(bundle == null) && bundle.containsKey(AppConfig.SPEAKER_NAME_KEY)){
             String name = bundle.getString(AppConfig.SPEAKER_NAME_KEY);
             String[] namePieces = name.split(" ");
             String newName = namePieces[0].toLowerCase() + "-" + namePieces[1].toLowerCase();
@@ -60,17 +67,8 @@ public class SpeakerViewFragment extends Fragment {
             speakerUrl = SPEAKER_PAGE_BASE_URL;
         }
         webView.loadUrl(speakerUrl);
-        webView.setWebViewClient(new WebViewClient(){
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                goBack.setEnabled(true  );
-                return super.shouldOverrideUrlLoading(view, url);
-
-            }
-        });
+        webView.setWebViewClient(new MhefWebViewClient());
 
         return v;
     }
-
 }

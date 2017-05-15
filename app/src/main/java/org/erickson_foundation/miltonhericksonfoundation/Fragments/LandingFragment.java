@@ -41,7 +41,7 @@ public class LandingFragment extends Fragment implements YouTubePlayer.OnInitial
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_landing, container, false);
-        String eventTitle = getArguments().getString("eventTitle", "Erickson Foundation");
+
         mainActivity      = (MainActivity) getActivity();
         //txtEventTitle     = (TextView) v.findViewById(R.id.event_title);
         navAbout          = (Button) v.findViewById(R.id.btn_nav_about);
@@ -54,10 +54,6 @@ public class LandingFragment extends Fragment implements YouTubePlayer.OnInitial
         navMap.setOnClickListener(navigationClick);
         navSocialMedia.setOnClickListener(navigationClick);
 
-        navAbout.setBackgroundResource(R.drawable.round_button_mhef_blue);
-
-
-        //txtEventTitle.setText(eventTitle);
 
         YouTubePlayerSupportFragment youtubePlayer = YouTubePlayerSupportFragment.newInstance();
         youtubePlayer.initialize(AppConfig.YOUTUBE_API_KEY, this);
