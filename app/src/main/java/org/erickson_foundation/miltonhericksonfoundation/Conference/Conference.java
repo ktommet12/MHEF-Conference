@@ -80,4 +80,16 @@ public class Conference {
         ArrayList<ConferenceTalk> tempTalks = days.get(dayName);
         return (tempTalks == null)? new ArrayList<ConferenceTalk>() : tempTalks;
     }
+    public ConferenceTalk locateTalkById(int id){
+        ConferenceTalk tempTalk = null;
+        for(int i = 0; i < days.size(); i++){
+            ArrayList<ConferenceTalk> currentDay = days.get(mDates[i]);
+            for(int j = 0; j < currentDay.size(); j++){
+                if(currentDay.get(j).getTalkID() == id){
+                    return currentDay.get(j);
+                }
+            }
+        }
+        return tempTalk;
+    }
 }

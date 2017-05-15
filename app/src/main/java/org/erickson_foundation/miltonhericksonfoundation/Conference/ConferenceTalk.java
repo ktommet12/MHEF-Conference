@@ -5,13 +5,15 @@ package org.erickson_foundation.miltonhericksonfoundation.Conference;
  */
 
 public class ConferenceTalk {
-    public String mTitle, mTimeSlot, mDescription, mSpeakerName;
+    private String mTitle, mTimeSlot, mDescription, mSpeakerName;
+    private int mID;
 
     public ConferenceTalk(String title, String time, String description, String name){
         mTimeSlot = time;
         mTitle = title;
         mDescription = description;
         mSpeakerName = name;
+        mID = (int) (Math.random() * 999 + 1);
     }
 
     public String getTitle() {
@@ -26,7 +28,10 @@ public class ConferenceTalk {
         return mDescription;
     }
 
-    public String getmSpeakerName(){
+    public String getSpeakerName(){
         return mSpeakerName;
+    }
+    public int getTalkID(){
+        return this.mID;
     }
 }

@@ -88,7 +88,7 @@ public class LandingFragment extends Fragment implements YouTubePlayer.OnInitial
     View.OnClickListener navigationClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            mainActivity.changeFragment(v.getId());
+            mainActivity.changeFragment(v.getId(), null);
         }
     };
 }

@@ -11,6 +11,8 @@ public final class AppConfig {
     public static final String CONFERENCE_TYPE_STRING = "confType";
     public static final String YOUTUBE_API_KEY = "AIzaSyBw7PJ_A6r3T6S4UpFzkUMDar5A2Q56g-o";
     public static final String SPEAKER_NAME_KEY = "speakerName";
+    public static final int MORE_INFO_TALK_FRAGMENT = 100;
+    public static final String TALK_ID_BUNDLE_KEY = "talkID";
 
     //TODO: change this to false in final release
     public static final boolean DEBUG = true;

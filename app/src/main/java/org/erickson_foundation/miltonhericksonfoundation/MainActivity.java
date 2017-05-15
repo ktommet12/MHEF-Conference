@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             conferenceTitle.setText(currentConference.getTitle());
         }
 
-        changeFragment(LANDING_FRAGMENT_ID);
+        changeFragment(LANDING_FRAGMENT_ID, null);
     }
 
     @Override
@@ -97,14 +97,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        changeFragment(item.getItemId());
+        changeFragment(item.getItemId(), null);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    public void changeFragment(int fragmentID){
+    public void changeFragment(int fragmentID, View v){
         Fragment fragment = null;
+        Bundle bundle;
         switch(fragmentID){
             case R.id.btn_nav_schedule:
             case R.id.nav_schedule:
@@ -115,6 +116,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.nav_speakers:
                 fragment = new SpeakerViewFragment();
+                bundle = new Bundle();
+                bundle.putString(AppConfig.SPEAKER_NAME_KEY, "Judith Beck");
+                fragment.setArguments(bundle);
                 break;
             case R.id.btn_nav_social_media:
             case R.id.nav_social:
@@ -127,8 +131,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_home:
             case LANDING_FRAGMENT_ID:
                 fragment = new LandingFragment();
-                Bundle bundle = new Bundle();
+                bundle = new Bundle();
                 bundle.putString("eventTitle", currentConference.getTitle());
+                fragment.setArguments(bundle);
+                break;
+            case R.id.nav_parking:
+                startActivity(new Intent(this, TestActivity.class));
+                break;
+            case AppConfig.MORE_INFO_TALK_FRAGMENT:
+                fragment = new DayTalkInfoFragment();
+                bundle = new Bundle();
+                bundle.putInt(AppConfig.TALK_ID_BUNDLE_KEY, (Integer) v.getTag());
                 fragment.setArguments(bundle);
                 break;
             case R.id.btn_nav_map:
@@ -136,8 +149,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragment = new MapFragment();
                 break;
         }
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_container, fragment);
-        ft.commit();
+        if(fragment != null) {
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.fragment_container, fragment);
+            ft.commit();
+        }
+
     }
 }

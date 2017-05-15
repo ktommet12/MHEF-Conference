@@ -1,5 +1,9 @@
 package org.erickson_foundation.miltonhericksonfoundation;
 
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
@@ -20,7 +24,7 @@ import org.json.JSONObject;
 
 import io.fabric.sdk.android.Fabric;
 
-public class TestActivity extends AppCompatActivity implements DBWorkerDelegate {
+public class TestActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private SearchView searchView;
     private MenuItem searchMenuItem;
     private ListView tweetList;
@@ -29,33 +33,21 @@ public class TestActivity extends AppCompatActivity implements DBWorkerDelegate 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_search, menu);
-        searchMenuItem = menu.findItem(R.id.action_search);
-        searchView = (SearchView) searchMenuItem.getActionView();
-        //searchView.setOnQueryTextListener(listener);
-        return true;
-    }
-
-    SearchView.OnQueryTextListener listener = new SearchView.OnQueryTextListener() {
-        @Override
-        public boolean onQueryTextSubmit(String query) {
-            return false;
-        }
-
-        @Override
-        public boolean onQueryTextChange(String newText) {
-            Toast.makeText(getApplicationContext(), newText, Toast.LENGTH_SHORT).show();
-            return false;
-        }
-    };
-
-    @Override
-    public void didFinishTask(JSONObject jsonObject) {
-
+    public boolean onNavigationItemSelected(MenuItem item) {
+        return false;
     }
 }

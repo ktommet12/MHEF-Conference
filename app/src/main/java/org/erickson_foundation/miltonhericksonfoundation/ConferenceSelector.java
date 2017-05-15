@@ -49,8 +49,11 @@ public class ConferenceSelector extends AppCompatActivity implements View.OnClic
         dbWorker = new DBWorker();
         dbWorker.setOnFinishedListener(this);
 
-        if(AppConfig.DEBUG)//bypasses initial conference selector screen when the app is in debug mode
+        //bypasses initial conference selector screen when the app is in debug mode
+        if(AppConfig.DEBUG){
             startEvoConference();
+        }
+
 
         //Testing the Notification System
         //Notification.createNotification("Test Notification", this);

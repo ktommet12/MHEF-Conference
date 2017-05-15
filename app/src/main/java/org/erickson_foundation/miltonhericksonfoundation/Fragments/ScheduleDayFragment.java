@@ -4,6 +4,7 @@ package org.erickson_foundation.miltonhericksonfoundation.Fragments;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import org.erickson_foundation.miltonhericksonfoundation.Conference.Conference;
 import org.erickson_foundation.miltonhericksonfoundation.Conference.ConferenceTalk;
+import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.AppConfig;
 import org.erickson_foundation.miltonhericksonfoundation.MainActivity;
 import org.erickson_foundation.miltonhericksonfoundation.R;
 
@@ -57,10 +59,12 @@ public class ScheduleDayFragment extends Fragment {
                         name = (TextView) temp.findViewById(R.id.speaker_name);
 
                 ConferenceTalk currentTalk = dayTalks.get(i);
-
+                temp.setTag(currentTalk.getTalkID());
                 time.setText(currentTalk.getTimeSlot());
                 title.setText(currentTalk.getTitle());
-                name.setText(currentTalk.getmSpeakerName());
+                name.setText(currentTalk.getSpeakerName());
+
+                temp.setOnClickListener(talkClickListener);
                 layout.addView(temp);
 
                 if (dayTalks.size() != 1) {
@@ -77,4 +81,11 @@ public class ScheduleDayFragment extends Fragment {
 
         return view;
     }
+    View.OnClickListener talkClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Log.i(TAG, v.getTag().toString());
+            mainActivity.changeFragment(AppConfig.MORE_INFO_TALK_FRAGMENT, v);
+        }
+    };
 }
