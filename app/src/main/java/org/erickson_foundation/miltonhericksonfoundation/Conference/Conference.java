@@ -61,7 +61,7 @@ public class Conference {
                 String description = talk.getString("description");
                 String name = talk.getString("speaker_name");
 
-                talks.add(new ConferenceTalk(title, time, description, name));
+                talks.add(new ConferenceTalk(title, time, description, name, mDates[i]));
             }
             days.put(mDates[i], talks);
         }
@@ -80,8 +80,8 @@ public class Conference {
         ArrayList<ConferenceTalk> tempTalks = days.get(dayName);
         return (tempTalks == null)? new ArrayList<ConferenceTalk>() : tempTalks;
     }
+    //locates a talk based on the id assigned to it at initial instantiation time
     public ConferenceTalk locateTalkById(int id){
-        ConferenceTalk tempTalk = null;
         for(int i = 0; i < days.size(); i++){
             ArrayList<ConferenceTalk> currentDay = days.get(mDates[i]);
             for(int j = 0; j < currentDay.size(); j++){
@@ -90,6 +90,6 @@ public class Conference {
                 }
             }
         }
-        return tempTalk;
+        return null;
     }
 }

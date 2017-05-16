@@ -23,7 +23,7 @@ public class DayTalkInfoFragment extends Fragment {
     private ConferenceTalk currentTalk;
     private final String TAG = "DayTalkInfo";
     private TextView txtTitle, txtTimeAndDate, txtDescription;
-    private Button btnAddToFavorites, btnViewOnMap;
+    private Button btnAddToFavorites, btnViewOnMap, btnBackToSchedule;
 
     public DayTalkInfoFragment() {
         // Required empty public constructor
@@ -36,7 +36,7 @@ public class DayTalkInfoFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_day_talk_info, container, false);
 
-        MainActivity mainActivity = (MainActivity) getActivity();
+        final MainActivity mainActivity = (MainActivity) getActivity();
 
         Bundle bundle = getArguments();
         if(bundle != null && bundle.containsKey(AppConfig.TALK_ID_BUNDLE_KEY)){
@@ -45,6 +45,14 @@ public class DayTalkInfoFragment extends Fragment {
         txtDescription = (TextView) v.findViewById(R.id.txt_event_description);
         txtTimeAndDate = (TextView) v.findViewById(R.id.txt_event_time_date);
         txtTitle       = (TextView) v.findViewById(R.id.txt_event_title);
+        btnBackToSchedule = (Button)v.findViewById(R.id.btn_back_to_schedule);
+
+        btnBackToSchedule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivity.changeFragment(R.id.nav_schedule, null);
+            }
+        });
 
         txtDescription.setText(currentTalk.getDescription());
         txtTitle.setText(currentTalk.getTitle());
