@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -27,6 +28,7 @@ public class ScheduleDayFragment extends Fragment {
     private Conference currentConference;
     private ArrayList<ConferenceTalk> dayTalks;
     private final String TAG = "ScheduleDayFragment";
+    private ArrayList<ImageView> favoriteStars;
 
     public ScheduleDayFragment() {
         // Required empty public constructor
@@ -51,6 +53,8 @@ public class ScheduleDayFragment extends Fragment {
         }
         LinearLayout layout = (LinearLayout) view.findViewById(R.id.talk_day);
         dayTalks = currentConference.getConferenceDayTalks(date);
+        favoriteStars = new ArrayList<>();
+
         if(date != null && dayTalks.size() != 0){
             for (int i = 0; i < dayTalks.size(); i++) {
                 View temp = inflater.inflate(R.layout.table_row, null);
@@ -59,12 +63,20 @@ public class ScheduleDayFragment extends Fragment {
                         name = (TextView) temp.findViewById(R.id.speaker_name);
 
                 ConferenceTalk currentTalk = dayTalks.get(i);
-                temp.setTag(currentTalk.getTalkID());
+
                 time.setText(currentTalk.getTimeSlot());
                 title.setText(currentTalk.getTitle());
                 name.setText(currentTalk.getSpeakerName());
 
-                temp.setOnClickListener(talkClickListener);
+                LinearLayout talkDetails = (LinearLayout) temp.findViewById(R.id.layout_details);
+                talkDetails.setOnClickListener(talkClickListener);
+                talkDetails.setTag(currentTalk.getTalkID());
+
+                ImageView favoriteStar = (ImageView) temp.findViewById(R.id.favorite_star);
+                favoriteStar.setOnClickListener(toggleFavorite);
+
+                favoriteStars.add(favoriteStar);
+
                 layout.addView(temp);
 
                 if (dayTalks.size() != 1) {
@@ -84,8 +96,14 @@ public class ScheduleDayFragment extends Fragment {
     View.OnClickListener talkClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Log.i(TAG, v.getTag().toString());
-            mainActivity.changeFragment(AppConfig.MORE_INFO_TALK_FRAGMENT, v);
+            mainActivity.viewSpecificTalk(v);
+        }
+    };
+    View.OnClickListener toggleFavorite = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+            Log.i(TAG, "Favorite/Unfavorite");
         }
     };
 }

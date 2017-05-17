@@ -61,7 +61,7 @@ public class Conference {
                 String description = talk.getString("description");
                 String name = talk.getString("speaker_name");
 
-                talks.add(new ConferenceTalk(title, time, description, name));
+                talks.add(new ConferenceTalk(title, time, description, name, mDates[i]));
             }
             days.put(mDates[i], talks);
         }
@@ -91,5 +91,13 @@ public class Conference {
             }
         }
         return tempTalk;
+    }
+    public int getTabPosition(String day){
+        for(int i = 0; i < mDates.length; i++){
+            if(mDates[i].equals(day)){
+                return i;
+            }
+        }
+        return 0;
     }
 }

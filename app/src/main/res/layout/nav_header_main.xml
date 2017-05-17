@@ -8,18 +8,11 @@
     android:orientation="vertical"
     android:theme="@style/NavigationDrawer">
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="30dp"
-        android:paddingLeft="30dp"
-        android:onClick="goBackToConferenceSelector"
-        android:background="@color/tw__transparent"
-        android:src="@drawable/ic_keyboard_backspace_white_24dp"/>
+
     <ImageView
         android:layout_width="150px"
         android:layout_height="150px"
-
+        android:layout_marginTop="20dp"
         android:layout_gravity="center"
         android:src="@drawable/evolution_logo_no_text"/>
     <TextView

@@ -11,7 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TableLayout;
 
-import org.erickson_foundation.miltonhericksonfoundation.MHEFPagerAdapter;
+import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.AppConfig;
+import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.MHEFPagerAdapter;
 import org.erickson_foundation.miltonhericksonfoundation.MainActivity;
 import org.erickson_foundation.miltonhericksonfoundation.R;
 
@@ -34,6 +35,13 @@ public class ScheduleFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.schedule_fragment, container, false);
 
+        Bundle bundle = getArguments();
+        int tabPos = 0;
+
+        if(!(bundle == null) && bundle.containsKey(AppConfig.SCHEDULE_TAB_POS)){
+            tabPos = bundle.getInt(AppConfig.SCHEDULE_TAB_POS, 0);
+        }
+
         mainActivity = (MainActivity) getActivity();
         confTabDates = mainActivity.currentConference.getDates();
 
@@ -48,6 +56,7 @@ public class ScheduleFragment extends Fragment {
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.pager);
         final MHEFPagerAdapter pagerAdapter = new MHEFPagerAdapter(getChildFragmentManager(), tabLayout.getTabCount(), confTabDates);
         viewPager.setAdapter(pagerAdapter);
+        viewPager.setCurrentItem(tabPos);
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

@@ -4,7 +4,7 @@
     <item
         android:id="@+id/action_about"
         android:title="About"
-        android:icon="@drawable/ic_info_outline_black_24dp"
+        android:icon="@drawable/ic_home_black_24dp"
         app:showAsAction="always|collapseActionView"
         android:visible="true"/>
 </menu>

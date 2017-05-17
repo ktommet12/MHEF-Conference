@@ -1,4 +1,4 @@
-package org.erickson_foundation.miltonhericksonfoundation;
+package org.erickson_foundation.miltonhericksonfoundation.HelperClasses;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

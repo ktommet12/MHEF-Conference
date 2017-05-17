@@ -5,15 +5,16 @@ package org.erickson_foundation.miltonhericksonfoundation.Conference;
  */
 
 public class ConferenceTalk {
-    private String mTitle, mTimeSlot, mDescription, mSpeakerName;
+    private String mTitle, mTimeSlot, mDescription, mSpeakerName, mDay;
     private boolean mIsFavorited;
     private int mID;
 
-    public ConferenceTalk(String title, String time, String description, String name){
+    public ConferenceTalk(String title, String time, String description, String name, String day){
         mTimeSlot = time;
         mTitle = title;
         mDescription = description;
         mSpeakerName = name;
+        mDay = day;
         mID = (int) (Math.random() * 999 + 1);
         mIsFavorited = false;
     }
@@ -25,7 +26,9 @@ public class ConferenceTalk {
     public String getTimeSlot() {
         return mTimeSlot;
     }
-
+    public String getTalkDay(){
+        return mDay;
+    }
     public String getDescription() {
         return mDescription;
     }
@@ -35,6 +38,9 @@ public class ConferenceTalk {
     }
     public int getTalkID(){
         return this.mID;
+    }
+    public boolean isTalkFavorited(){
+        return mIsFavorited;
     }
     public void toggleFavorite(){
         mIsFavorited = !mIsFavorited;

@@ -97,14 +97,14 @@ public class DBWorker extends AsyncTask<Void, Void, JSONObject>{
                 .context(this.mContext)
                 .build();
 
-        progressDialog.show();
+        //progressDialog.show();
         super.onPreExecute();
     }
 
     @Override
     protected void onPostExecute(JSONObject s) {
         super.onPostExecute(s);
-        progressDialog.dismiss();
+        //progressDialog.dismiss();
         this.delegate.didFinishTask(s);
     }
     private String readURLReturnData(HttpURLConnection connection){

@@ -20,8 +20,7 @@ import org.json.JSONObject;
 public class ConferenceSelector extends AppCompatActivity implements View.OnClickListener, DBWorkerDelegate {
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
-    private static final String TWITTER_KEY = "30QCzhZ13e3U7Ox29pZT7O7XB";
-    private static final String TWITTER_SECRET = "hGUmN8NumH1438rkVrID8vcg3Qh0wUBziuqtjpwIsF9Z47bcT4";
+
 
     private TableRow couples, evolution;
     private DBWorker dbWorker;
@@ -36,8 +35,7 @@ public class ConferenceSelector extends AppCompatActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
-        Fabric.with(this, new Twitter(authConfig));
+
         setContentView(R.layout.activity_conference_selector);
 
         couples = (TableRow) findViewById(R.id.couples_conferece);

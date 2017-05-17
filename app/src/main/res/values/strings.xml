@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Milton H Erickson Foundation</string>
+    <string name="app_name">Erickson Foundation</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -18,7 +18,18 @@
     <string name="seek_to_hint">Seconds</string>
     <string name="placeholder_event_name">Placeholder Event Name</string>
     <string name="event_details">Event Details/Description</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="maps">Maps</string>
+    <string name="speakers">Speakers</string>
+    <string name="schedule">Schedule</string>
+    <string name="social_media">Social Media</string>
+    <string name="website">Website</string>
+    <string name="syllabus">Syllabus</string>
+    <string name="parking_info">Parking Info</string>
+    <string name="about">About</string>
+    <string name="buy_tickets">Buy Tickets</string>
+    <string name="add_to_favorites">Add To Favorites</string>
+    <string name="remove_from_favorites">Remove From Favorites</string>
+    <string name="go_to_map">Go To Map</string>
+    <string name="back_button">Back</string>
+    <string name="placeholder_text">Placeholder Text</string>
 </resources>

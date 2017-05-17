@@ -1,5 +1,7 @@
 package org.erickson_foundation.miltonhericksonfoundation.HelperClasses;
 
+import org.erickson_foundation.miltonhericksonfoundation.ConferenceType;
+
 /**
  * Created by ktomm on 3/14/2017.
  */
@@ -13,7 +15,10 @@ public final class AppConfig {
     public static final String SPEAKER_NAME_KEY = "speakerName";
     public static final int MORE_INFO_TALK_FRAGMENT = 100;
     public static final String TALK_ID_BUNDLE_KEY = "talkID";
-
+    public static final ConferenceType DEFAULT_CONFERENCE = ConferenceType.EVOLUTION;
+    public static final String WEB_URL_KEY = "webURL";
+    public static final String SCHEDULE_TAB_POS = "tabPosition";
+    public static final String WEB_JAVASCRIPT_ENABLED_KEY = "javascriptEnabled";
     //TODO: change this to false in final release
     public static final boolean DEBUG = true;
 

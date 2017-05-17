@@ -34,13 +34,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public Conference currentConference;
     private final int LANDING_FRAGMENT_ID = 1;
 
-    private final String DEFUALT_CONFERENCE_NAME = "Default Conference";
-
     private final String TAG = "MainActivity";
-
-    private DBWorker dbWorker;
-
-    private TabHost mTabHost;
     public String aboutErickson;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             conferenceTitle.setText(currentConference.getTitle());
         }
 
-        changeFragment(LANDING_FRAGMENT_ID, null);
+        goHome();       //loads home fragment (landing fragment)
     }
 
     @Override
@@ -103,17 +97,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+    public void changeFragment(int fragmentID){
+
+    }
     public void changeFragment(int fragmentID, View v){
         Fragment fragment = null;
         Bundle bundle;
         switch(fragmentID){
             case R.id.btn_nav_schedule:
             case R.id.nav_schedule:
-                fragment = new ScheduleFragment();
+                loadSchedule(0);
                 break;
             case R.id.nav_feedback:
                 fragment = new FeedbackFragment();
                 break;
+            case R.id.btn_nav_speakers:
             case R.id.nav_speakers:
                 fragment = new SpeakerViewFragment();
                 break;
@@ -125,9 +123,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_about:
                 fragment = new AboutFragment();
                 break;
-            case R.id.nav_home:
-            case LANDING_FRAGMENT_ID:
-                fragment = new LandingFragment();
+            case R.id.btn_nav_website:
+                fragment = new WebFragment();
+                bundle = new Bundle();
+                bundle.putBoolean(AppConfig.WEB_JAVASCRIPT_ENABLED_KEY, true);
+                bundle.putString(AppConfig.WEB_URL_KEY, "https://www.evolutionofpsychotherapy.com/");
+                fragment.setArguments(bundle);
+                break;
+            case R.id.btn_nav_buy_tickets:
+                bundle = new Bundle();
+                bundle.putString(AppConfig.WEB_URL_KEY, "https://www.evolutionofpsychotherapy.com/register/");
+                bundle.putBoolean(AppConfig.WEB_JAVASCRIPT_ENABLED_KEY, false);
+                fragment = new WebFragment();
+                fragment.setArguments(bundle);
                 break;
             case R.id.nav_parking:
                 startActivity(new Intent(this, TestActivity.class));
@@ -143,15 +151,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragment = new MapFragment();
                 break;
         }
-        if(fragment != null) {
+        this.loadFragment(fragment);
+    }
+    private void loadFragment(Fragment f){
+        if(f != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.fragment_container, fragment);
+            ft.replace(R.id.fragment_container, f);
             ft.commit();
         }
-
     }
-    public void goHome(View view){
-        changeFragment(LANDING_FRAGMENT_ID, null);
+    public void goHome(){
+        this.loadFragment(new LandingFragment());
     }
 
     @Override
@@ -165,6 +175,31 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         startActivity(new Intent(this, ConferenceSelector.class));
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        goHome();
+        return true;
+    }
+    public void addToFavorites(String title){
+
+    }
+    public void removeFromFavorites(String name){
+
+    }
+    public void loadSchedule(int tabPos){
+        Fragment fragment = new ScheduleFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(AppConfig.SCHEDULE_TAB_POS, tabPos);
+        fragment.setArguments(bundle);
+        loadFragment(fragment);
+    }
+    public void viewSpecificTalk(View v){
+        Fragment fragment = new DayTalkInfoFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt(AppConfig.TALK_ID_BUNDLE_KEY, (Integer) v.getTag());
+        fragment.setArguments(bundle);
+        loadFragment(fragment);
+    }
     @Override
     protected void onDestroy() {
         Log.i(TAG, "onDestroy() called");
