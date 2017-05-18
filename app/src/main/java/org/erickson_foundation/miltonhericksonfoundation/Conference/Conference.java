@@ -1,8 +1,10 @@
 package org.erickson_foundation.miltonhericksonfoundation.Conference;
 
+import android.content.Context;
 import android.util.Log;
 
 import org.erickson_foundation.miltonhericksonfoundation.ConferenceType;
+import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.AppConfig;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,8 +62,11 @@ public class Conference {
                 String time = talk.getString("time_slot");
                 String description = talk.getString("description");
                 String name = talk.getString("speaker_name");
+                String nameOnly = talk.getString("speaker_name_only");
 
-                talks.add(new ConferenceTalk(title, time, description, name, mDates[i]));
+                Speaker tempSpeaker = new Speaker(nameOnly, name, "");
+
+                talks.add(new ConferenceTalk(title, time, description, tempSpeaker, mDates[i]));
             }
             days.put(mDates[i], talks);
         }
@@ -80,8 +85,24 @@ public class Conference {
         ArrayList<ConferenceTalk> tempTalks = days.get(dayName);
         return (tempTalks == null)? new ArrayList<ConferenceTalk>() : tempTalks;
     }
+    public ArrayList<Speaker> getAllSpeakers(){
+        ArrayList<Speaker> names = new ArrayList<>();
+        for(int i = 0; i < days.size(); i++){
+            ArrayList<ConferenceTalk> currentDay = days.get(mDates[i]);
+            for(int j = 0; j < currentDay.size(); j++){
+                names.add(currentDay.get(j).getSpeaker());
+            }
+        }
+        return names;
+    }
+    public Speaker getSpeakerById(int id){
+        ArrayList<Speaker> speakers = this.getAllSpeakers();
+        for(Speaker speaker : speakers){
+            if(speaker.getSpeakerID() == id) return speaker;
+        }
+        return null;
+    }
     public ConferenceTalk locateTalkById(int id){
-        ConferenceTalk tempTalk = null;
         for(int i = 0; i < days.size(); i++){
             ArrayList<ConferenceTalk> currentDay = days.get(mDates[i]);
             for(int j = 0; j < currentDay.size(); j++){
@@ -90,9 +111,9 @@ public class Conference {
                 }
             }
         }
-        return tempTalk;
+        return null;
     }
-    public int getTabPosition(String day){
+    public int getSpeakerTabPosition(String day){
         for(int i = 0; i < mDates.length; i++){
             if(mDates[i].equals(day)){
                 return i;

@@ -20,6 +20,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 
 import org.erickson_foundation.miltonhericksonfoundation.Conference.Conference;
+import org.erickson_foundation.miltonhericksonfoundation.Conference.Speaker;
 import org.erickson_foundation.miltonhericksonfoundation.DB.*;
 import org.erickson_foundation.miltonhericksonfoundation.Fragments.*;
 import org.erickson_foundation.miltonhericksonfoundation.Fragments.ScheduleFragment;
@@ -138,7 +139,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragment.setArguments(bundle);
                 break;
             case R.id.nav_parking:
-                startActivity(new Intent(this, TestActivity.class));
+                //startActivity(new Intent(this, TestActivity.class));
+                loadFragment(new TestFragment());
                 break;
             case AppConfig.MORE_INFO_TALK_FRAGMENT:
                 fragment = new DayTalkInfoFragment();
@@ -185,6 +187,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     public void removeFromFavorites(String name){
 
+    }
+    public void loadSpeakerInfo(View v){
+        Fragment fragment = new SpeakerInfoFragment();
+        Bundle bundle = new Bundle();
+        Speaker speaker = currentConference.getSpeakerById(v.getId());
+        if(speaker != null)
+        bundle.putSerializable(AppConfig.SPEAKER_BUNDLE_KEY, null);
     }
     public void loadSchedule(int tabPos){
         Fragment fragment = new ScheduleFragment();

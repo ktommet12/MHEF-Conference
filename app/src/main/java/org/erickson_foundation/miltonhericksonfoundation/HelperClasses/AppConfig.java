@@ -19,8 +19,11 @@ public final class AppConfig {
     public static final String WEB_URL_KEY = "webURL";
     public static final String SCHEDULE_TAB_POS = "tabPosition";
     public static final String WEB_JAVASCRIPT_ENABLED_KEY = "javascriptEnabled";
+    public static final String SPEAKER_BUNDLE_KEY = "speaker";
+
+
     //TODO: change this to false in final release
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = true;           //true only during development
 
 
 }

@@ -3,36 +3,17 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:padding="20dp"
+    android:background="@color/light_grey"
     android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <LinearLayout
-            android:id="@+id/ll_favorite_star"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="35dp"
-                android:id="@+id/favorite_star"
-                android:layout_height="35dp"
-                android:clickable="true"
-                android:src="@drawable/star_circle_no_favorite"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_weight="4"
+            android:layout_width="match_parent"
             android:id="@+id/layout_details"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/time_slot"
-                android:text="time slot"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -41,10 +22,33 @@
                 android:text="talk title"
                 android:id="@+id/talk_title"/>
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/time_slot"
+                android:text="time slot"/>
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="speaker name"
                 android:id="@+id/speaker_name"/>
         </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_height="wrap_content"
+            android:text="@string/add_to_favorites"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_height="wrap_content"
+            android:text="@string/go_to_map"/>
     </LinearLayout>
 </LinearLayout>

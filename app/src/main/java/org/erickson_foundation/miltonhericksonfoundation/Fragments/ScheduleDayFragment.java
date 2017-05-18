@@ -1,7 +1,6 @@
 package org.erickson_foundation.miltonhericksonfoundation.Fragments;
 
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -11,12 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import org.erickson_foundation.miltonhericksonfoundation.Conference.Conference;
 import org.erickson_foundation.miltonhericksonfoundation.Conference.ConferenceTalk;
-import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.AppConfig;
 import org.erickson_foundation.miltonhericksonfoundation.MainActivity;
 import org.erickson_foundation.miltonhericksonfoundation.R;
 
@@ -66,25 +63,20 @@ public class ScheduleDayFragment extends Fragment {
 
                 time.setText(currentTalk.getTimeSlot());
                 title.setText(currentTalk.getTitle());
-                name.setText(currentTalk.getSpeakerName());
+                name.setText(currentTalk.getFullSpeakerName());
 
                 LinearLayout talkDetails = (LinearLayout) temp.findViewById(R.id.layout_details);
                 talkDetails.setOnClickListener(talkClickListener);
                 talkDetails.setTag(currentTalk.getTalkID());
 
-                ImageView favoriteStar = (ImageView) temp.findViewById(R.id.favorite_star);
-                favoriteStar.setOnClickListener(toggleFavorite);
-
-                favoriteStars.add(favoriteStar);
-
                 layout.addView(temp);
 
-                if (dayTalks.size() != 1) {
+/*                if (dayTalks.size() != 1) {
                     View line = new View(getContext());
                     line.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 1));
                     line.setBackgroundColor(Color.BLACK);
                     layout.addView(line);
-                }
+                }*/
             }
         }else{
             layout.addView(inflater.inflate(R.layout.no_info_to_display, null));

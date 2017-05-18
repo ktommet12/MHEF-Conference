@@ -9,20 +9,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import org.erickson_foundation.miltonhericksonfoundation.Conference.Speaker;
 
 import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.AppConfig;
+import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.MhefResources;
 import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.MhefWebViewClient;
+import org.erickson_foundation.miltonhericksonfoundation.MainActivity;
 import org.erickson_foundation.miltonhericksonfoundation.R;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SpeakerViewFragment extends Fragment {
-    private WebView webView;
-    private final String SPEAKER_PAGE_BASE_URL = "http://www.evolutionofpsychotherapy.com/speakers/";
-    private Button goBack, goForward, refresh;
-    private String speakerUrl = "";
+public class SpeakerViewFragment extends Fragment implements View.OnClickListener {
     private final String TAG = "SpeakerView";
+    private ArrayList<Speaker> speakerNames;
+    private MainActivity mainActivity;
+    private LinearLayout speakerList;
 
 
     public SpeakerViewFragment() {
@@ -35,40 +43,36 @@ public class SpeakerViewFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v    = inflater.inflate(R.layout.fragment_speaker_view, container, false);
-        webView   = (WebView) v.findViewById(R.id.webview);
-        goBack    = (Button) v.findViewById(R.id.btn_go_back);
-        goForward = (Button) v.findViewById(R.id.btn_go_forward);
-        refresh   = (Button) v.findViewById(R.id.btn_refresh);
 
-        goBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(webView.canGoBack())
-                    webView.goBack();
+        speakerList = (LinearLayout) v.findViewById(R.id.speaker_list);
+
+        mainActivity = (MainActivity) getActivity();
+        speakerNames = mainActivity.currentConference.getAllSpeakers();
+
+        for(Speaker speaker : speakerNames){
+            View speakerListItem = inflater.inflate(R.layout.speaker_list_item, null);
+            ImageView speakerPic = (ImageView) speakerListItem.findViewById(R.id.img_speaker_image);
+            TextView speakerName = (TextView) speakerListItem.findViewById(R.id.speaker_name);
+            speakerListItem.setClickable(true);
+            speakerListItem.setOnClickListener(this);
+
+            speakerListItem.setTag(speaker.getSpeakerID());
+
+            speakerName.setText(speaker.getFullName());
+            int resID = MhefResources.getImageResource(getContext(), speaker.getShortName());
+            if(resID != -1){
+                speakerPic.setImageResource(resID);
             }
-        });
-        goForward.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(webView.canGoForward())
-                    webView.goForward();
-            }
-        });
-
-        Bundle bundle = getArguments(); 
-
-        if(!(bundle == null) && bundle.containsKey(AppConfig.SPEAKER_NAME_KEY)){
-            String name = bundle.getString(AppConfig.SPEAKER_NAME_KEY);
-            String[] namePieces = name.split(" ");
-            String newName = namePieces[0].toLowerCase() + "-" + namePieces[1].toLowerCase();
-            speakerUrl = SPEAKER_PAGE_BASE_URL + newName;
-            Log.i(TAG, speakerUrl);
-        }else{
-            speakerUrl = SPEAKER_PAGE_BASE_URL;
+            speakerList.addView(speakerListItem);
         }
-        webView.loadUrl(speakerUrl);
-        webView.setWebViewClient(new MhefWebViewClient());
+
+        //Log.i(TAG, speakerNames.toString());
 
         return v;
+    }
+
+    @Override
+    public void onClick(View v) {
+       mainActivity.loadSpeakerInfo(v);
     }
 }
