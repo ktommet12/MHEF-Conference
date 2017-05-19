@@ -1,31 +1,20 @@
 package org.erickson_foundation.miltonhericksonfoundation.Fragments;
 
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import org.erickson_foundation.miltonhericksonfoundation.Conference.Speaker;
-
-import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.AppConfig;
 import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.MhefResources;
-import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.MhefWebViewClient;
 import org.erickson_foundation.miltonhericksonfoundation.MainActivity;
 import org.erickson_foundation.miltonhericksonfoundation.R;
-
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class SpeakerViewFragment extends Fragment implements View.OnClickListener {
     private final String TAG = "SpeakerView";
     private ArrayList<Speaker> speakerNames;
@@ -33,9 +22,7 @@ public class SpeakerViewFragment extends Fragment implements View.OnClickListene
     private LinearLayout speakerList;
 
 
-    public SpeakerViewFragment() {
-        // Required empty public constructor
-    }
+    public SpeakerViewFragment() {}
 
 
     @Override
@@ -65,9 +52,6 @@ public class SpeakerViewFragment extends Fragment implements View.OnClickListene
             }
             speakerList.addView(speakerListItem);
         }
-
-        //Log.i(TAG, speakerNames.toString());
-
         return v;
     }
 

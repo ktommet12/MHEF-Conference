@@ -9,8 +9,7 @@ import android.widget.TextView;
 
 import org.erickson_foundation.miltonhericksonfoundation.BuildConfig;
 import org.erickson_foundation.miltonhericksonfoundation.DB.DBWorkerDelegate;
-import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.GetHtml;
-import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.MHEFProgressDialog;
+import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.MhefProgressDialog;
 import org.erickson_foundation.miltonhericksonfoundation.MainActivity;
 import org.erickson_foundation.miltonhericksonfoundation.R;
 import org.json.JSONObject;
@@ -18,7 +17,7 @@ import org.json.JSONObject;
 public class AboutFragment extends Fragment implements DBWorkerDelegate {
     private final String TAG = "WebViewFrag";
     private String aboutContents;
-    private MHEFProgressDialog dialogProgress;
+    private MhefProgressDialog dialogProgress;
     private MainActivity mainActivity;
 
     public AboutFragment() {

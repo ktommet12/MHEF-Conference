@@ -11,11 +11,11 @@ import org.erickson_foundation.miltonhericksonfoundation.Fragments.ScheduleDayFr
  * Created by ktomm on 3/14/2017.
  */
 
-public class MHEFPagerAdapter extends FragmentStatePagerAdapter {
+public class MhefPagerAdapter extends FragmentStatePagerAdapter {
     private int mTabCount;
     private String[] mPageTitles;
 
-    public MHEFPagerAdapter(FragmentManager fm, int tabCount, String[] titles){
+    public MhefPagerAdapter(FragmentManager fm, int tabCount, String[] titles){
         super(fm);
         this.mTabCount = tabCount;
         this.mPageTitles = titles;

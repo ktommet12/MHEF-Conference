@@ -1,6 +1,5 @@
 package org.erickson_foundation.miltonhericksonfoundation;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,13 +7,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TableRow;
 
-import com.twitter.sdk.android.Twitter;
-import com.twitter.sdk.android.core.TwitterAuthConfig;
-import io.fabric.sdk.android.Fabric;
 import org.erickson_foundation.miltonhericksonfoundation.DB.DBWorker;
 import org.erickson_foundation.miltonhericksonfoundation.DB.DBWorkerDelegate;
 import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.AppConfig;
-import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.MHEFProgressDialog;
+import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.MhefProgressDialog;
 import org.json.JSONObject;
 
 public class ConferenceSelector extends AppCompatActivity implements View.OnClickListener, DBWorkerDelegate {
@@ -27,7 +23,7 @@ public class ConferenceSelector extends AppCompatActivity implements View.OnClic
     private final String TAG = "ConfSelector";
     private ConferenceType confType = ConferenceType.DEFAULT;
 
-    private MHEFProgressDialog progressDialog;
+    private MhefProgressDialog progressDialog;
 
     private boolean isTaskInProgress = false;
     private String confContents;
@@ -90,7 +86,7 @@ public class ConferenceSelector extends AppCompatActivity implements View.OnClic
 
     }
     private void startProgressDialog(){
-        progressDialog = new MHEFProgressDialog.Builder()
+        progressDialog = new MhefProgressDialog.Builder()
                 .message("Grabbing Conference Information, Please Wait...")
                 .indeterminate(false)
                 .cancelable(false)

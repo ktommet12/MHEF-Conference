@@ -191,9 +191,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void loadSpeakerInfo(View v){
         Fragment fragment = new SpeakerInfoFragment();
         Bundle bundle = new Bundle();
-        Speaker speaker = currentConference.getSpeakerById(v.getId());
-        if(speaker != null)
-        bundle.putSerializable(AppConfig.SPEAKER_BUNDLE_KEY, null);
+        Speaker speaker = currentConference.getSpeakerById((Integer)v.getTag());
+        if(speaker != null) {
+            bundle.putSerializable(AppConfig.SPEAKER_BUNDLE_KEY, speaker);
+        }
+        fragment.setArguments(bundle);
+        this.loadFragment(fragment);
     }
     public void loadSchedule(int tabPos){
         Fragment fragment = new ScheduleFragment();

@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TableLayout;
 
 import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.AppConfig;
-import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.MHEFPagerAdapter;
+import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.MhefPagerAdapter;
 import org.erickson_foundation.miltonhericksonfoundation.MainActivity;
 import org.erickson_foundation.miltonhericksonfoundation.R;
 
@@ -54,7 +54,7 @@ public class ScheduleFragment extends Fragment {
         }
 
         final ViewPager viewPager = (ViewPager) view.findViewById(R.id.pager);
-        final MHEFPagerAdapter pagerAdapter = new MHEFPagerAdapter(getChildFragmentManager(), tabLayout.getTabCount(), confTabDates);
+        final MhefPagerAdapter pagerAdapter = new MhefPagerAdapter(getChildFragmentManager(), tabLayout.getTabCount(), confTabDates);
         viewPager.setAdapter(pagerAdapter);
         viewPager.setCurrentItem(tabPos);
 

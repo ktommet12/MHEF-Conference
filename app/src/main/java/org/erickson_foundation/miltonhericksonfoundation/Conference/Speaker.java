@@ -8,12 +8,17 @@ import java.io.Serializable;
 
 public class Speaker implements Serializable{
     private String mName, mFullName, mBio;
+    private String[] mNamesArray, mFullNamesArray;
     private final int speakerID;
+    private int mNumSpeakers;
 
     public Speaker(String name, String fullName, String bio){
+        mNamesArray = name.split(";");
         this.mName = name;
+        mFullNamesArray = fullName.split(";");
         this.mFullName = fullName;
         this.mBio = bio;
+        mNumSpeakers = mNamesArray.length;
         speakerID = (int) (Math.random()* 999 + 1);
     }
     public String getFullName(){
@@ -27,5 +32,16 @@ public class Speaker implements Serializable{
     }
     public int getSpeakerID(){
         return this.speakerID;
+    }
+    //returns the array of full names including the speakers credentials
+    public String[] getFullNames(){
+        return mFullNamesArray;
+    }
+    //returns the array of names without any credentials
+    public String[] getShortNames(){
+        return mNamesArray;
+    }
+    public int getNumSpeakers(){
+        return mNumSpeakers;
     }
 }

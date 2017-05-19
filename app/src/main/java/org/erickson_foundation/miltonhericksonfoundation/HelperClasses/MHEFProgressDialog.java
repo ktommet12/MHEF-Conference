@@ -7,12 +7,12 @@ import android.content.Context;
  * Created by User on 5/10/2017.
  */
 
-public class MHEFProgressDialog {
+public class MhefProgressDialog {
     private ProgressDialog mProgressDialog;
     private String message;
     private Context ctx;
 
-    public MHEFProgressDialog(MHEFProgressDialog.Builder builder){
+    public MhefProgressDialog(MhefProgressDialog.Builder builder){
         this.ctx = builder.ctx;
         this.message = builder.message;
         mProgressDialog = new ProgressDialog(ctx);
@@ -59,8 +59,8 @@ public class MHEFProgressDialog {
             this.isCancelable = cancel;
             return this;
         }
-        public MHEFProgressDialog build(){
-            return new MHEFProgressDialog(this);
+        public MhefProgressDialog build(){
+            return new MhefProgressDialog(this);
         }
     }
 }

@@ -33,9 +33,12 @@
     <string name="back_button">Back</string>
     <string name="placeholder_text">Placeholder Text</string>
     <string name="speaker_bio">Bio</string>
+    <string name="home">Home</string>
+    <string name="send_us_feedback">Send us Feedback</string>
     <string name="panels">Panels</string>
+    <string name="micheal_yapko_bio">Michael D. Yapko, Ph.D. (professional psychology, clinical specialization), is internationally recognized for his innovative work in applied clinical hypnosis, developing brief psychotherapies, and the strategic treatment of depression. He has been invited to present his work in more than 30 countries across six continents. He is the author of 15 books, including his most recent, The Discriminating Therapist. He is a recipient of numerous awards for his many contributions to the field, including the Milton H. Erickson Foundation Lifetime Achievement Award. More information is available on Dr. Yapko’s website, www.yapko.com.</string>
     <string name="daniel_amen_bio">Daniel Amen, MD is a double board-certified psychiatrist, multiple NY Times bestselling author, founder of Amen Clinics and brain imaging pioneer. He has written and hosted 11 public television specials about the brain. Discover Magazine named his brain imaging research as one of the top 100 stories in all of Science for 2015.</string>
-
+    <string name="steve_frankel_bio">A practicing licensing board defense attorney and clinical/forensic psychologist, Steven Frankel is a PhD of Indiana University, interned at Columbia University, and served as a full-time clinical psychology faculty member at USC for 11 years, 5 years as Director of Clinical Training. A Clinical Professor at USC and a past Adjunct faculty member at Loyola (L.A.) and Golden Gate law schools, Steve has received awards for teaching excellence in law/psychology interfaces and in trauma assessment and treatment, which has been his specialty since 1980. He has authored the chapter on Risk Management for trauma clinicians in APA’S forthcoming Handbook of Trauma. His Practice-Legacy Programs work was created to protect clinicians, their families and patients/clients from failures to prepare for unanticipated death or disability.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

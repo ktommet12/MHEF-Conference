@@ -9,6 +9,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -63,10 +64,11 @@ public class Conference {
                 String description = talk.getString("description");
                 String name = talk.getString("speaker_name");
                 String nameOnly = talk.getString("speaker_name_only");
+                String shortTitle = talk.getString("short_title");
 
                 Speaker tempSpeaker = new Speaker(nameOnly, name, "");
 
-                talks.add(new ConferenceTalk(title, time, description, tempSpeaker, mDates[i]));
+                talks.add(new ConferenceTalk(title, shortTitle, time, description, tempSpeaker, mDates[i]));
             }
             days.put(mDates[i], talks);
         }
@@ -90,9 +92,13 @@ public class Conference {
         for(int i = 0; i < days.size(); i++){
             ArrayList<ConferenceTalk> currentDay = days.get(mDates[i]);
             for(int j = 0; j < currentDay.size(); j++){
+                if(names.contains(currentDay.get(j).getSpeaker())){
+                    Log.i(TAG, "name already in list");
+                }
                 names.add(currentDay.get(j).getSpeaker());
             }
         }
+        names.trimToSize();
         return names;
     }
     public Speaker getSpeakerById(int id){
@@ -120,5 +126,17 @@ public class Conference {
             }
         }
         return 0;
+    }
+    public ArrayList<ConferenceTalk> getAllTalksBySpeaker(Speaker speaker){
+        ArrayList<ConferenceTalk> talks = new ArrayList<>();
+        for(int i = 0; i < days.size(); i++){
+            ArrayList<ConferenceTalk> currentDay = this.getConferenceDayTalks(mDates[i]);
+            for(int j = 0; j < currentDay.size(); j++){
+                if(currentDay.get(j).getSpeaker().getFullName().equals(speaker.getFullName())){
+                    talks.add(currentDay.get(j));
+                }
+            }
+        }
+        return talks;
     }
 }

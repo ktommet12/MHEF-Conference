@@ -7,39 +7,46 @@
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home_black_24dp"
-            android:title="Home" />
+            android:title="@string/home" />
         <item
             android:id="@+id/nav_schedule"
             android:icon="@drawable/calendar_black"
-            android:title="Schedule" />
-        <item
-            android:id="@+id/nav_social"
-            android:icon="@drawable/wechat"
-            android:title="Social Media" />
+            android:title="@string/schedule" />
         <item
             android:id="@+id/nav_speakers"
             android:icon="@drawable/ic_microphone_2x"
-            android:title="Speakers"/>
+            android:title="@string/speakers"/>
         <item
             android:id="@+id/nav_map"
             android:icon="@drawable/map_black"
-            android:title="Map" />
+            android:title="@string/maps" />
         <item
-            android:id="@+id/nav_about"
+            android:id="@+id/nav_social"
+            android:icon="@drawable/wechat"
+            android:title="@string/social_media" />
+        <item
+            android:id="@+id/nav_website"
             android:icon="@drawable/ic_info_outline_black_24dp"
-            android:title="About"/>
+            android:title="@string/website"/>
+        <item
+            android:id="@+id/nav_syllabus"
+            android:icon="@drawable/ic_info_outline_black_24dp"
+            android:title="@string/syllabus"/>
         <item
             android:id="@+id/nav_parking"
             android:icon="@drawable/ic_directions_car_black_24dp"
-            android:title="Parking Info"/>
-    </group>
-    <group
-        android:id="@+id/menu_bottom"
-        android:checkableBehavior="none">
-
+            android:title="@string/parking_info"/>
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_info_outline_black_24dp"
+            android:title="@string/about"/>
+        <item
+            android:id="@+id/nav_buy_tickets"
+            android:icon="@drawable/ic_directions_car_black_24dp"
+            android:title="@string/buy_tickets"/>
         <item
             android:id="@+id/nav_feedback"
             android:icon="@drawable/comment_text"
-            android:title="Send Us Feedback"/>
+            android:title="@string/send_us_feedback"/>
     </group>
 </menu>

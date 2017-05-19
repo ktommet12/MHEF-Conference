@@ -11,17 +11,18 @@ import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.AppConfig
 
 public class ConferenceTalk {
     private static final String TAG = "ConferenceTalk";
-    private String mTitle, mTimeSlot, mDescription, mSpeakerName, mDay, mSpeakerNameOnly;
+    private String mTitle, mShortTitle, mTimeSlot, mDescription, mDay;
     private Speaker mSpeaker;
     private boolean mIsFavorited;
     private int mID;
 
-    public ConferenceTalk(String title, String time, String description, Speaker speaker, String day){
+    public ConferenceTalk(String title, String shortTitle, String time, String description, Speaker speaker, String day){
         mTimeSlot = time;
         mTitle = title;
         mDescription = description;
         mDay = day;
         mSpeaker = speaker;
+        mShortTitle = shortTitle;
         mID = (int) (Math.random() * 999 + 1);
         mIsFavorited = false;
     }
@@ -29,7 +30,9 @@ public class ConferenceTalk {
     public String getTitle() {
         return mTitle;
     }
-
+    public String getShortTitle(){
+        return mShortTitle;
+    }
     public String getTimeSlot() {
         return mTimeSlot;
     }
@@ -54,8 +57,5 @@ public class ConferenceTalk {
     }
     public void toggleFavorite(){
         mIsFavorited = !mIsFavorited;
-    }
-    public String getSpeakerNameOnly(){
-        return mSpeakerNameOnly;
     }
 }

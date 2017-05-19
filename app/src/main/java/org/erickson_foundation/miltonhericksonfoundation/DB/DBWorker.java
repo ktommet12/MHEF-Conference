@@ -5,8 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import org.erickson_foundation.miltonhericksonfoundation.ConferenceType;
-import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.MHEFProgressDialog;
-import org.json.JSONException;
+import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.MhefProgressDialog;
 import org.json.JSONObject;
 
 import java.io.*;
@@ -28,7 +27,7 @@ public class DBWorker extends AsyncTask<Void, Void, JSONObject>{
     //TODO: get urls for Couples and Brief Therapy for the Conference Schedule
     private final String COUPLES_SCHEDULE_URL = "";
     private final String BRIEF_THERAPY_SCHEDULE_URL = "";
-    private MHEFProgressDialog progressDialog;
+    private MhefProgressDialog progressDialog;
     private Context mContext;
 
     //String representing a problem with the schedule download
@@ -90,7 +89,7 @@ public class DBWorker extends AsyncTask<Void, Void, JSONObject>{
 
     @Override
     protected void onPreExecute() {
-        progressDialog = new MHEFProgressDialog.Builder()
+        progressDialog = new MhefProgressDialog.Builder()
                 .message("Grabbing Conference Information, Please Wait...")
                 .indeterminate(false)
                 .cancelable(false)

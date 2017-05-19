@@ -9,9 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import org.erickson_foundation.miltonhericksonfoundation.Conference.ConferenceTalk;
+import org.erickson_foundation.miltonhericksonfoundation.Conference.Speaker;
 import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.AppConfig;
 import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.MhefResources;
 import org.erickson_foundation.miltonhericksonfoundation.MainActivity;
@@ -28,6 +30,7 @@ public class DayTalkInfoFragment extends Fragment implements View.OnClickListene
     private MainActivity mainActivity;
     private ImageView speakerImage;
     private int tabPos;
+    private LinearLayout dayInfoSpeakerList;
 
     public DayTalkInfoFragment() {
         // Required empty public constructor
@@ -57,9 +60,7 @@ public class DayTalkInfoFragment extends Fragment implements View.OnClickListene
         btnRemoveFromFavorites = (Button) v.findViewById(R.id.btn_remove_from_favorites);
         speakerImage           = (ImageView) v.findViewById(R.id.img_speaker_view);
 
-        int resID = MhefResources.getImageResource(getContext(), currentTalk.getSpeaker().getShortName());
-        if(resID != -1)
-            speakerImage.setImageResource(resID);
+
 
 
         btnRemoveFromFavorites.setOnClickListener(this);
@@ -91,10 +92,29 @@ public class DayTalkInfoFragment extends Fragment implements View.OnClickListene
             }
         });
 
+        Speaker speaker = currentTalk.getSpeaker();
+        dayInfoSpeakerList = (LinearLayout) v.findViewById(R.id.talk_info_speakers_list);
+
+        for(int i = 0 ; i < speaker.getNumSpeakers(); i++){
+            Log.i(TAG, "i: " + i);
+            View speakerView = inflater.inflate(R.layout.talk_speaker_layout, null);
+
+            TextView name = (TextView)speakerView.findViewById(R.id.txt_speaker_name);
+            ImageView speakerPic = (ImageView) speakerView.findViewById(R.id.img_speaker_view);
+
+            name.setText(speaker.getFullNames()[i]);
+            name.setTag(speaker.getSpeakerID());
+
+            name.setOnClickListener(this);
+
+            int resID = MhefResources.getImageResource(getContext(), currentTalk.getSpeaker().getShortNames()[i]);
+            speakerPic.setImageResource(resID);
+            dayInfoSpeakerList.addView(speakerView);
+        }
+
         txtDescription.setText(currentTalk.getDescription());
         txtTitle.setText(currentTalk.getTitle());
         txtTimeAndDate.setText(currentTalk.getTimeSlot());
-        txtSpeakerName.setText(currentTalk.getFullSpeakerName());
 
         return v;
     }
@@ -107,6 +127,10 @@ public class DayTalkInfoFragment extends Fragment implements View.OnClickListene
                 break;
             case R.id.btn_back_to_schedule:
                 mainActivity.loadSchedule(tabPos);
+                break;
+            case R.id.txt_speaker_name:
+                mainActivity.loadSpeakerInfo(v);
+                break;
         }
     }
 }
