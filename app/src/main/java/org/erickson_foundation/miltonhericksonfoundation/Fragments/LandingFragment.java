@@ -28,7 +28,7 @@ import org.erickson_foundation.miltonhericksonfoundation.R;
  */
 public class LandingFragment extends Fragment {
     private TextView navMap, navSchedule, navSocialMedia, navAbout, navBuyTickets,
-                     navSpeakers, navWebsite, navSyllabus, navParking;
+                     navSpeakers, navWebsite, navSyllabus, navParking, navFavorites;
     private MainActivity mainActivity;
 
     public LandingFragment() {}
@@ -41,14 +41,16 @@ public class LandingFragment extends Fragment {
         mainActivity      = (MainActivity) getActivity();
 
         navSchedule       = (TextView) v.findViewById(R.id.btn_nav_schedule);
-        navBuyTickets     = (TextView) v.findViewById(R.id.btn_nav_buy_tickets);
+        navBuyTickets     = (TextView) v.findViewById(R.id.btn_nav_register);
         navAbout          = (TextView) v.findViewById(R.id.btn_nav_about);
         navMap            = (TextView) v.findViewById(R.id.btn_nav_map);
-        navSocialMedia    = (TextView) v.findViewById(R.id.btn_nav_social_media);
+        navSocialMedia    = (TextView) v.findViewById(R.id.btn_nav_twitter);
         navSpeakers       = (TextView) v.findViewById(R.id.btn_nav_speakers);
-        navWebsite        = (TextView) v.findViewById(R.id.btn_nav_website);
+        //navWebsite        = (TextView) v.findViewById(R.id.btn_nav_website);
         navSyllabus       = (TextView) v.findViewById(R.id.btn_nav_syllabus);
         navParking        = (TextView) v.findViewById(R.id.btn_nav_parking_info);
+        navFavorites      = (TextView) v.findViewById(R.id.btn_nav_favorites);
+
 
 
         navSchedule.setOnClickListener(navigationClick);
@@ -57,9 +59,10 @@ public class LandingFragment extends Fragment {
         navMap.setOnClickListener(navigationClick);
         navSocialMedia.setOnClickListener(navigationClick);
         navSpeakers.setOnClickListener(navigationClick);
-        navWebsite.setOnClickListener(navigationClick);
+        //navWebsite.setOnClickListener(navigationClick);
         navSyllabus.setOnClickListener(navigationClick);
         navParking.setOnClickListener(navigationClick);
+        navFavorites.setOnClickListener(navigationClick);
 
 
         return v;

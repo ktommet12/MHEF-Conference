@@ -9,13 +9,13 @@
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:padding="10dp"
-        android:src="@drawable/placeholder"/>
+        android:src="@drawable/placeholder_pic"/>
     <TextView
         android:id="@+id/speaker_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20sp"
-        android:textColor="@color/mhefPurple"
+        android:textColor="@color/mhefBlue"
         android:text="@string/placeholder_text"
         android:layout_gravity="center_vertical"/>
 

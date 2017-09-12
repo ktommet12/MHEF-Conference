@@ -19,12 +19,22 @@
             android:layout_height="wrap_content"
             android:src="@drawable/foundation_logo"/>
         <TextView
+            android:id="@+id/txt_splash_screen_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:paddingTop="20dp"
             android:textSize="25dp"
             android:text="Loading Info..."/>
+        <Button
+            android:id="@+id/btn_splash_retry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/retry"
+            android:background="@color/mhefBlue"
+            android:layout_marginTop="70dp"
+            android:visibility="invisible"
+            android:textColor="@color/white"/>
     </LinearLayout>
 
     <TextView

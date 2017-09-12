@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/light_grey"
+    android:background="@color/white"
     android:gravity="center_horizontal"
     tools:context="org.erickson_foundation.miltonhericksonfoundation.Fragments.LandingFragment">
     <LinearLayout
@@ -29,46 +29,43 @@
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:layout_marginRight="30dp"
-            android:background="@drawable/round_button_mhef_blue"
             android:clickable="true"
             android:drawablePadding="5dp"
-            android:drawableTop="@drawable/calendar_white"
+            android:drawableTop="@drawable/ic_event_note_black_24dp"
             android:gravity="center_horizontal"
             android:paddingTop="10dp"
             android:text="@string/schedule"
             android:textAllCaps="true"
-            android:textColor="@color/white"
+            android:textColor="@color/mhefBlue"
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/btn_nav_speakers"
+            android:id="@+id/btn_nav_syllabus"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:layout_marginRight="30dp"
-            android:background="@drawable/round_button_mhef_blue"
             android:drawablePadding="5dp"
-            android:drawableTop="@drawable/microphone_variant"
+            android:drawableTop="@drawable/ic_map_black_24dp"
             android:gravity="center_horizontal"
             android:paddingTop="10dp"
-            android:text="@string/speakers"
+            android:text="@string/syllabus"
             android:textAllCaps="true"
-            android:textColor="@color/white"
+            android:textColor="@color/mhefBlue"
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/btn_nav_map"
+            android:id="@+id/btn_nav_favorites"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:background="@drawable/round_button_mhef_blue"
             android:drawablePadding="5dp"
-            android:drawableTop="@drawable/ic_language_white_24dp"
+            android:drawableTop="@drawable/ic_stars_black_24dp"
             android:gravity="center_horizontal"
             android:paddingTop="10dp"
-            android:text="@string/maps"
+            android:text="@string/favorites"
             android:textAllCaps="true"
-            android:textColor="@color/white"
+            android:textColor="@color/mhefBlue"
 
             android:textSize="12sp" />
     </LinearLayout>
@@ -80,7 +77,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/btn_nav_social_media"
+            android:id="@+id/btn_nav_speakers"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
@@ -88,15 +85,14 @@
             android:paddingTop="10dp"
             android:drawablePadding="5dp"
             android:layout_marginRight="30dp"
-            android:background="@drawable/round_button_mhef_blue"
             android:clickable="true"
-            android:drawableTop="@drawable/calendar_white"
-            android:text="@string/social_media"
+            android:drawableTop="@drawable/ic_people_black_24dp"
+            android:text="@string/speakers"
             android:textAllCaps="true"
-            android:textColor="@color/white"
+            android:textColor="@color/mhefBlue"
             android:textSize="12sp" />
         <TextView
-            android:id="@+id/btn_nav_website"
+            android:id="@+id/btn_nav_map"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
@@ -104,27 +100,24 @@
             android:paddingTop="10dp"
             android:textSize="12sp"
             android:textAllCaps="true"
-            android:textColor="@color/white"
+            android:textColor="@color/mhefBlue"
             android:drawablePadding="5dp"
-            android:background="@drawable/round_button_mhef_blue"
-            android:text="@string/website"
+            android:text="@string/maps"
             android:layout_marginRight="30dp"
-            android:drawableTop="@drawable/microphone_variant"/>
+            android:drawableTop="@drawable/ic_pin_drop_black_24dp"/>
         <TextView
-            android:id="@+id/btn_nav_syllabus"
+            android:id="@+id/btn_nav_twitter"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:gravity="center_horizontal"
             android:paddingTop="10dp"
-            android:textColor="@color/white"
+            android:textColor="@color/mhefBlue"
             android:textSize="12sp"
             android:drawablePadding="5dp"
             android:textAllCaps="true"
-            android:background="@drawable/round_button_mhef_blue"
-            android:text="@string/syllabus"
-
-            android:drawableTop="@drawable/ic_language_white_24dp"/>
+            android:text="@string/twitter"
+            android:drawableTop="@drawable/ic_twitter_bird_logo_2012"/>
     </LinearLayout>
 
     <LinearLayout
@@ -139,15 +132,14 @@
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:layout_marginRight="30dp"
-            android:background="@drawable/round_button_mhef_blue"
             android:clickable="true"
             android:drawablePadding="5dp"
-            android:drawableTop="@drawable/calendar_white"
+            android:drawableTop="@drawable/ic_directions_car"
             android:gravity="center_horizontal"
             android:paddingTop="10dp"
             android:text="@string/parking_info"
             android:textAllCaps="true"
-            android:textColor="@color/white"
+            android:textColor="@color/mhefBlue"
             android:textSize="12sp" />
 
         <TextView
@@ -156,29 +148,27 @@
             android:layout_height="80dp"
             android:layout_gravity="center"
             android:layout_marginRight="30dp"
-            android:background="@drawable/round_button_mhef_blue"
             android:drawablePadding="5dp"
-            android:drawableTop="@drawable/microphone_variant"
+            android:drawableTop="@drawable/ic_info_black_24dp"
             android:gravity="center_horizontal"
             android:paddingTop="10dp"
             android:text="@string/about"
             android:textAllCaps="true"
-            android:textColor="@color/white"
+            android:textColor="@color/mhefBlue"
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/btn_nav_buy_tickets"
+            android:id="@+id/btn_nav_register"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
-            android:background="@drawable/round_button_mhef_blue"
             android:drawablePadding="5dp"
-            android:drawableTop="@drawable/ic_language_white_24dp"
+            android:drawableTop="@drawable/ic_shopping_basket_black_24dp"
             android:gravity="center_horizontal"
             android:paddingTop="10dp"
-            android:text="@string/buy_tickets"
+            android:text="@string/register"
             android:textAllCaps="true"
-            android:textColor="@color/white"
+            android:textColor="@color/mhefBlue"
             android:clickable="true"
             android:textSize="12sp" />
     </LinearLayout>

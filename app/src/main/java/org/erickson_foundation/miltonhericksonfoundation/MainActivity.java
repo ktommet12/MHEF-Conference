@@ -16,24 +16,27 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.TabHost;
 import android.widget.TextView;
 
 import org.erickson_foundation.miltonhericksonfoundation.Conference.Conference;
+import org.erickson_foundation.miltonhericksonfoundation.Conference.ConferenceType;
 import org.erickson_foundation.miltonhericksonfoundation.Conference.Speaker;
-import org.erickson_foundation.miltonhericksonfoundation.DB.*;
 import org.erickson_foundation.miltonhericksonfoundation.Fragments.*;
 import org.erickson_foundation.miltonhericksonfoundation.Fragments.ScheduleFragment;
 import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.AppConfig;
+import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.MhefSharedPrefs;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private TextView conferenceTitle;
     private ConferenceType confType = ConferenceType.DEFAULT;
     private JSONObject conferenceContents = null;
     public Conference currentConference;
-    private final int LANDING_FRAGMENT_ID = 1;
+    private final int LANDING_FRAGMENT_ID = 1, WEBSITE_FRAGMENT = 2;
+    private ArrayList<String> favoritedTalks;
 
     private final String TAG = "MainActivity";
     public String aboutErickson;
@@ -41,7 +44,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        //MhefSharedPrefs.deleteEverything(this, AppConfig.FAVORITES_ARRAY_SHARED_PREFS_KEY);
+        favoritedTalks = MhefSharedPrefs.getStringArray(this, AppConfig.FAVORITES_ARRAY_SHARED_PREFS_KEY);
         Intent intent = getIntent();
 
         if(intent.hasExtra(AppConfig.CONFERENCE_TYPE_STRING)) {
@@ -55,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //trying to convert the conferenceContents String into a Conference Object
             conferenceContents = new JSONObject(tempConferenceContents);
             aboutErickson = conferenceContents.getString("about-erickson");
-            currentConference = new Conference(conferenceContents);
+            currentConference = new Conference(conferenceContents, favoritedTalks, this);
         }catch(JSONException ex){
             Log.e(TAG, ex.getMessage());
         }
@@ -112,11 +116,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_feedback:
                 fragment = new FeedbackFragment();
                 break;
+            case R.id.btn_nav_favorites:
+                loadFavoritesSchedule();
+                break;
             case R.id.btn_nav_speakers:
             case R.id.nav_speakers:
-                fragment = new SpeakerViewFragment();
+                this.loadAllSpeakersPage();
                 break;
-            case R.id.btn_nav_social_media:
+            case R.id.btn_nav_twitter:
             case R.id.nav_social:
                 fragment = new SocialMediaFragment();
                 break;
@@ -124,22 +131,32 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_about:
                 fragment = new AboutFragment();
                 break;
-            case R.id.btn_nav_website:
+            case R.id.btn_nav_syllabus:
+            case R.id.nav_syllabus:
+                fragment = new WebFragment();
+                bundle = new Bundle();
+                bundle.putString(AppConfig.WEB_URL_KEY, this.currentConference.getSyllabusUrl());
+                bundle.putBoolean(AppConfig.WEB_JAVASCRIPT_ENABLED_KEY, true);
+                bundle.putBoolean("isPDF", true);
+                fragment.setArguments(bundle);
+                break;
+            case WEBSITE_FRAGMENT:
                 fragment = new WebFragment();
                 bundle = new Bundle();
                 bundle.putBoolean(AppConfig.WEB_JAVASCRIPT_ENABLED_KEY, true);
                 bundle.putString(AppConfig.WEB_URL_KEY, "https://www.evolutionofpsychotherapy.com/");
+                bundle.putBoolean("isPDF", false);
                 fragment.setArguments(bundle);
                 break;
-            case R.id.btn_nav_buy_tickets:
+            case R.id.btn_nav_register:
                 bundle = new Bundle();
                 bundle.putString(AppConfig.WEB_URL_KEY, "https://www.evolutionofpsychotherapy.com/register/");
                 bundle.putBoolean(AppConfig.WEB_JAVASCRIPT_ENABLED_KEY, false);
                 fragment = new WebFragment();
                 fragment.setArguments(bundle);
                 break;
+            case R.id.btn_nav_parking_info:
             case R.id.nav_parking:
-                //startActivity(new Intent(this, TestActivity.class));
                 loadFragment(new TestFragment());
                 break;
             case AppConfig.MORE_INFO_TALK_FRAGMENT:
@@ -183,10 +200,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
     public void addToFavorites(String title){
-
+        this.favoritedTalks.add(title);
+        currentConference.incrementFavoriteTalkCount();
+        MhefSharedPrefs.saveStringArray(this, AppConfig.FAVORITES_ARRAY_SHARED_PREFS_KEY, favoritedTalks);
     }
     public void removeFromFavorites(String name){
-
+        favoritedTalks.remove(name);
+        currentConference.decrementFavoriteTalkCount();
+        MhefSharedPrefs.saveStringArray(this, AppConfig.FAVORITES_ARRAY_SHARED_PREFS_KEY, favoritedTalks);
     }
     public void loadSpeakerInfo(View v){
         Fragment fragment = new SpeakerInfoFragment();
@@ -197,6 +218,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         fragment.setArguments(bundle);
         this.loadFragment(fragment);
+    }
+    public void loadAllSpeakersPage(){
+        Fragment fragment = new SpeakerViewFragment();
+        loadFragment(fragment);
     }
     public void loadSchedule(int tabPos){
         Fragment fragment = new ScheduleFragment();
@@ -211,6 +236,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         bundle.putInt(AppConfig.TALK_ID_BUNDLE_KEY, (Integer) v.getTag());
         fragment.setArguments(bundle);
         loadFragment(fragment);
+    }
+    public void loadFavoritesSchedule(){
+        Bundle bundle = new Bundle();
+        bundle.putBoolean(AppConfig.IS_FAVORITES_TAB_SELECTED, true);
+        Fragment fragment = new ScheduleFragment();
+        fragment.setArguments(bundle);
+        this.loadFragment(fragment);
+    }
+    public void loadWebsite(){
+        this.changeFragment(WEBSITE_FRAGMENT, null);
     }
     @Override
     protected void onDestroy() {

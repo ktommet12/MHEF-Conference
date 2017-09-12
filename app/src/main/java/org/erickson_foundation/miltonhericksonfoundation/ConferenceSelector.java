@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TableRow;
 
+import org.erickson_foundation.miltonhericksonfoundation.Conference.ConferenceType;
 import org.erickson_foundation.miltonhericksonfoundation.DB.DBWorker;
 import org.erickson_foundation.miltonhericksonfoundation.DB.DBWorkerDelegate;
 import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.AppConfig;
@@ -42,15 +43,6 @@ public class ConferenceSelector extends AppCompatActivity implements View.OnClic
 
         dbWorker = new DBWorker(this);
         dbWorker.setOnFinishedListener(this);
-
-        //bypasses initial conference selector screen when the app is in debug mode
-        if(AppConfig.DEBUG){
-            //startEvoConference();
-        }
-
-
-        //Testing the Notification System
-        //Notification.createNotification("Test Notification", this);
     }
     private void startEvoConference(){
        // startProgressDialog();
@@ -108,7 +100,6 @@ public class ConferenceSelector extends AppCompatActivity implements View.OnClic
         dbWorker = null;
         isTaskInProgress = false;
         try{
-            //the last DBWorkerTask was a failure for some reason
             if(jsonObject.optBoolean("wasASuccess", false) == false){
                 Log.i(TAG, "Error Contacting Server");
             }else{

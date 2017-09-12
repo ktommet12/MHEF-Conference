@@ -92,23 +92,25 @@ public class DayTalkInfoFragment extends Fragment implements View.OnClickListene
             }
         });
 
-        Speaker speaker = currentTalk.getSpeaker();
+        Speaker[] speakers = currentTalk.getAllSpeakers();
         dayInfoSpeakerList = (LinearLayout) v.findViewById(R.id.talk_info_speakers_list);
 
-        for(int i = 0 ; i < speaker.getNumSpeakers(); i++){
-            Log.i(TAG, "i: " + i);
+        for(Speaker currentSpeaker : speakers){
             View speakerView = inflater.inflate(R.layout.talk_speaker_layout, null);
 
             TextView name = (TextView)speakerView.findViewById(R.id.txt_speaker_name);
             ImageView speakerPic = (ImageView) speakerView.findViewById(R.id.img_speaker_view);
 
-            name.setText(speaker.getFullNames()[i]);
-            name.setTag(speaker.getSpeakerID());
-
+            name.setText(currentSpeaker.getFullName());
+            name.setTag(currentSpeaker.getSpeakerID());
             name.setOnClickListener(this);
 
-            int resID = MhefResources.getImageResource(getContext(), currentTalk.getSpeaker().getShortNames()[i]);
-            speakerPic.setImageResource(resID);
+            int resID = MhefResources.getImageResource(getContext(), currentSpeaker.getShortName());
+            if(resID != 0){
+                speakerPic.setImageResource(resID);
+            }
+            else speakerPic.setImageResource(R.drawable.placeholder_pic);
+
             dayInfoSpeakerList.addView(speakerView);
         }
 

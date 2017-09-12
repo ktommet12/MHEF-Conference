@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:textColor="@color/black"
-        android:textSize="17sp"
+        android:textSize="13sp"
         android:id="@+id/txt_panel_title"
         android:clickable="true"
         android:text="@string/placeholder_text"/>

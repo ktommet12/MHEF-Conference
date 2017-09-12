@@ -10,20 +10,20 @@
             android:title="@string/home" />
         <item
             android:id="@+id/nav_schedule"
-            android:icon="@drawable/calendar_black"
+            android:icon="@drawable/calendar_white"
             android:title="@string/schedule" />
         <item
             android:id="@+id/nav_speakers"
-            android:icon="@drawable/ic_microphone_2x"
+            android:icon="@drawable/speakers"
             android:title="@string/speakers"/>
         <item
             android:id="@+id/nav_map"
-            android:icon="@drawable/map_black"
+            android:icon="@drawable/ic_map_black_24dp"
             android:title="@string/maps" />
         <item
             android:id="@+id/nav_social"
-            android:icon="@drawable/wechat"
-            android:title="@string/social_media" />
+            android:icon="@drawable/ic_shopping_basket_black_24dp"
+            android:title="@string/twitter" />
         <item
             android:id="@+id/nav_website"
             android:icon="@drawable/ic_info_outline_black_24dp"
@@ -34,7 +34,7 @@
             android:title="@string/syllabus"/>
         <item
             android:id="@+id/nav_parking"
-            android:icon="@drawable/ic_directions_car_black_24dp"
+            android:icon="@drawable/ic_directions_car"
             android:title="@string/parking_info"/>
         <item
             android:id="@+id/nav_about"
@@ -42,8 +42,8 @@
             android:title="@string/about"/>
         <item
             android:id="@+id/nav_buy_tickets"
-            android:icon="@drawable/ic_directions_car_black_24dp"
-            android:title="@string/buy_tickets"/>
+            android:icon="@drawable/ic_directions_car"
+            android:title="@string/register"/>
         <item
             android:id="@+id/nav_feedback"
             android:icon="@drawable/comment_text"

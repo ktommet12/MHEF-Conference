@@ -2,7 +2,6 @@ package org.erickson_foundation.miltonhericksonfoundation.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +46,7 @@ public class SpeakerViewFragment extends Fragment implements View.OnClickListene
 
             speakerName.setText(speaker.getFullName());
             int resID = MhefResources.getImageResource(getContext(), speaker.getShortName());
-            if(resID != -1){
+            if(resID != 0){
                 speakerPic.setImageResource(resID);
             }
             speakerList.addView(speakerListItem);

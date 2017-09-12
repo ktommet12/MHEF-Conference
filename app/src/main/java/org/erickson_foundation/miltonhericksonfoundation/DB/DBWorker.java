@@ -4,7 +4,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import org.erickson_foundation.miltonhericksonfoundation.ConferenceType;
+import org.erickson_foundation.miltonhericksonfoundation.Conference.ConferenceType;
+import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.AppConfig;
 import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.MhefProgressDialog;
 import org.json.JSONObject;
 
@@ -31,7 +32,7 @@ public class DBWorker extends AsyncTask<Void, Void, JSONObject>{
     private Context mContext;
 
     //String representing a problem with the schedule download
-    private final String ERROR_STRING = "{\"error\":\"There was a problem getting the schedule from the server\"}";
+    private final String ERROR_STRING = "There was a problem getting the schedule from the server";
 
     public void setOnFinishedListener(DBWorkerDelegate delegate){
         this.delegate = delegate;
@@ -78,15 +79,25 @@ public class DBWorker extends AsyncTask<Void, Void, JSONObject>{
 
 
         }catch(MalformedURLException ex){
-            Log.e(TAG+"1", ex.getMessage());
+            return failure(ex.getMessage());
         }catch(IOException ex){
-            Log.e(TAG+"2", ex.getMessage());
+            return failure(ex.getMessage());
         }catch(Exception ex){
-            Log.e(TAG+"3", ex.getMessage());
+            return failure(ex.getMessage());
         }
-        return new JSONObject();
     }
-
+    private JSONObject failure(String message){
+        JSONObject json = new JSONObject();
+        try {
+            json.putOpt("Error:", this.ERROR_STRING);
+            if(AppConfig.DEBUG){
+                json.putOpt("Exception Message", message);
+            }
+            json.putOpt("wasASuccess", false);
+        }
+        catch(Exception ex){}
+        return json;
+    }
     @Override
     protected void onPreExecute() {
         progressDialog = new MhefProgressDialog.Builder()

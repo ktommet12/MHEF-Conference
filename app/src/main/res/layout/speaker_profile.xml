@@ -1,56 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<LinearLayout
     android:layout_height="match_parent"
-    android:padding="10dp"
-    android:background="@color/light_grey">
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/speaker_profile_name"
-            android:layout_width="match_parent"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_go_to_speakers_list"
             android:layout_height="wrap_content"
-            android:text="Speaker Name"
-            android:textColor="@color/mhefBlue"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:gravity="center_horizontal"
-            android:padding="20dp"/>
-        <ImageView
-            android:id="@+id/speaker_profile_image"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:src="@drawable/daniel_amen"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:padding="10dp"
-            android:textColor="@color/black"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:text="@string/speaker_bio"/>
-        <TextView
-            android:id="@+id/speaker_profile_bio_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/placeholder_text"/>
-        <TextView
+            android:layout_width="wrap_content"
+            android:background="@color/tw__transparent"
+            android:drawableStart="@drawable/ic_arrow_back_black_24dp"
+            android:drawableLeft="@drawable/ic_arrow_back_black_24dp"
+            android:text="@string/all_speakers"/>
+    </LinearLayout>
+    <android.support.v4.widget.NestedScrollView
 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/panels"
-            android:textStyle="bold"
-            android:gravity="center_horizontal"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textSize="20sp"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp"
+        android:background="@color/white">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:id="@+id/speaker_panel_list"></LinearLayout>
-    </LinearLayout>
-</android.support.v4.widget.NestedScrollView>
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/speaker_profile_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Speaker Name"
+                android:textColor="@color/mhefBlue"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:gravity="center_horizontal"
+                android:padding="20dp"/>
+
+            <ImageView
+                android:id="@+id/speaker_profile_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/daniel_amen" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:text="@string/speaker_bio"/>
+            <TextView
+                android:id="@+id/speaker_profile_bio_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="@string/placeholder_text"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/panels"
+                android:textStyle="bold"
+                android:gravity="center_horizontal"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/speaker_panel_list"></LinearLayout>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

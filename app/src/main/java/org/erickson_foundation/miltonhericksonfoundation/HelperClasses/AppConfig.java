@@ -1,6 +1,6 @@
 package org.erickson_foundation.miltonhericksonfoundation.HelperClasses;
 
-import org.erickson_foundation.miltonhericksonfoundation.ConferenceType;
+import org.erickson_foundation.miltonhericksonfoundation.Conference.ConferenceType;
 
 /**
  * Created by ktomm on 3/14/2017.
@@ -20,6 +20,16 @@ public final class AppConfig {
     public static final String SCHEDULE_TAB_POS = "tabPosition";
     public static final String WEB_JAVASCRIPT_ENABLED_KEY = "javascriptEnabled";
     public static final String SPEAKER_BUNDLE_KEY = "speaker";
+    public static final String SHARED_PREFS_FILE_NAME = "mhef_shared_prefs";
+    public static final String FAVORITES_ARRAY_SHARED_PREFS_KEY = "favoritesArray";
+    public static final String FAVORITES_DELIMITER = ";";
+    public static final String IS_FAVORITES_TAB_SELECTED = "favoritesTabSelected";
+    public static final String IS_FILTER_TAB_SELECTED = "filtersTab";
+    public static final int NO_FAVORITES_TABLE_ROW_TAG = 10001;
+
+
+    public static final String MAIN_EVO_URL = "https://www.evolutionofpsychotherapy.com";
+    public static final String WP_CONTENT = "/wp-content/";
 
 
     //TODO: change this to false in final release

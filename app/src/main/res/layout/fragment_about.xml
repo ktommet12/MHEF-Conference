@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:gravity="center"
         android:background="@color/white">
         <TextView
             android:layout_width="match_parent"
@@ -20,6 +21,15 @@
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
             android:textColor="@color/mhefBlue"
+            android:gravity="center"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/about_btn_go_to_erickson_website"
+            android:text="@string/go_to_erickson_website"
+            android:background="@color/mhefBlue"
+            android:textColor="@color/white"
+            android:padding="10dp"
             android:gravity="center"/>
         <TextView
             android:layout_width="wrap_content"
@@ -32,12 +42,13 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="@color/mhefBlue"
+            android:textStyle="bold"
             android:text="About the App"
             android:textSize="20dp"
             android:gravity="center"/>
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:padding="5dp"

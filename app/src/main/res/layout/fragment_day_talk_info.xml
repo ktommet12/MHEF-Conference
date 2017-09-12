@@ -31,7 +31,7 @@
                 android:text="@string/add_to_favorites"/>
             <Button
                 android:layout_width="0dp"
-                android:layout_weight="1.5"
+                android:layout_weight="1.25"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_remove_from_favorites"
@@ -39,7 +39,7 @@
                 android:text="@string/remove_from_favorites"/>
             <Button
                 android:layout_width="0dp"
-                android:layout_weight=".5"
+                android:layout_weight=".75"
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:layout_height="wrap_content"
                 android:id="@+id/btn_go_to_map"

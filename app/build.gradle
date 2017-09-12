@@ -23,7 +23,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -47,6 +47,7 @@ dependencies {
     compile('com.twitter.sdk.android:twitter:2.3.2@aar') {
         transitive = true;
     }
+    compile 'com.android.support:multidex:1.0.1'
     compile files('../libs/YouTubeAndroidPlayerApi.jar')
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'

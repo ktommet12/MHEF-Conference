@@ -10,6 +10,7 @@ import android.webkit.WebView;
 
 import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.AppConfig;
 import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.MhefWebViewClient;
+import org.erickson_foundation.miltonhericksonfoundation.MainActivity;
 import org.erickson_foundation.miltonhericksonfoundation.R;
 
 /**
@@ -19,8 +20,8 @@ import org.erickson_foundation.miltonhericksonfoundation.R;
 public class WebFragment extends Fragment {
     private String url;
     private WebView webView;
-    private String DEFAULT_URL = "https://www.evolutionofpsychotherapy.com/";
-    private boolean isJSEnabled = false;
+    private String DEFAULT_URL = AppConfig.MAIN_EVO_URL;
+    private boolean isJSEnabled = false, isPDF = false;
     public WebFragment(){}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,11 +36,14 @@ public class WebFragment extends Fragment {
             if(bundle.containsKey(AppConfig.WEB_JAVASCRIPT_ENABLED_KEY)){
                 isJSEnabled = bundle.getBoolean(AppConfig.WEB_JAVASCRIPT_ENABLED_KEY, false);
             }
+            this.isPDF = bundle.getBoolean("isPDF", false);
         }
         webView.getSettings().setJavaScriptEnabled(isJSEnabled);
         webView.setWebViewClient(new MhefWebViewClient());
 
-        webView.loadUrl(url);
+        String urlToLoad = this.isPDF ? "https://docs.google.com/viewer?url="+url : url;
+
+        webView.loadUrl(urlToLoad);
 
         return v;
     }

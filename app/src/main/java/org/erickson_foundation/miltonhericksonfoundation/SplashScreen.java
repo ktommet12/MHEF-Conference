@@ -2,28 +2,33 @@ package org.erickson_foundation.miltonhericksonfoundation;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
+import org.erickson_foundation.miltonhericksonfoundation.Conference.ConferenceType;
 import org.erickson_foundation.miltonhericksonfoundation.DB.DBWorker;
 import org.erickson_foundation.miltonhericksonfoundation.DB.DBWorkerDelegate;
 import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.AppConfig;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import io.fabric.sdk.android.Fabric;
 
-public class SplashScreen extends AppCompatActivity implements DBWorkerDelegate {
+public class SplashScreen extends AppCompatActivity implements DBWorkerDelegate, View.OnClickListener{
     private final String TAG = "SplashScreen";
     private String confContents;
     private ConferenceType confType;
+    private TextView splashScreenInfo;
+    private Button btnRetry;
+
+    private DBWorker dbWorker;
 
     private static final String TWITTER_KEY = "30QCzhZ13e3U7Ox29pZT7O7XB";
     private static final String TWITTER_SECRET = "hGUmN8NumH1438rkVrID8vcg3Qh0wUBziuqtjpwIsF9Z47bcT4";
@@ -38,20 +43,31 @@ public class SplashScreen extends AppCompatActivity implements DBWorkerDelegate 
 
         confType = AppConfig.DEFAULT_CONFERENCE;
 
-        DBWorker dbWorker = new DBWorker(this, confType);
-        dbWorker.setOnFinishedListener(this);
-        dbWorker.execute();
+        splashScreenInfo = (TextView) findViewById(R.id.txt_splash_screen_info);
+        btnRetry         = (Button)   findViewById(R.id.btn_splash_retry);
 
+        btnRetry.setOnClickListener(this);
+
+        loadConferenceContents();
     }
 
+    private void loadConferenceContents(){
+        btnRetry.setVisibility(View.INVISIBLE);
+        splashScreenInfo.setText(R.string.loading_info);
+        dbWorker = new DBWorker(this, confType);
+        dbWorker.setOnFinishedListener(this);
+        dbWorker.execute();
+    }
     @Override
     public void didFinishTask(JSONObject jsonObject) {
-        if(jsonObject != null) {
+        if(jsonObject.optBoolean("wasASuccess")) {
             this.confContents = jsonObject.toString();
             loadConference();
         }
-        else
-            Toast.makeText(this, "Problem Downloading Conference Information", Toast.LENGTH_SHORT).show();
+        else{
+            btnRetry.setVisibility(View.VISIBLE);
+            splashScreenInfo.setText(R.string.server_error);
+        }
     }
     private void loadConference(){
         Intent intent = new Intent(this, MainActivity.class);
@@ -59,5 +75,10 @@ public class SplashScreen extends AppCompatActivity implements DBWorkerDelegate 
         intent.putExtra(AppConfig.CONFERENCE_TYPE_STRING, confType);
         finish();
         startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View view) {
+        loadConferenceContents();
     }
 }

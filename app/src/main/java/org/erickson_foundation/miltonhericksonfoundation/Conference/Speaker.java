@@ -1,31 +1,33 @@
 package org.erickson_foundation.miltonhericksonfoundation.Conference;
 
+import android.util.Log;
+
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * Created by User on 5/18/2017.
  */
 
 public class Speaker implements Serializable{
-    private String mName, mFullName, mBio;
-    private String[] mNamesArray, mFullNamesArray;
-    private final int speakerID;
-    private int mNumSpeakers;
+    private String mFullName, mBio, mShortName;
+    private int speakerID;
 
-    public Speaker(String name, String fullName, String bio){
-        mNamesArray = name.split(";");
-        this.mName = name;
-        mFullNamesArray = fullName.split(";");
-        this.mFullName = fullName;
+    public Speaker(String name, String fullName, String bio, ArrayList<Integer> currentIds){
+        this.mShortName = fullName;
+        this.mFullName = name;
         this.mBio = bio;
-        mNumSpeakers = mNamesArray.length;
-        speakerID = (int) (Math.random()* 999 + 1);
+        do {
+            speakerID = (int) (Math.random() * 999 + 1);
+            Log.i("Speaker", "Picked an ID for " + this.mShortName);
+        }while (currentIds.contains((Integer)speakerID));
     }
     public String getFullName(){
         return this.mFullName;
     }
     public String getShortName(){
-        return this.mName;
+        return this.mShortName;
     }
     public String getBio(){
         return this.mBio;
@@ -33,15 +35,5 @@ public class Speaker implements Serializable{
     public int getSpeakerID(){
         return this.speakerID;
     }
-    //returns the array of full names including the speakers credentials
-    public String[] getFullNames(){
-        return mFullNamesArray;
-    }
-    //returns the array of names without any credentials
-    public String[] getShortNames(){
-        return mNamesArray;
-    }
-    public int getNumSpeakers(){
-        return mNumSpeakers;
-    }
+
 }
