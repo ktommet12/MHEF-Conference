@@ -19,6 +19,7 @@ public class Speaker implements Serializable{
         this.mFullName = name;
         this.mBio = bio;
         do {
+            int x = 0;
             speakerID = (int) (Math.random() * 999 + 1);
             Log.i("Speaker", "Picked an ID for " + this.mShortName);
         }while (currentIds.contains((Integer)speakerID));
