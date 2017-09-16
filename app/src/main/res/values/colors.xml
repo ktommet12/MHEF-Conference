@@ -5,10 +5,13 @@
     <color name="colorAccent">#FF4081</color>
     <color name="mhefPurple">#5d035f</color>
     <color name="mhefBlue">#4b69ba</color>
+    <color name="mhefDarkerBlue">#1343bf</color>
     <color name="orchid">#DA70D6</color>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="feedback_grey">#DCDCDC</color>
     <color name="chatreuse">#7fff00</color>
     <color name="mhef_grey">#AFAFAF</color>
+    <color name="egg_white">#FAFAFA</color>
+    <color name="gainsboro">#DCDCDC</color>
+    <color name="light_grey">#F8F8F8</color>
 </resources>

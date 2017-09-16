@@ -4,27 +4,24 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
     android:background="@color/mhefPurple"
-    android:gravity="bottom"
+    android:gravity="top"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="25dp"
     android:theme="@style/NavigationDrawer">
 
+
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="75dp"
-        android:paddingBottom="20dp"
+        android:layout_width="150px"
+        android:layout_height="150px"
+        android:layout_marginTop="20dp"
         android:layout_gravity="center"
-        android:src="@drawable/mhef_logo_no_text"/>
+        android:src="@drawable/evolution_logo_no_text"/>
     <TextView
         android:id="@+id/lblConferenceName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="Placeholder Conference Title"
+        android:paddingTop="20dp"
         android:textSize="20dp"
         android:textColor="@color/white"/>
-
 </LinearLayout>

@@ -2,23 +2,26 @@ package org.erickson_foundation.miltonhericksonfoundation.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import org.erickson_foundation.miltonhericksonfoundation.BuildConfig;
 import org.erickson_foundation.miltonhericksonfoundation.DB.DBWorkerDelegate;
-import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.GetHtml;
-import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.MHEFProgressDialog;
+import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.MhefProgressDialog;
 import org.erickson_foundation.miltonhericksonfoundation.MainActivity;
 import org.erickson_foundation.miltonhericksonfoundation.R;
 import org.json.JSONObject;
 
-public class AboutFragment extends Fragment implements DBWorkerDelegate {
+public class AboutFragment extends Fragment implements View.OnClickListener  {
     private final String TAG = "WebViewFrag";
     private String aboutContents;
-    private MHEFProgressDialog dialogProgress;
+    private MhefProgressDialog dialogProgress;
     private MainActivity mainActivity;
+    private Button goToWebsite;
 
     public AboutFragment() {
         // Required empty public constructor
@@ -33,6 +36,14 @@ public class AboutFragment extends Fragment implements DBWorkerDelegate {
         TextView aboutText = (TextView) v.findViewById(R.id.txt_about_text);
         aboutText.setText(mainActivity.aboutErickson);
 
+        TextView txtVersionNum = (TextView) v.findViewById(R.id.txt_version_num);
+        goToWebsite = (Button) v.findViewById(R.id.about_btn_go_to_erickson_website);
+
+        goToWebsite.setOnClickListener(this);
+
+        String versionNum = BuildConfig.VERSION_NAME;
+        txtVersionNum.setText("App Version: " + versionNum);
+
 
 
 
@@ -40,11 +51,7 @@ public class AboutFragment extends Fragment implements DBWorkerDelegate {
     }
 
     @Override
-    public void didFinishTask(JSONObject jsonObject) {
-        //aboutContents = jsonObject.toString();
-        //Log.i(TAG, aboutContents);
-        int x = 0;
-        //Log.i(TAG, jsonObject.);
-        dialogProgress.hide();
+    public void onClick(View view) {
+        mainActivity.loadWebsite();
     }
 }

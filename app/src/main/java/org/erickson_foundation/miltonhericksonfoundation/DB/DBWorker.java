@@ -1,10 +1,12 @@
 package org.erickson_foundation.miltonhericksonfoundation.DB;
 
+import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import org.erickson_foundation.miltonhericksonfoundation.ConferenceType;
-import org.json.JSONException;
+import org.erickson_foundation.miltonhericksonfoundation.Conference.ConferenceType;
+import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.AppConfig;
+import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.MhefProgressDialog;
 import org.json.JSONObject;
 
 import java.io.*;
@@ -26,18 +28,25 @@ public class DBWorker extends AsyncTask<Void, Void, JSONObject>{
     //TODO: get urls for Couples and Brief Therapy for the Conference Schedule
     private final String COUPLES_SCHEDULE_URL = "";
     private final String BRIEF_THERAPY_SCHEDULE_URL = "";
+    private MhefProgressDialog progressDialog;
+    private Context mContext;
 
     //String representing a problem with the schedule download
-    private final String ERROR_STRING = "{\"error\":\"There was a problem getting the schedule from the server\"}";
+    private final String ERROR_STRING = "There was a problem getting the schedule from the server";
 
     public void setOnFinishedListener(DBWorkerDelegate delegate){
         this.delegate = delegate;
     }
-    public void setConferenceType(ConferenceType conferenceType){this.confType = conferenceType;}
-    public DBWorker(ConferenceType confType){
+    public void setConferenceType(ConferenceType conferenceType){
+        this.confType = conferenceType;
+    }
+    public DBWorker(Context ctx, ConferenceType confType){
+        this.mContext = ctx;
         this.confType = confType;
     }
-    public DBWorker(){}//default constructor
+    public DBWorker(Context ctx){
+        this.mContext = ctx;
+    }
 
     @Override
     protected JSONObject doInBackground(Void... params) {
@@ -70,18 +79,42 @@ public class DBWorker extends AsyncTask<Void, Void, JSONObject>{
 
 
         }catch(MalformedURLException ex){
-            Log.e(TAG+"1", ex.getMessage());
+            return failure(ex.getMessage());
         }catch(IOException ex){
-            Log.e(TAG+"2", ex.getMessage());
+            return failure(ex.getMessage());
         }catch(Exception ex){
-            Log.e(TAG+"3", ex.getMessage());
+            return failure(ex.getMessage());
         }
-        return new JSONObject();
+    }
+    private JSONObject failure(String message){
+        JSONObject json = new JSONObject();
+        try {
+            json.putOpt("Error:", this.ERROR_STRING);
+            if(AppConfig.DEBUG){
+                json.putOpt("Exception Message", message);
+            }
+            json.putOpt("wasASuccess", false);
+        }
+        catch(Exception ex){}
+        return json;
+    }
+    @Override
+    protected void onPreExecute() {
+        progressDialog = new MhefProgressDialog.Builder()
+                .message("Grabbing Conference Information, Please Wait...")
+                .indeterminate(false)
+                .cancelable(false)
+                .context(this.mContext)
+                .build();
+
+        //progressDialog.show();
+        super.onPreExecute();
     }
 
     @Override
     protected void onPostExecute(JSONObject s) {
         super.onPostExecute(s);
+        //progressDialog.dismiss();
         this.delegate.didFinishTask(s);
     }
     private String readURLReturnData(HttpURLConnection connection){

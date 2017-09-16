@@ -3,79 +3,173 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     android:gravity="center_horizontal"
     tools:context="org.erickson_foundation.miltonhericksonfoundation.Fragments.LandingFragment">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <FrameLayout
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:id="@+id/youtube_player"></FrameLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:id="@+id/event_title"
-            android:text="@string/placeholder_event_name"
-            android:textColor="@color/black"
-            android:textSize="25sp"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/btn_nav_schedule"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:text="Schedule"
-            android:paddingTop="20dp"
-            android:layout_marginRight="20dp"
-            android:drawableTop="@drawable/calendar_white"
-            android:textColor="@color/white"
-            android:background="@drawable/round_button" />
-        <Button
-            android:id="@+id/btn_nav_map"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:drawableTop="@drawable/map_white"
-            android:paddingTop="20dp"
-            android:text="Map"
-            android:textColor="@color/white"
-            android:background="@drawable/round_button"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/btn_nav_social_media"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:text="Twitter"
-            android:paddingTop="20dp"
-            android:layout_marginRight="20dp"
-            android:drawableTop="@drawable/calendar_white"
-            android:textColor="@color/white"
-            android:background="@drawable/round_button" />
-        <Button
-            android:id="@+id/btn_nav_about"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:drawableTop="@drawable/map_white"
-            android:paddingTop="20dp"
-            android:text="About"
-            android:textColor="@color/white"
-            android:background="@drawable/round_button"/>
+
+            android:src="@drawable/evo2017_logo"/>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/btn_nav_schedule"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="30dp"
+            android:clickable="true"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/ic_event_note_black_24dp"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:text="@string/schedule"
+            android:textAllCaps="true"
+            android:textColor="@color/mhefBlue"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/btn_nav_syllabus"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="30dp"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/ic_map_black_24dp"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:text="@string/syllabus"
+            android:textAllCaps="true"
+            android:textColor="@color/mhefBlue"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/btn_nav_favorites"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/ic_stars_black_24dp"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:text="@string/favorites"
+            android:textAllCaps="true"
+            android:textColor="@color/mhefBlue"
+
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/btn_nav_speakers"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:drawablePadding="5dp"
+            android:layout_marginRight="30dp"
+            android:clickable="true"
+            android:drawableTop="@drawable/ic_people_black_24dp"
+            android:text="@string/speakers"
+            android:textAllCaps="true"
+            android:textColor="@color/mhefBlue"
+            android:textSize="12sp" />
+        <TextView
+            android:id="@+id/btn_nav_map"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:textSize="12sp"
+            android:textAllCaps="true"
+            android:textColor="@color/mhefBlue"
+            android:drawablePadding="5dp"
+            android:text="@string/maps"
+            android:layout_marginRight="30dp"
+            android:drawableTop="@drawable/ic_pin_drop_black_24dp"/>
+        <TextView
+            android:id="@+id/btn_nav_twitter"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:textColor="@color/mhefBlue"
+            android:textSize="12sp"
+            android:drawablePadding="5dp"
+            android:textAllCaps="true"
+            android:text="@string/twitter"
+            android:drawableTop="@drawable/ic_twitter_bird_logo_2012"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/btn_nav_parking_info"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="30dp"
+            android:clickable="true"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/ic_directions_car"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:text="@string/parking_info"
+            android:textAllCaps="true"
+            android:textColor="@color/mhefBlue"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/btn_nav_about"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="30dp"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/ic_info_black_24dp"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:text="@string/about"
+            android:textAllCaps="true"
+            android:textColor="@color/mhefBlue"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/btn_nav_register"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:drawablePadding="5dp"
+            android:drawableTop="@drawable/ic_shopping_basket_black_24dp"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:text="@string/register"
+            android:textAllCaps="true"
+            android:textColor="@color/mhefBlue"
+            android:clickable="true"
+            android:textSize="12sp" />
+    </LinearLayout>
 </LinearLayout>
