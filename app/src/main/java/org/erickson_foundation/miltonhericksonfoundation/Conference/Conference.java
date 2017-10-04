@@ -23,6 +23,7 @@ public class Conference {
     private String[] mDates;                            //String array for the dates of the conference
     private ConferenceType mConfType;                   //Type of Conference, i.e. EVOLUTION, COUPLES, etc
     private HashMap<String, ArrayList<ConferenceTalk>> days;     //maps a day to an array of talks
+    private HashMap<String, ArrayList<String>> room_data_set;
     private ArrayList<Speaker> allSpeakers;
     private int numFavoritedTalks;
     private final String TAG = "Conference";
@@ -31,6 +32,7 @@ public class Conference {
 
     public Conference(JSONObject confContents, ArrayList<String> favTalks, Context ctx) throws JSONException{
         days = new HashMap<>();
+        room_data_set = new HashMap<>();
         allSpeakers = new ArrayList<Speaker>();
 
         JSONObject conferenceIds = new JSONObject(); //this is only used to make sure the the ids that are generated
@@ -47,6 +49,21 @@ public class Conference {
 
         mTitle = confContents.getString("conference_full_name");
         mShortTitle = confContents.getString("conference_short_name");
+
+        JSONObject tempRoomDataSet = confContents.getJSONObject("map_data_set");
+        JSONArray picStrings = confContents.getJSONArray("pic_strings");
+        JSONObject things = new JSONObject();
+        for(int i = 0; i < picStrings.length(); i++){
+            String picString = (String)picStrings.get(i);
+            JSONArray tempRoomsJsonArr = (JSONArray) tempRoomDataSet.get(picString);
+            ArrayList<String> rooms = new ArrayList<>();
+            for(int j = 0; j < tempRoomsJsonArr.length(); j++){
+                rooms.add(tempRoomsJsonArr.get(j).toString());
+            }
+            this.room_data_set.put(picString, rooms);
+            Log.i(TAG, tempRoomsJsonArr.toString());
+        }
+        int t = 0;
 
         switch(mShortTitle){
             case "Evolution":
@@ -155,6 +172,23 @@ public class Conference {
 
     public ConferenceType getConfType() {
         return mConfType;
+    }
+    //returns the data set of the conference talk rooms
+    public HashMap<String, ArrayList<String>> getRoomDataSet(){
+        return this.room_data_set;
+    }
+    //gets the pic string associated with a talk room
+    public String getRoomPicString(String room){
+        String roomPicString = "";
+        for(String key: room_data_set.keySet()){
+            ArrayList<String> tempRooms = this.room_data_set.get(key);
+            for(String currentRoom : tempRooms){
+                if (currentRoom.equals(room)){
+                    return key;
+                }
+            }
+        }
+        return roomPicString;
     }
 
     public int getNumFavoritedTalksForDay(String date){
