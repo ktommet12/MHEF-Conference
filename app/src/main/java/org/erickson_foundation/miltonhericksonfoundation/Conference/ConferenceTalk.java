@@ -16,13 +16,15 @@ public class ConferenceTalk {
     private boolean mIsFavourite;
     private int mNumSpeakers;
     private int mID;
+    private ConferenceRoom mRoom;
 
 
-    public ConferenceTalk(String title, String shortTitle, String time, String description, Speaker[] speakers, String day, TalkCategory category){
+    public ConferenceTalk(String title, String shortTitle, String time, ConferenceRoom room, String description, Speaker[] speakers, String day, TalkCategory category){
         mTimeSlot = time;
         mTitle = title;
         mDescription = description;
         mDay = day;
+        mRoom = room;
         mSpeaker = speakers;
         mShortTitle = shortTitle;
         mID = (int) (Math.random() * 999 + 1);
@@ -33,6 +35,9 @@ public class ConferenceTalk {
 
     public String getTitle() {
         return mTitle;
+    }
+    public ConferenceRoom getRoom(){
+        return mRoom;
     }
     public String getShortTitle(){
         return mShortTitle;
