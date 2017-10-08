@@ -63,7 +63,6 @@ public class Conference {
             this.room_data_set.put(picString, rooms);
             Log.i(TAG, tempRoomsJsonArr.toString());
         }
-        int t = 0;
 
         switch(mShortTitle){
             case "Evolution":
@@ -98,6 +97,18 @@ public class Conference {
                 String description = talk.getString("description");
                 String name = talk.getString("speaker_name");
                 String nameOnly = talk.getString("speaker_name_only");
+                String tempRoom = talk.getString("room");
+
+                //Converting the Conference Room into a ConferenceRoom object by breaking the  string into its pieces and creating the object from that
+                String[] roomArr = tempRoom.split(" - ");
+                ConferenceRoom room;
+                Log.i(TAG, tempRoom);
+                if (roomArr.length != 1){
+                    room = new ConferenceRoom(roomArr[0], roomArr[1]);
+                }
+                else{
+                    room = new ConferenceRoom("TBD", "TBD");
+                }
 
                 String[] tempFullName = name.split(";");
                 String[] tempShortName = nameOnly.split(";");
@@ -129,7 +140,7 @@ public class Conference {
                     tempSpeakers[index] = z;
                     index++;
                 }
-                ConferenceTalk tempTalk = new ConferenceTalk(title, shortTitle, time, description, tempSpeakers, mDates[i], category);
+                ConferenceTalk tempTalk = new ConferenceTalk(title, shortTitle, time, room, description, tempSpeakers, mDates[i], category);
                 tempTalk.setFullNameString(name);
                 tempTalk.setShortNameString(nameOnly);
                 if(favTalks.contains(tempTalk.getTitle()))

@@ -27,6 +27,11 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/time_slot"
                 android:text="time slot"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/room"
+                android:text="room"/>
 
             <TextView
                 android:layout_width="match_parent"

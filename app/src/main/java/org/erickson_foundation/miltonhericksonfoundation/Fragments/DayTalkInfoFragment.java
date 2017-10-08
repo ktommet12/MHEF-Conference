@@ -25,7 +25,7 @@ import org.erickson_foundation.miltonhericksonfoundation.R;
 public class DayTalkInfoFragment extends Fragment implements View.OnClickListener {
     private ConferenceTalk currentTalk;
     private final String TAG = "DayTalkInfo";
-    private TextView txtTitle, txtTimeAndDate, txtDescription, txtSpeakerName;
+    private TextView txtTitle, txtTimeAndDate, txtDescription, txtSpeakerName, txtTalkRoom;
     private Button btnAddToFavorites,btnRemoveFromFavorites, btnViewOnMap, btnBackToSchedule;
     private MainActivity mainActivity;
     private ImageView speakerImage;
@@ -53,6 +53,7 @@ public class DayTalkInfoFragment extends Fragment implements View.OnClickListene
         txtDescription         = (TextView) v.findViewById(R.id.txt_event_description);
         txtTimeAndDate         = (TextView) v.findViewById(R.id.txt_event_time_date);
         txtTitle               = (TextView) v.findViewById(R.id.txt_event_title);
+        txtTalkRoom            = (TextView) v.findViewById(R.id.talk_room);
         txtSpeakerName         = (TextView) v.findViewById(R.id.txt_speaker_name);
         btnBackToSchedule      = (Button)v.findViewById(R.id.btn_back_to_schedule);
         btnViewOnMap           = (Button) v.findViewById(R.id.btn_go_to_map);
@@ -117,6 +118,7 @@ public class DayTalkInfoFragment extends Fragment implements View.OnClickListene
         txtDescription.setText(currentTalk.getDescription());
         txtTitle.setText(currentTalk.getTitle());
         txtTimeAndDate.setText(currentTalk.getTimeSlot());
+        txtTalkRoom.setText(currentTalk.getRoom().getFullRoom());
 
         return v;
     }

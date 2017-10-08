@@ -5,25 +5,20 @@ package org.erickson_foundation.miltonhericksonfoundation.Conference;
  */
 
 public class ConferenceRoom {
-    private String mRoom, mSubRoom;
+    private String mRoom, mSubRoom, mFullRoomString;
     public ConferenceRoom(String room, String subRoom){
         this.mRoom = room;
         this.mSubRoom = subRoom;
+        this.mFullRoomString = room + " - " + subRoom;
     }
 
     public String getRoom() {
         return mRoom;
     }
-
-    public void setRoom(String mRoom) {
-        this.mRoom = mRoom;
-    }
-
     public String getSubRoom() {
         return mSubRoom;
     }
-
-    public void setSubRoom(String mSubRoom) {
-        this.mSubRoom = mSubRoom;
+    public String getFullRoom(){
+        return this.mFullRoomString;
     }
 }

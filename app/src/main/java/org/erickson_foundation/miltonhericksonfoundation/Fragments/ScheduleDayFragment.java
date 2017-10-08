@@ -84,6 +84,7 @@ public class ScheduleDayFragment extends Fragment implements View.OnClickListene
                 View newTalkRow = inflater.inflate(R.layout.table_row, null);
                 TextView time = (TextView) newTalkRow.findViewById(R.id.time_slot),
                         title = (TextView) newTalkRow.findViewById(R.id.talk_title),
+                        room  = (TextView) newTalkRow.findViewById(R.id.room),
                         name  = (TextView) newTalkRow.findViewById(R.id.speaker_name);
                 LinearLayout talk_table_row = (LinearLayout) newTalkRow.findViewById(R.id.talk_table_row);
 
@@ -92,6 +93,7 @@ public class ScheduleDayFragment extends Fragment implements View.OnClickListene
 
                 time.setText(currentTalk.getTimeSlot());
                 title.setText(currentTalk.getTitle());
+                room.setText(currentTalk.getRoom().getFullRoom());
                 name.setText(currentTalk.getFullNameString().replace(";", ","));
                 layout.addView(newTalkRow);
 
