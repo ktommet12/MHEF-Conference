@@ -25,6 +25,7 @@ public class Conference {
     private HashMap<String, ArrayList<ConferenceTalk>> days;     //maps a day to an array of talks
     private HashMap<String, ArrayList<String>> room_data_set;
     private ArrayList<Speaker> allSpeakers;
+    private ArrayList<String> roomKeys;
     private int numFavoritedTalks;
     private final String TAG = "Conference";
     private String syllabusUrl = "";
@@ -34,6 +35,7 @@ public class Conference {
         days = new HashMap<>();
         room_data_set = new HashMap<>();
         allSpeakers = new ArrayList<Speaker>();
+        roomKeys = new ArrayList<>();
 
         JSONObject conferenceIds = new JSONObject(); //this is only used to make sure the the ids that are generated
         // for each talk and speaker are unique, will only live in the context of this constructor
@@ -104,6 +106,7 @@ public class Conference {
                 ConferenceRoom room;
                 Log.i(TAG, tempRoom);
                 if (roomArr.length != 1){
+                    this.addRoomKey(roomArr[0]);
                     room = new ConferenceRoom(roomArr[0], roomArr[1]);
                 }
                 else{
@@ -144,7 +147,7 @@ public class Conference {
                 tempTalk.setFullNameString(name);
                 tempTalk.setShortNameString(nameOnly);
                 if(favTalks.contains(tempTalk.getTitle()))
-                    tempTalk.toggleFavorite();
+                    tempTalk.addToFavorites();
                 talks.add(tempTalk);
             }
             days.put(mDates[i], talks);
@@ -201,7 +204,20 @@ public class Conference {
         }
         return roomPicString;
     }
-
+    private void addRoomKey(String key){
+        boolean alreadyInList = false;
+        for(String tempKey : roomKeys){
+            if(tempKey.equals(key)){
+                alreadyInList = true;
+            }
+        }
+        if(!alreadyInList){
+            this.roomKeys.add(key);
+        }
+    }
+    public ArrayList<String> getRoomKeys(){
+        return this.roomKeys;
+    }
     public int getNumFavoritedTalksForDay(String date){
         ArrayList<ConferenceTalk> talks = this.days.get(date);
         int numFavorites = 0;
@@ -210,20 +226,25 @@ public class Conference {
         }
         return numFavorites;
     }
-
+    public void addToFavorites(ConferenceTalk talk){
+        talk.addToFavorites();
+    }
+    public void removeFromFavorites(ConferenceTalk talk){
+        talk.removeFromFavorites();
+    }
     public ArrayList<ConferenceTalk> getConferenceDayTalks(String dayName, boolean isFavorited){
-        //verifies there is something stored for the date requested, if not returns empty ArrayList
-        ArrayList<ConferenceTalk> tempTalks = days.get(dayName), returnTalks;
-        if(isFavorited){
-            returnTalks = new ArrayList<ConferenceTalk>();
-            for(ConferenceTalk talk : tempTalks){
-                if(talk.isTalkFavorited()){
-                    returnTalks.add(talk);
-                }
-            }
-            return returnTalks;
-        }
+        ArrayList<ConferenceTalk> tempTalks = days.get(dayName);
         return (tempTalks == null)? new ArrayList<ConferenceTalk>() : tempTalks;
+    }
+    public ArrayList<ConferenceTalk> getAllFavoritedTalksForDay(String date){
+        ArrayList<ConferenceTalk> tempTalks = days.get(date), returnTalks;
+        returnTalks = new ArrayList<>();
+        for(ConferenceTalk talk : tempTalks){
+            if(talk.isTalkFavorited()){
+                returnTalks.add(talk);
+            }
+        }
+        return returnTalks;
     }
     public ArrayList<Speaker> getAllSpeakers(){
         return this.allSpeakers;
@@ -234,7 +255,7 @@ public class Conference {
         }
         return null;
     }
-    public ConferenceTalk locateTalkById(int id){
+    public ConferenceTalk getTalkById(int id){
         for(int i = 0; i < days.size(); i++){
             ArrayList<ConferenceTalk> currentDay = days.get(mDates[i]);
             for(int j = 0; j < currentDay.size(); j++){
@@ -244,6 +265,22 @@ public class Conference {
             }
         }
         return null;
+    }
+    public ConferenceTalk getTalkByTitle(String title){
+        ConferenceTalk talk = null;
+        boolean talkFound = false;
+        for (String date : this.mDates) {
+            ArrayList<ConferenceTalk> talks = this.days.get(date);
+            for (ConferenceTalk currentTalk : talks) {
+                if (currentTalk.getTitle().equals(title)) {
+                    talk = currentTalk;
+                    talkFound = true;
+                    break;
+                }
+            }
+            if(talkFound) break;
+        }
+        return talk;
     }
     public int getSpeakerTabPosition(String day){
         for(int i = 0; i < mDates.length; i++){

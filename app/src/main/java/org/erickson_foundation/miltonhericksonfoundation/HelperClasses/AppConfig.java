@@ -26,7 +26,8 @@ public final class AppConfig {
     public static final String IS_FAVORITES_TAB_SELECTED = "favoritesTabSelected";
     public static final String IS_FILTER_TAB_SELECTED = "filtersTab";
     public static final int NO_FAVORITES_TABLE_ROW_TAG = 10001;
-
+    public static final String MAP_ITEM_BUNDLE_KEY = "mapItem";
+    public static final String EVOLUTION_SCHEDULE_URL = "http://www.evolutionofpsychotherapy.com/wp-content/uploads/evolutionConference.json";
 
     public static final String MAIN_EVO_URL = "https://www.evolutionofpsychotherapy.com";
     public static final String WP_CONTENT = "/wp-content/";

@@ -14,21 +14,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-/**
- * Created by User on 3/9/2017.
- */
-
 public class DBWorker extends AsyncTask<Void, Void, JSONObject>{
     private final String TAG = "DBWorker";
     private DBWorkerDelegate delegate;
     private ConferenceType confType;
-
-    //URLS for each of the conferences,
-    private final String EVOLUTION_SCHEDULE_URL = "http://www.evolutionofpsychotherapy.com/wp-content/uploads/evolutionConference.json";
-    //TODO: get urls for Couples and Brief Therapy for the Conference Schedule
-    private final String COUPLES_SCHEDULE_URL = "";
-    private final String BRIEF_THERAPY_SCHEDULE_URL = "";
-    private MhefProgressDialog progressDialog;
     private Context mContext;
 
     //String representing a problem with the schedule download
@@ -56,7 +45,7 @@ public class DBWorker extends AsyncTask<Void, Void, JSONObject>{
                 case COUPLES:
                     break;
                 case EVOLUTION:
-                    url = new URL(this.EVOLUTION_SCHEDULE_URL);
+                    url = new URL(AppConfig.EVOLUTION_SCHEDULE_URL);
                     break;
                 default:
                     JSONObject json = new JSONObject(this.ERROR_STRING);
@@ -100,12 +89,12 @@ public class DBWorker extends AsyncTask<Void, Void, JSONObject>{
     }
     @Override
     protected void onPreExecute() {
-        progressDialog = new MhefProgressDialog.Builder()
-                .message("Grabbing Conference Information, Please Wait...")
-                .indeterminate(false)
-                .cancelable(false)
-                .context(this.mContext)
-                .build();
+//        progressDialog = new MhefProgressDialog.Builder()
+//                .message("Grabbing Conference Information, Please Wait...")
+//                .indeterminate(false)
+//                .cancelable(false)
+//                .context(this.mContext)
+//                .build();
 
         //progressDialog.show();
         super.onPreExecute();

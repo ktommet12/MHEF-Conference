@@ -3,6 +3,7 @@ package org.erickson_foundation.miltonhericksonfoundation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -19,6 +20,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import org.erickson_foundation.miltonhericksonfoundation.Conference.Conference;
+import org.erickson_foundation.miltonhericksonfoundation.Conference.ConferenceTalk;
 import org.erickson_foundation.miltonhericksonfoundation.Conference.ConferenceType;
 import org.erickson_foundation.miltonhericksonfoundation.Conference.Speaker;
 import org.erickson_foundation.miltonhericksonfoundation.Fragments.*;
@@ -38,12 +40,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private final int LANDING_FRAGMENT_ID = 1, WEBSITE_FRAGMENT = 2;
     private ArrayList<String> favoritedTalks;
 
+    private FragmentManager fragmentManager;
+
     private final String TAG = "MainActivity";
     public String aboutErickson;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        fragmentManager = this.getSupportFragmentManager();
+        //fragmentManager.addOnBackStackChangedListener(fragmentChangedListener());
+
         //MhefSharedPrefs.deleteEverything(this, AppConfig.FAVORITES_ARRAY_SHARED_PREFS_KEY);
         favoritedTalks = MhefSharedPrefs.getStringArray(this, AppConfig.FAVORITES_ARRAY_SHARED_PREFS_KEY);
         Intent intent = getIntent();
@@ -51,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(intent.hasExtra(AppConfig.CONFERENCE_TYPE_STRING)) {
             confType = (ConferenceType) intent.getSerializableExtra(AppConfig.CONFERENCE_TYPE_STRING);
         }
-        try{
+       try{
             String tempConferenceContents = null;
             if(intent.hasExtra(AppConfig.CONFERENCE_CONTENTS_JSON)){
                 tempConferenceContents = intent.getStringExtra(AppConfig.CONFERENCE_CONTENTS_JSON);
@@ -92,7 +100,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {}
+        } else {
+            if(fragmentManager.getBackStackEntryCount() > 1) {
+                fragmentManager.popBackStackImmediate();
+            }
+            String fragmentName = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount()-1).getName();
+            if(fragmentName.equals("Schedule")){
+                fragmentManager.popBackStackImmediate();
+                this.loadSchedule(0);
+            }else if(fragmentName.equals("Favorites")){
+                fragmentManager.popBackStackImmediate();
+                this.loadFavoritesSchedule();
+            }
+            //fragmentName = fragmentManager.getBackStackEntryAt(fragmentManager.getBackStackEntryCount()-1).getName();
+           // Log.i(TAG, fragmentName);
+        }
     }
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -157,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.btn_nav_parking_info:
             case R.id.nav_parking:
-                loadFragment(new TestFragment());
+                loadFragment(new TestFragment(), null);
                 break;
             case AppConfig.MORE_INFO_TALK_FRAGMENT:
                 fragment = new DayTalkInfoFragment();
@@ -167,20 +189,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.btn_nav_map:
             case R.id.nav_map:
-                fragment = new MapFragment();
+                this.loadMapList();
                 break;
         }
-        this.loadFragment(fragment);
+        this.loadFragment(fragment, null);
     }
-    private void loadFragment(Fragment f){
+    private void loadFragment(Fragment f, String backStackName){
         if(f != null) {
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            //FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
             ft.replace(R.id.fragment_container, f);
+            ft.addToBackStack(backStackName);
             ft.commit();
+            fragmentManager.executePendingTransactions();
         }
     }
     public void goHome(){
-        this.loadFragment(new LandingFragment());
+        if(fragmentManager.getBackStackEntryCount() == 0) {
+            this.loadFragment(new LandingFragment(), "Home");
+        }else{
+            fragmentManager.popBackStack("Home", 0);
+        }
     }
 
     @Override
@@ -199,14 +228,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         goHome();
         return true;
     }
-    public void addToFavorites(String title){
+    public void addToFavorites(String title, String date){
+        Log.i(TAG, title + " Was Favorited");
         this.favoritedTalks.add(title);
         currentConference.incrementFavoriteTalkCount();
+        currentConference.getTalkByTitle(title).addToFavorites();
+        //currentConference.addToFavorites(talk);
         MhefSharedPrefs.saveStringArray(this, AppConfig.FAVORITES_ARRAY_SHARED_PREFS_KEY, favoritedTalks);
     }
-    public void removeFromFavorites(String name){
-        favoritedTalks.remove(name);
+    public void removeFromFavorites(String title, String date){
+        Thread t = Thread.currentThread();
+        Log.i(TAG, t.getName());
+        Log.i(TAG, title + " Was unfavorited");
+        favoritedTalks.remove(title);
         currentConference.decrementFavoriteTalkCount();
+        currentConference.getTalkByTitle(title).removeFromFavorites();
+        //currentConference.removeFromFavorites(talk);
+        //currentConference.toggleFavorite(title, date);
         MhefSharedPrefs.saveStringArray(this, AppConfig.FAVORITES_ARRAY_SHARED_PREFS_KEY, favoritedTalks);
     }
     public void loadSpeakerInfo(View v){
@@ -217,35 +255,58 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             bundle.putSerializable(AppConfig.SPEAKER_BUNDLE_KEY, speaker);
         }
         fragment.setArguments(bundle);
-        this.loadFragment(fragment);
+        this.loadFragment(fragment, null);
     }
     public void loadAllSpeakersPage(){
         Fragment fragment = new SpeakerViewFragment();
-        loadFragment(fragment);
+        loadFragment(fragment, null);
     }
     public void loadSchedule(int tabPos){
         Fragment fragment = new ScheduleFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(AppConfig.SCHEDULE_TAB_POS, tabPos);
         fragment.setArguments(bundle);
-        loadFragment(fragment);
+        loadFragment(fragment, "Schedule");
+    }
+    public void viewMapItem(String item){
+        Fragment fragment = new MapFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConfig.MAP_ITEM_BUNDLE_KEY, item);
+        fragment.setArguments(bundle);
+        this.loadFragment(fragment, null);
+    }
+    public void loadMapList(){
+        Fragment fragment = new MapListFragment();
+        this.loadFragment(fragment, "MapList");
     }
     public void viewSpecificTalk(View v){
         Fragment fragment = new DayTalkInfoFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(AppConfig.TALK_ID_BUNDLE_KEY, (Integer) v.getTag());
         fragment.setArguments(bundle);
-        loadFragment(fragment);
+        loadFragment(fragment, null);
     }
     public void loadFavoritesSchedule(){
         Bundle bundle = new Bundle();
         bundle.putBoolean(AppConfig.IS_FAVORITES_TAB_SELECTED, true);
         Fragment fragment = new ScheduleFragment();
         fragment.setArguments(bundle);
-        this.loadFragment(fragment);
+        this.loadFragment(fragment, "Favorites");
     }
     public void loadWebsite(){
         this.changeFragment(WEBSITE_FRAGMENT, null);
+    }
+
+    private FragmentManager.OnBackStackChangedListener fragmentChangedListener(){
+        FragmentManager.OnBackStackChangedListener result = new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                if(fragmentManager != null){
+                    Log.i(TAG, "FragmentOnBackStackChangedListener called");
+                }
+            }
+        };
+        return result;
     }
     @Override
     protected void onDestroy() {

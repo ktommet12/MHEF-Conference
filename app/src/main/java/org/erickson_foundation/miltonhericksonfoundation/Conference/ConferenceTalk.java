@@ -97,4 +97,11 @@ public class ConferenceTalk {
     public void toggleFavorite(){
         mIsFavourite = !mIsFavourite;
     }
+    public void addToFavorites(){
+        Log.i(TAG, mTitle + " was Added to Favorites");
+        this.mIsFavourite = true;
+    }
+    public void removeFromFavorites(){
+        this.mIsFavourite = false;
+    }
 }

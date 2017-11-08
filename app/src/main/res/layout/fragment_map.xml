@@ -3,10 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="org.erickson_foundation.miltonhericksonfoundation.Fragments.MapFragment">
-    <org.erickson_foundation.miltonhericksonfoundation.HelperClasses.TouchImageView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/conference_floor_plan"
-        android:src="@drawable/acc_campus_layout"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <org.erickson_foundation.miltonhericksonfoundation.HelperClasses.TouchImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/conference_floor_plan"
+            android:src="@drawable/acc_campus_layout"/>
+    </LinearLayout>
+
 
 </FrameLayout>

@@ -11,13 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_back_to_schedule"
-            android:text="@string/back_button"
-            android:background="@color/tw__transparent"
-            android:drawableLeft="@drawable/ic_arrow_back_black_24dp"/>
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:id="@+id/btn_back_to_schedule"-->
+            <!--android:text="@string/back_button"-->
+            <!--android:background="@color/tw__transparent"-->
+            <!--android:drawableLeft="@drawable/ic_arrow_back_black_24dp"/>-->
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
@@ -27,7 +27,7 @@
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 style="@style/Widget.AppCompat.Button.Colored"
-                android:id="@+id/btn_add_to_favorites"
+                android:id="@+id/day_talk_info_add_to_favorites"
                 android:text="@string/add_to_favorites"/>
             <Button
                 android:layout_width="0dp"

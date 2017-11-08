@@ -8,13 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
-
-import com.google.android.gms.vision.text.Line;
 
 import org.erickson_foundation.miltonhericksonfoundation.Conference.Conference;
 import org.erickson_foundation.miltonhericksonfoundation.Conference.ConferenceTalk;
@@ -67,7 +63,7 @@ public class ScheduleDayFragment extends Fragment implements View.OnClickListene
 
 
         if(isFavoriteTabSelected){
-            dayTalks = currentConference.getConferenceDayTalks(date, true);
+            dayTalks = currentConference.getAllFavoritedTalksForDay(date);
             noFavoriteTalksRow = inflater.inflate(R.layout.no_favorites_to_display, null);
             noFavoriteTalksRow.setVisibility(View.GONE);
             noFavoriteTalksRow.setTag(AppConfig.NO_FAVORITES_TABLE_ROW_TAG);
@@ -130,19 +126,21 @@ public class ScheduleDayFragment extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View v) {
         switch(v.getId()){
+            case R.id.btn_go_to_map:
+                Log.i(TAG, "Go To Map Was Pressed");
+                break;
             case R.id.btn_schedule_day_add_to_favorites:
                 LinearLayout unfavoritedRow = (LinearLayout)layout.findViewWithTag(v.getTag());
 
-                ConferenceTalk talk = mainActivity.currentConference.locateTalkById((Integer)v.getTag());
-                talk.toggleFavorite();
+                ConferenceTalk talk = mainActivity.currentConference.getTalkById((Integer)v.getTag());
                 Button temp = (Button)v;
                 String addText = getResources().getString(R.string.add_to_favorites);
                 if(temp.getText().toString().equals(addText)){
                     temp.setText(R.string.remove_from_favorites);
-                    mainActivity.addToFavorites(talk.getTitle());
+                    mainActivity.addToFavorites(talk.getTitle(), talk.getTalkDay());
                 }else{
                     temp.setText(R.string.add_to_favorites);
-                    mainActivity.removeFromFavorites(talk.getTitle());
+                    mainActivity.removeFromFavorites(talk.getTitle(), talk.getTalkDay());
                     if(this.isFavoriteTabSelected) {
                         unfavoritedRow.setVisibility(View.GONE);
                         if(this.date != null && mainActivity.currentConference.getNumFavoritedTalksForDay(this.date) == 0){
@@ -150,7 +148,7 @@ public class ScheduleDayFragment extends Fragment implements View.OnClickListene
                         }
                     }
                 }
-
+                break;
         }
     }
 }

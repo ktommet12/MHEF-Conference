@@ -26,12 +26,15 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
     private MainActivity mainActivity;
     private TableLayout table;
     private Button btnViewFavoritesSchedule, btnViewWholeSchedule, btnFilterByCategory;
+    private LayoutInflater mLayoutInflater;
 
     public ScheduleFragment() {}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.schedule_fragment, container, false);
+        mLayoutInflater = inflater;
+        Log.i(TAG, "Schedule Fragment onCreateView() called");
+        View view = mLayoutInflater.inflate(R.layout.schedule_fragment, container, false);
 
         btnViewFavoritesSchedule = (Button)view.findViewById(R.id.btn_view_favorites_only);
         btnViewWholeSchedule = (Button) view.findViewById(R.id.btn_view_whole_schedule);
@@ -98,6 +101,13 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        Log.i(TAG, "ScheduleFragment onResume() called");
+
+    }
+
+    @Override
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.btn_view_favorites_only:
@@ -110,5 +120,8 @@ public class ScheduleFragment extends Fragment implements View.OnClickListener {
     private void setActiveButton(Button btn){
         btn.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.mhefBlue));
         btn.setTextColor(ContextCompat.getColor(getContext(), R.color.white));
+    }
+    private View loadSchedule(){
+        return null;
     }
 }

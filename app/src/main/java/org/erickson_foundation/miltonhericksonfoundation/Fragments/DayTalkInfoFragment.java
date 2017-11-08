@@ -3,7 +3,6 @@ package org.erickson_foundation.miltonhericksonfoundation.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +44,7 @@ public class DayTalkInfoFragment extends Fragment implements View.OnClickListene
         mainActivity = (MainActivity) getActivity();
         Bundle bundle = getArguments();
         if(bundle != null && bundle.containsKey(AppConfig.TALK_ID_BUNDLE_KEY)){
-            currentTalk = mainActivity.currentConference.locateTalkById(bundle.getInt(AppConfig.TALK_ID_BUNDLE_KEY));
+            currentTalk = mainActivity.currentConference.getTalkById(bundle.getInt(AppConfig.TALK_ID_BUNDLE_KEY));
             //currentTalk.toggleFavorite();
         }
         tabPos = mainActivity.currentConference.getSpeakerTabPosition(currentTalk.getTalkDay());
@@ -55,26 +54,35 @@ public class DayTalkInfoFragment extends Fragment implements View.OnClickListene
         txtTitle               = (TextView) v.findViewById(R.id.txt_event_title);
         txtTalkRoom            = (TextView) v.findViewById(R.id.talk_room);
         txtSpeakerName         = (TextView) v.findViewById(R.id.txt_speaker_name);
-        btnBackToSchedule      = (Button)v.findViewById(R.id.btn_back_to_schedule);
+        //btnBackToSchedule      = (Button)v.findViewById(R.id.btn_back_to_schedule);
         btnViewOnMap           = (Button) v.findViewById(R.id.btn_go_to_map);
-        btnAddToFavorites      = (Button) v.findViewById(R.id.btn_add_to_favorites);
+        btnAddToFavorites      = (Button) v.findViewById(R.id.day_talk_info_add_to_favorites);
         btnRemoveFromFavorites = (Button) v.findViewById(R.id.btn_remove_from_favorites);
         speakerImage           = (ImageView) v.findViewById(R.id.img_speaker_view);
 
 
 
 
-        btnRemoveFromFavorites.setOnClickListener(this);
+        //btnRemoveFromFavorites.setOnClickListener(this);
 
         if(currentTalk.isTalkFavorited()){
             btnRemoveFromFavorites.setVisibility(View.VISIBLE);
             btnAddToFavorites.setVisibility(View.GONE);
         }
-
+        btnRemoveFromFavorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                btnAddToFavorites.setVisibility(View.VISIBLE);
+                btnRemoveFromFavorites.setVisibility(View.GONE);
+                mainActivity.removeFromFavorites(currentTalk.getTitle(), currentTalk.getTalkDay());
+            }
+        });
         btnAddToFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.addToFavorites(currentTalk.getTitle());
+                btnAddToFavorites.setVisibility(View.GONE);
+                btnRemoveFromFavorites.setVisibility(View.VISIBLE);
+                mainActivity.addToFavorites(currentTalk.getTitle(), currentTalk.getTalkDay());
             }
         });
 
@@ -86,12 +94,12 @@ public class DayTalkInfoFragment extends Fragment implements View.OnClickListene
             }
         });
 
-        btnBackToSchedule.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainActivity.changeFragment(R.id.nav_schedule, null);
-            }
-        });
+//        btnBackToSchedule.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mainActivity.changeFragment(R.id.nav_schedule, null);
+//            }
+//        });
 
         Speaker[] speakers = currentTalk.getAllSpeakers();
         dayInfoSpeakerList = (LinearLayout) v.findViewById(R.id.talk_info_speakers_list);
@@ -126,15 +134,14 @@ public class DayTalkInfoFragment extends Fragment implements View.OnClickListene
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.btn_remove_from_favorites:
-                Log.i(TAG, "BLah");
-                break;
-            case R.id.btn_back_to_schedule:
-                mainActivity.loadSchedule(tabPos);
-                break;
+//            case R.id.btn_back_to_schedule:
+//                mainActivity.loadSchedule(tabPos);
+//                break;
             case R.id.txt_speaker_name:
                 mainActivity.loadSpeakerInfo(v);
                 break;
+            case R.id.btn_go_to_map:
+                mainActivity.loadMapList();
         }
     }
 }
