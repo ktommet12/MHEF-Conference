@@ -12,6 +12,7 @@ apply plugin: 'io.fabric'
 
 repositories {
     maven { url 'https://maven.fabric.io/public' }
+    google()
 }
 
 
@@ -23,7 +24,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0.4"
+        versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -45,7 +46,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile('com.twitter.sdk.android:twitter:2.3.2@aar') {
-        transitive = true;
+        transitive = true
     }
     compile files('../libs/YouTubeAndroidPlayerApi.jar')
     compile 'com.android.support:multidex:1.0.1'
