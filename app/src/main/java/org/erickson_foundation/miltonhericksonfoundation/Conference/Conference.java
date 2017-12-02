@@ -65,6 +65,8 @@ public class Conference {
             this.room_data_set.put(picString, rooms);
             Log.i(TAG, tempRoomsJsonArr.toString());
         }
+        this.room_data_set.put("acc_north_100", new ArrayList<String>());
+        this.room_data_set.put("campus_map", new ArrayList<String>());
 
         switch(mShortTitle){
             case "Evolution":
@@ -152,9 +154,8 @@ public class Conference {
             }
             days.put(mDates[i], talks);
         }
-        for(Speaker test : allSpeakers){
-            Log.i(TAG, test.getFullName() + ":" + test.getSpeakerID());
-        }
+        this.roomKeys.add("ACC North 100");
+        this.roomKeys.add("Campus Map");
     }
     //increments a counter that is keeping track of the total number of talks that they currently have favorited
     public void incrementFavoriteTalkCount(){
