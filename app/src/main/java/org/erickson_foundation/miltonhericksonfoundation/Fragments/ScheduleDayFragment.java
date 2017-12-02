@@ -97,6 +97,7 @@ public class ScheduleDayFragment extends Fragment implements View.OnClickListene
                 goToMap.setOnClickListener(this);
 
                 addToFavorites.setTag(currentTalk.getTalkID());
+                goToMap.setTag(currentTalk.getTalkID());
                 talk_table_row.setTag(currentTalk.getTalkID());
                 if(currentTalk.isTalkFavorited()){
                     addToFavorites.setText(R.string.remove_from_favorites);
@@ -125,14 +126,17 @@ public class ScheduleDayFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
+        ConferenceTalk talk = null;
         switch(v.getId()){
-            case R.id.btn_go_to_map:
-                Log.i(TAG, "Go To Map Was Pressed");
+            case R.id.btn_schedule_day_go_to_map:
+                Log.i(TAG, "Go To Map Was Pressed From Schedule Day");
+                talk = mainActivity.currentConference.getTalkById((Integer)v.getTag());
+                mainActivity.viewMapItem(talk.getRoom().getRoom());
                 break;
             case R.id.btn_schedule_day_add_to_favorites:
                 LinearLayout unfavoritedRow = (LinearLayout)layout.findViewWithTag(v.getTag());
 
-                ConferenceTalk talk = mainActivity.currentConference.getTalkById((Integer)v.getTag());
+                talk = mainActivity.currentConference.getTalkById((Integer)v.getTag());
                 Button temp = (Button)v;
                 String addText = getResources().getString(R.string.add_to_favorites);
                 if(temp.getText().toString().equals(addText)){

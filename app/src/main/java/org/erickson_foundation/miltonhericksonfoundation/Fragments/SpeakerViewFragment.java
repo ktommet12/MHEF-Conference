@@ -13,6 +13,8 @@ import org.erickson_foundation.miltonhericksonfoundation.HelperClasses.MhefResou
 import org.erickson_foundation.miltonhericksonfoundation.MainActivity;
 import org.erickson_foundation.miltonhericksonfoundation.R;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class SpeakerViewFragment extends Fragment implements View.OnClickListener {
     private final String TAG = "SpeakerView";
@@ -34,6 +36,8 @@ public class SpeakerViewFragment extends Fragment implements View.OnClickListene
 
         mainActivity = (MainActivity) getActivity();
         speakerNames = mainActivity.currentConference.getAllSpeakers();
+
+        Collections.sort(speakerNames, Speaker.SpeakerNameComparator);
 
         for(Speaker speaker : speakerNames){
             View speakerListItem = inflater.inflate(R.layout.speaker_list_item, null);

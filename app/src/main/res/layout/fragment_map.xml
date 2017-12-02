@@ -10,8 +10,7 @@
         <org.erickson_foundation.miltonhericksonfoundation.HelperClasses.TouchImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/conference_floor_plan"
-            android:src="@drawable/acc_campus_layout"/>
+            android:id="@+id/conference_floor_plan"/>
     </LinearLayout>
 
 

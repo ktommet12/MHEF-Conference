@@ -166,7 +166,7 @@
             android:drawableTop="@drawable/ic_shopping_basket_black_24dp"
             android:gravity="center_horizontal"
             android:paddingTop="10dp"
-            android:text="@string/register"
+            android:text="@string/shop"
             android:textAllCaps="true"
             android:textColor="@color/mhefBlue"
             android:clickable="true"

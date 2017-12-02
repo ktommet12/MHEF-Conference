@@ -135,10 +135,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_schedule:
                 loadSchedule(0);
                 break;
-            case R.id.nav_feedback:
-                fragment = new FeedbackFragment();
-                break;
+//            case R.id.nav_feedback:
+//                fragment = new FeedbackFragment();
+//                break;
             case R.id.btn_nav_favorites:
+            case R.id.nav_favorites:
                 loadFavoritesSchedule();
                 break;
             case R.id.btn_nav_speakers:
@@ -163,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragment.setArguments(bundle);
                 break;
             case WEBSITE_FRAGMENT:
+            case R.id.nav_website:
                 fragment = new WebFragment();
                 bundle = new Bundle();
                 bundle.putBoolean(AppConfig.WEB_JAVASCRIPT_ENABLED_KEY, true);
@@ -171,15 +173,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 fragment.setArguments(bundle);
                 break;
             case R.id.btn_nav_register:
+            case R.id.nav_buy_tickets:
                 bundle = new Bundle();
-                bundle.putString(AppConfig.WEB_URL_KEY, "https://www.evolutionofpsychotherapy.com/register/");
+                bundle.putString(AppConfig.WEB_URL_KEY, "https://catalog.erickson-foundation.org");
                 bundle.putBoolean(AppConfig.WEB_JAVASCRIPT_ENABLED_KEY, false);
                 fragment = new WebFragment();
                 fragment.setArguments(bundle);
                 break;
             case R.id.btn_nav_parking_info:
             case R.id.nav_parking:
-                loadFragment(new TestFragment(), null);
+                viewMapItem("Parking");
                 break;
             case AppConfig.MORE_INFO_TALK_FRAGMENT:
                 fragment = new DayTalkInfoFragment();
@@ -255,11 +258,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             bundle.putSerializable(AppConfig.SPEAKER_BUNDLE_KEY, speaker);
         }
         fragment.setArguments(bundle);
-        this.loadFragment(fragment, null);
+        this.loadFragment(fragment, "SpeakerInfo");
     }
     public void loadAllSpeakersPage(){
         Fragment fragment = new SpeakerViewFragment();
-        loadFragment(fragment, null);
+        loadFragment(fragment, "Speakers");
     }
     public void loadSchedule(int tabPos){
         Fragment fragment = new ScheduleFragment();
@@ -284,7 +287,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Bundle bundle = new Bundle();
         bundle.putInt(AppConfig.TALK_ID_BUNDLE_KEY, (Integer) v.getTag());
         fragment.setArguments(bundle);
-        loadFragment(fragment, null);
+        loadFragment(fragment, "SpecificTalk");
+    }
+    public void goToViewMapScreen(String map){
+
     }
     public void loadFavoritesSchedule(){
         Bundle bundle = new Bundle();
