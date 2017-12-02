@@ -1,10 +1,12 @@
 package org.erickson_foundation.miltonhericksonfoundation.Conference;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  * Created by User on 5/18/2017.
@@ -36,4 +38,15 @@ public class Speaker implements Serializable{
         return this.speakerID;
     }
 
+    public static Comparator<Speaker> SpeakerNameComparator = new Comparator<Speaker>(){
+        public int compare(Speaker one, Speaker two){
+            String[] name1NameArr = one.getShortName().split(" ");
+            String[] name2NameArr = two.getShortName().split(" ");
+
+            String name1LastName = name1NameArr[name1NameArr.length-1];
+            String name2LastName = name2NameArr[name2NameArr.length-1];
+
+            return name1LastName.compareTo(name2LastName);
+        };
+    };
 }
