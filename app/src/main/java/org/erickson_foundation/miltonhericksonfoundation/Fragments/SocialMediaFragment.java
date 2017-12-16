@@ -20,7 +20,7 @@ import org.erickson_foundation.miltonhericksonfoundation.Twitter.TwitterConfig;
  * A simple {@link Fragment} subclass.
  */
 public class SocialMediaFragment extends Fragment {
-    private ListView tweetList;
+
 
     public SocialMediaFragment() {
         // Required empty public constructor
@@ -32,7 +32,7 @@ public class SocialMediaFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_social_media, container, false);
-        tweetList = (ListView) v.findViewById(R.id.tweet_list);
+        ListView tweetList = (ListView) v.findViewById(R.id.tweet_list);
 
 
 

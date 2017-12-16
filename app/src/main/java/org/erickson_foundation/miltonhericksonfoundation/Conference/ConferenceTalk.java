@@ -66,6 +66,9 @@ public class ConferenceTalk {
     public String getShortNameString(){
         return this.mShortNameString;
     }
+    public void setId(int id){
+        this.mID = id;
+    }
     public int getTalkID(){
         return this.mID;
     }

@@ -24,8 +24,7 @@ import org.erickson_foundation.miltonhericksonfoundation.R;
 public class DayTalkInfoFragment extends Fragment implements View.OnClickListener {
     private ConferenceTalk currentTalk;
     private final String TAG = "DayTalkInfo";
-    private TextView txtTitle, txtTimeAndDate, txtDescription, txtSpeakerName, txtTalkRoom;
-    private Button btnAddToFavorites,btnRemoveFromFavorites, btnViewOnMap, btnBackToSchedule;
+    private Button btnAddToFavorites,btnRemoveFromFavorites, btnBackToSchedule;
     private MainActivity mainActivity;
     private ImageView speakerImage;
     private int tabPos;
@@ -49,21 +48,18 @@ public class DayTalkInfoFragment extends Fragment implements View.OnClickListene
         }
         tabPos = mainActivity.currentConference.getSpeakerTabPosition(currentTalk.getTalkDay());
 
-        txtDescription         = (TextView) v.findViewById(R.id.txt_event_description);
-        txtTimeAndDate         = (TextView) v.findViewById(R.id.txt_event_time_date);
-        txtTitle               = (TextView) v.findViewById(R.id.txt_event_title);
-        txtTalkRoom            = (TextView) v.findViewById(R.id.talk_room);
-        txtSpeakerName         = (TextView) v.findViewById(R.id.txt_speaker_name);
-        //btnBackToSchedule      = (Button)v.findViewById(R.id.btn_back_to_schedule);
-        btnViewOnMap           = (Button) v.findViewById(R.id.btn_go_to_map);
-        btnAddToFavorites      = (Button) v.findViewById(R.id.day_talk_info_add_to_favorites);
-        btnRemoveFromFavorites = (Button) v.findViewById(R.id.btn_remove_from_favorites);
-        speakerImage           = (ImageView) v.findViewById(R.id.img_speaker_view);
+        TextView txtDescription   = (TextView) v.findViewById(R.id.txt_event_description);
+        TextView txtTimeAndDate   = (TextView) v.findViewById(R.id.txt_event_time_date);
+        TextView txtTitle         = (TextView) v.findViewById(R.id.txt_event_title);
+        TextView txtTalkRoom      = (TextView) v.findViewById(R.id.talk_room);
+        TextView txtSpeakerName   = (TextView) v.findViewById(R.id.txt_speaker_name);
+        TextView txtTalkCategory  = (TextView) v.findViewById(R.id.talk_category);
+        TextView txtDate          = (TextView) v.findViewById(R.id.talk_date);
+        Button btnViewOnMap       = (Button) v.findViewById(R.id.btn_go_to_map);
+        btnAddToFavorites         = (Button) v.findViewById(R.id.day_talk_info_add_to_favorites);
+        btnRemoveFromFavorites    = (Button) v.findViewById(R.id.btn_remove_from_favorites);
+        speakerImage              = (ImageView) v.findViewById(R.id.img_speaker_view);
 
-
-
-
-        //btnRemoveFromFavorites.setOnClickListener(this);
 
         if(currentTalk.isTalkFavorited()){
             btnRemoveFromFavorites.setVisibility(View.VISIBLE);
@@ -87,19 +83,7 @@ public class DayTalkInfoFragment extends Fragment implements View.OnClickListene
         });
 
 
-        btnViewOnMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainActivity.changeFragment(R.id.nav_map, null);
-            }
-        });
-
-//        btnBackToSchedule.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mainActivity.changeFragment(R.id.nav_schedule, null);
-//            }
-//        });
+        btnViewOnMap.setOnClickListener(this);
 
         Speaker[] speakers = currentTalk.getAllSpeakers();
         dayInfoSpeakerList = (LinearLayout) v.findViewById(R.id.talk_info_speakers_list);
@@ -125,8 +109,10 @@ public class DayTalkInfoFragment extends Fragment implements View.OnClickListene
 
         txtDescription.setText(currentTalk.getDescription());
         txtTitle.setText(currentTalk.getTitle());
-        txtTimeAndDate.setText(currentTalk.getTimeSlot());
-        txtTalkRoom.setText(currentTalk.getRoom().getFullRoom());
+        txtTimeAndDate.setText("Time Slot: " + currentTalk.getTimeSlot());
+        txtTalkRoom.setText("Room: " + currentTalk.getRoom().getFullRoom());
+        txtDate.setText("Date: " + currentTalk.getTalkDay()+"th");
+        txtTalkCategory.setText("Category: " + currentTalk.getTalkCategory().toString());
 
         return v;
     }
@@ -141,7 +127,7 @@ public class DayTalkInfoFragment extends Fragment implements View.OnClickListene
                 mainActivity.loadSpeakerInfo(v);
                 break;
             case R.id.btn_go_to_map:
-                mainActivity.loadMapList();
+                mainActivity.viewMapItem(currentTalk.getRoom().getRoom());
         }
     }
 }

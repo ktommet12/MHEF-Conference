@@ -54,7 +54,7 @@ public class SplashScreen extends AppCompatActivity implements DBWorkerDelegate,
     private void loadConferenceContents(){
         btnRetry.setVisibility(View.INVISIBLE);
         splashScreenInfo.setText(R.string.loading_info);
-        dbWorker = new DBWorker(this, confType);
+        dbWorker = new DBWorker(confType);
         dbWorker.setOnFinishedListener(this);
         dbWorker.execute();
     }
@@ -80,5 +80,12 @@ public class SplashScreen extends AppCompatActivity implements DBWorkerDelegate,
     @Override
     public void onClick(View view) {
         loadConferenceContents();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dbWorker.setOnFinishedListener(null);
+        btnRetry.setOnClickListener(null);
     }
 }

@@ -41,7 +41,7 @@ public class ConferenceSelector extends AppCompatActivity implements View.OnClic
         couples.setOnClickListener(this);
         evolution.setOnClickListener(this);
 
-        dbWorker = new DBWorker(this);
+        dbWorker = new DBWorker();
         dbWorker.setOnFinishedListener(this);
     }
     private void startEvoConference(){
@@ -70,7 +70,7 @@ public class ConferenceSelector extends AppCompatActivity implements View.OnClic
             isTaskInProgress = true;
         }else{
             if(dbWorker == null){
-                dbWorker = new DBWorker(this, this.confType);
+                dbWorker = new DBWorker(this.confType);
                 dbWorker.setOnFinishedListener(this);
                 dbWorker.execute();
             }

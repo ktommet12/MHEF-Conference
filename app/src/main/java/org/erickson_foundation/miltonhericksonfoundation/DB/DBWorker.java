@@ -18,7 +18,6 @@ public class DBWorker extends AsyncTask<Void, Void, JSONObject>{
     private final String TAG = "DBWorker";
     private DBWorkerDelegate delegate;
     private ConferenceType confType;
-    private Context mContext;
 
     //String representing a problem with the schedule download
     private final String ERROR_STRING = "There was a problem getting the schedule from the server";
@@ -29,12 +28,10 @@ public class DBWorker extends AsyncTask<Void, Void, JSONObject>{
     public void setConferenceType(ConferenceType conferenceType){
         this.confType = conferenceType;
     }
-    public DBWorker(Context ctx, ConferenceType confType){
-        this.mContext = ctx;
+    public DBWorker(ConferenceType confType){
         this.confType = confType;
     }
-    public DBWorker(Context ctx){
-        this.mContext = ctx;
+    public DBWorker(){
     }
 
     @Override
@@ -87,23 +84,10 @@ public class DBWorker extends AsyncTask<Void, Void, JSONObject>{
         catch(Exception ex){}
         return json;
     }
-    @Override
-    protected void onPreExecute() {
-//        progressDialog = new MhefProgressDialog.Builder()
-//                .message("Grabbing Conference Information, Please Wait...")
-//                .indeterminate(false)
-//                .cancelable(false)
-//                .context(this.mContext)
-//                .build();
-
-        //progressDialog.show();
-        super.onPreExecute();
-    }
 
     @Override
     protected void onPostExecute(JSONObject s) {
         super.onPostExecute(s);
-        //progressDialog.dismiss();
         this.delegate.didFinishTask(s);
     }
     private String readURLReturnData(HttpURLConnection connection){

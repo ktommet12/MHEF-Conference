@@ -5,18 +5,26 @@ package org.erickson_foundation.miltonhericksonfoundation.Conference;
  */
 
 public enum TalkCategory {
-    WORKSHOP,
-    KEYNOTE,
-    DIALOGUE,
-    PRE_CONFERENCE,
-    LAW_AND_ETHICS,
-    GREAT_DEBATES,
-    CLINICAL_DEMONSTRATION,
-    CLINICAL_DISCUSSANT,
-    TOPICAL,
-    CONVERSATION_HOUR,
-    SPEECH,
-    SPEECH_DISCUSSANT,
-    MASTER_CLASS,
-    DEFAULT;
+    WORKSHOP("Workshop"),
+    KEYNOTE("Keynote"),
+    DIALOGUE("Dialogue"),
+    PRE_CONFERENCE("Pre-Conference"),
+    LAW_AND_ETHICS("Law & Ethics"),
+    GREAT_DEBATES("Great Debates"),
+    CLINICAL_DEMONSTRATION("Clinical Demonstration"),
+    CLINICAL_DISCUSSANT("Clinical Discussant"),
+    TOPICAL("Topical Panel"),
+    CONVERSATION_HOUR("Conversation Hour"),
+    SPEECH("Speech"),
+    SPEECH_DISCUSSANT("Speech Discussant"),
+    MASTER_CLASS("Master Class"),
+    DEFAULT("Other");
+
+    private final String name;
+    TalkCategory(String name){
+        this.name = name;
+    }
+    public String toString(){
+        return this.name;
+    }
 }

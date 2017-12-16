@@ -50,5 +50,6 @@
     <string name="select_map_item">Select an Item to view the map</string>
     <string name="back">&lt; Back to Map List</string>
     <string name="shop">Shop</string>
+    <string name="go_to_speaker_eval">Speaker Evaluations Preview</string>
 
     </resources>

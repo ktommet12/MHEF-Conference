@@ -12,6 +12,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.*;
 
 /**
  * Created by Kyle Tommet(erickson-foundation.org) on 3/21/2017.
@@ -90,6 +91,10 @@ public class Conference {
 
         this.syllabusUrl = confContents.getString("syllabus-url");
 
+
+        ArrayList<Integer> uniqueIds = new ArrayList<>();
+
+
         for(int i = 0; i < daysJSON.length(); i++){
             ArrayList<ConferenceTalk> talks = new ArrayList<>();
             JSONObject dayObj = daysJSON.getJSONObject(mDates[i]);
@@ -123,6 +128,8 @@ public class Conference {
                 ArrayList<Speaker> speakers = new ArrayList<>();
                 for(int k = 0; k < tempFullName.length; k++){
                     String shortName = tempShortName[k].trim(), fullName = tempFullName[k].trim();
+                    Log.i(TAG, "ShortName:" + shortName);
+                    Log.i(TAG, "FullName:" + fullName);
                     Speaker existingSpeaker = checkIfSpeakerInArray(shortName);
 
                     if(existingSpeaker != null){
@@ -145,7 +152,34 @@ public class Conference {
                     tempSpeakers[index] = z;
                     index++;
                 }
+
                 ConferenceTalk tempTalk = new ConferenceTalk(title, shortTitle, time, room, description, tempSpeakers, mDates[i], category);
+
+                //Generate new Random Number till it picks one that is not already associated with another talk
+                int random = 0;
+                boolean isUniqueId = false;
+
+                while(!isUniqueId){
+                    random = (int)(Math.random() * 99999 + 1);
+
+                    if(talks.size() == 0) { //first talk to get an ID so by default there are no other talks with the same id
+                        isUniqueId = true;
+                        continue;
+                    }
+                    else if(days.size() == 0){ //this is the first day so we just loop through the currently active day
+                        for(ConferenceTalk throwawayTalk : talks) {
+                            if (throwawayTalk.getTalkID() == random) {
+                                isUniqueId = false;
+                            } else {
+                                isUniqueId = true;
+                            }
+                        }
+                    }
+                    else isUniqueId = this.assertUniqueId(random); //otherwise loop through all the days that have been currently generated and check that the id is unique
+                    Log.i(TAG, "Generated another id, because it was already taken by another talk");
+                }
+                tempTalk.setId(random);
+
                 tempTalk.setFullNameString(name);
                 tempTalk.setShortNameString(nameOnly);
                 if(favTalks.contains(tempTalk.getTitle()))
@@ -156,6 +190,16 @@ public class Conference {
         }
         this.roomKeys.add("ACC North 100");
         this.roomKeys.add("Campus Map");
+    }
+    private boolean assertUniqueId(int id){
+        Set<String> keys = days.keySet();
+        for(String date : keys){
+            ArrayList<ConferenceTalk> dayTalks = days.get(date);
+            for(ConferenceTalk talk : dayTalks){
+                if(talk.getTalkID() == id) return false;
+            }
+        }
+        return true;
     }
     //increments a counter that is keeping track of the total number of talks that they currently have favorited
     public void incrementFavoriteTalkCount(){

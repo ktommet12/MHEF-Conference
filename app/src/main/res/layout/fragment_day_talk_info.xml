@@ -57,15 +57,29 @@
             android:textStyle="bold"
             android:textAllCaps="true"/>
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/talk_room"
+            android:text="talk room"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:id="@+id/talk_date"
+            android:text="talk date"/>
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:text="@string/placeholder_text"
             android:id="@+id/txt_event_time_date"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/talk_room"
+            android:layout_marginTop="5dp"
+            android:id="@+id/talk_category"
             android:text="talk room"/>
+
 
         <TextView
             android:layout_width="match_parent"

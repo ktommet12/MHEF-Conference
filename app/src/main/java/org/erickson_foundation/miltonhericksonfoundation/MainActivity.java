@@ -33,7 +33,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    private TextView conferenceTitle;
+    //private TextView conferenceTitle;
     private ConferenceType confType = ConferenceType.DEFAULT;
     private JSONObject conferenceContents = null;
     public Conference currentConference;
@@ -87,9 +87,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(currentConference != null){
             //setting the TextView in the NavDrawer to the selected Conference Title
             View header = navigationView.getHeaderView(0);
-            conferenceTitle = (TextView) header.findViewById(R.id.lblConferenceName);
+            ((TextView)header.findViewById(R.id.lblConferenceName)).setText(currentConference.getTitle());
+            //conferenceTitle = (TextView) header.findViewById(R.id.lblConferenceName);
             header.setBackgroundColor(ContextCompat.getColor(this, R.color.mhefBlue));
-            conferenceTitle.setText(currentConference.getTitle());
+            //conferenceTitle.setText(currentConference.getTitle());
         }
 
         goHome();       //loads home fragment (landing fragment)
@@ -129,6 +130,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     public void changeFragment(int fragmentID, View v){
         Fragment fragment = null;
+        String backStackName = "";
         Bundle bundle;
         switch(fragmentID){
             case R.id.btn_nav_schedule:
@@ -153,6 +155,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.btn_nav_about:
             case R.id.nav_about:
                 fragment = new AboutFragment();
+                backStackName = "About";
                 break;
             case R.id.btn_nav_syllabus:
             case R.id.nav_syllabus:
@@ -182,7 +185,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.btn_nav_parking_info:
             case R.id.nav_parking:
-                viewMapItem("Parking");
+                viewMapItem("Parking Map V2");
                 break;
             case AppConfig.MORE_INFO_TALK_FRAGMENT:
                 fragment = new DayTalkInfoFragment();
@@ -195,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 this.loadMapList();
                 break;
         }
-        this.loadFragment(fragment, null);
+        this.loadFragment(fragment, backStackName);
     }
     private void loadFragment(Fragment f, String backStackName){
         if(f != null) {
@@ -276,7 +279,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Bundle bundle = new Bundle();
         bundle.putString(AppConfig.MAP_ITEM_BUNDLE_KEY, item);
         fragment.setArguments(bundle);
-        this.loadFragment(fragment, null);
+        this.loadFragment(fragment, "MapItem");
     }
     public void loadMapList(){
         Fragment fragment = new MapListFragment();

@@ -21,7 +21,7 @@ public class AboutFragment extends Fragment implements View.OnClickListener  {
     private String aboutContents;
     private MhefProgressDialog dialogProgress;
     private MainActivity mainActivity;
-    private Button goToWebsite;
+    private Button goToWebsite, goToSpeakerEval;
 
     public AboutFragment() {
         // Required empty public constructor
@@ -37,9 +37,11 @@ public class AboutFragment extends Fragment implements View.OnClickListener  {
         aboutText.setText(mainActivity.aboutErickson);
 
         TextView txtVersionNum = (TextView) v.findViewById(R.id.txt_version_num);
-        goToWebsite = (Button) v.findViewById(R.id.about_btn_go_to_erickson_website);
+        goToWebsite     = (Button) v.findViewById(R.id.about_btn_go_to_erickson_website);
+        goToSpeakerEval = (Button) v.findViewById(R.id.about_btn_go_to_speaker_eval_preview);
 
         goToWebsite.setOnClickListener(this);
+        goToSpeakerEval.setOnClickListener(this);
 
         String versionNum = BuildConfig.VERSION_NAME;
         txtVersionNum.setText("App Version: " + versionNum);
@@ -52,6 +54,13 @@ public class AboutFragment extends Fragment implements View.OnClickListener  {
 
     @Override
     public void onClick(View view) {
-        mainActivity.loadWebsite();
+        switch(view.getId()){
+            case R.id.about_btn_go_to_speaker_eval_preview:
+                mainActivity.viewMapItem("Speaker Evaluation");
+                break;
+            case R.id.about_btn_go_to_erickson_website:
+                mainActivity.loadWebsite();
+                break;
+        }
     }
 }
