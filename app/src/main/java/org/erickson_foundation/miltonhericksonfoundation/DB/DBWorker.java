@@ -92,7 +92,7 @@ public class DBWorker extends AsyncTask<Void, Void, JSONObject>{
     }
     private String readURLReturnData(HttpURLConnection connection){
         String result = null;
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         InputStream is = null;
 
         try{
